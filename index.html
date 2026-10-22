@@ -1027,7 +1027,7 @@ function botAct(c) {
 /* ===== SOUND ENGINE (original music + effects, generated in the browser) ===== */
 let AC=null, MASTER=null, MUTED=false, LOOP=null;
 function ac(){ if(!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); MASTER=AC.createGain(); MASTER.gain.value=MUTED?0:.55; MASTER.connect(AC.destination);}catch(e){} } if(AC&&AC.state==="suspended") AC.resume(); return AC; }
-function toggleMute(){ MUTED=!MUTED; if(MASTER) MASTER.gain.value=MUTED?0:.55; if(bgm) bgm.muted=MUTED; const b=$("#mutebtn"); if(b) b.textContent=MUTED?"🔇":"🔊"; }
+function toggleMute(){ MUTED=!MUTED; if(MASTER) MASTER.gain.value=MUTED?0:.55; if(bgm) bgm.muted=MUTED; if(outro) outro.muted=MUTED; const b=$("#mutebtn"); if(b) b.textContent=MUTED?"🔇":"🔊"; }
 function tone(f,t,d,type="sine",g=.2,dest){ const a=ac(); if(!a) return; const o=a.createOscillator(), v=a.createGain(); o.type=type; o.frequency.setValueAtTime(f,t); v.gain.setValueAtTime(0,t); v.gain.linearRampToValueAtTime(g,t+.008); v.gain.exponentialRampToValueAtTime(.0001,t+d); o.connect(v); v.connect(dest||MASTER); o.start(t); o.stop(t+d+.02); return o; }
 function noise(t,d,g=.2,hp=800){ const a=ac(); if(!a) return; const n=a.createBufferSource(), b=a.createBuffer(1,a.sampleRate*d,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1; n.buffer=b; const f=a.createBiquadFilter(); f.type="highpass"; f.frequency.value=hp; const v=a.createGain(); v.gain.setValueAtTime(g,t); v.gain.exponentialRampToValueAtTime(.0001,t+d); n.connect(f); f.connect(v); v.connect(MASTER); n.start(t); }
 const SFX={
@@ -1084,18 +1084,26 @@ function startHeart(){ if(HB||!AC) return; let done={}; HB=setInterval(()=>{ if(
 function stopHeart(){ if(HB){ clearInterval(HB); HB=null; } }
 function heartRamp(){ if(!AC) return; let t=AC.currentTime+.05, gap=.6; while(gap>.12){ thump(t,.6); t+=gap; gap*=.72; } }
 /* ---- intro video + soft background music ---- */
-let introDone=false, bgm=null;
+let introDone=false, bgm=null, outro=null; const OUT_AT=88.81;   // video musiqasi shu soniyadan uzluksiz davom ettiriladi (intro_outro.mp3)
+// video oxirida qo'shiq uzilmaydi: o'sha joyidan past ovozda davom etadi (intro_outro.mp3 = videoning 88.81-soniyasidan keyingi qismi)
+function outroStart(v){ if(outro) return; const o=new Audio("intro_outro.mp3"); o._outro=1; o.muted=MUTED; o.volume=.25; outro=o;
+  try{ o.currentTime=Math.max(0,v.currentTime-OUT_AT); }catch(e){} const p=o.play(); if(p&&p.catch) p.catch(()=>{});
+  o.addEventListener("playing",()=>{ v.volume=0; },{once:true}); setTimeout(()=>{ v.volume=0; },250); }
+function outroKill(){ if(outro){ try{ outro.pause(); }catch(e){} outro=null; } }
 function introPlay(){ const v=$("#iv"); if(!v) return; stopHeart(); heartRamp(); introDone=false; window._fadedIn=false; $("#ivp").style.display="none";
   try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }catch(e){}
-  v.onplaying=()=>{ if(!introDone){ ivPauseUI(false); Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); } }; v.onseeked=()=>{ if(!introDone && !v.paused) Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); }; v.onended=()=>introEnd(); v.onclick=()=>{ if(introDone) return; v.paused?ivResume():ivPause(); }; v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
+  v.onplaying=()=>{ if(!introDone){ ivPauseUI(false); Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); } }; v.onseeked=()=>{ if(!introDone && !v.paused) Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); }; v.onended=()=>introEnd(); v.onclick=()=>{ if(introDone) return; v.paused?ivResume():ivPause(); }; v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(!introDone && !v.paused && v.currentTime>=OUT_AT && v.currentTime<OUT_AT+1.5) outroStart(v); if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; outroKill(); v.volume=1; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
 function introEnd(skip){ if(introDone) return; introDone=true; ac(); Store.set("sync",{on:0}); const v=$("#iv"), b=$("#ivblack");
-  if(v){ let vol=v.volume; const f=setInterval(()=>{ vol=Math.max(0,vol-.12); v.volume=vol; if(vol<=0){ clearInterval(f); v.pause(); } },40); }
+  if(v){ if(outro){ setTimeout(()=>{ v.volume=0; v.pause(); },400); } else { let vol=v.volume; const f=setInterval(()=>{ vol=Math.max(0,vol-.12); v.volume=vol; if(vol<=0){ clearInterval(f); v.pause(); } },40); } }
   if(b) b.classList.add("on");
   setTimeout(()=>{ SFX.whoosh(); }, skip?0:250);
   setTimeout(()=>{ const fl=document.createElement("div"); fl.className="flashin"; document.body.appendChild(fl); setTimeout(()=>fl.remove(),1200);
-    SFX.impact(); goTo(SLIDES.findIndex(x=>x.id==="cover")); setTimeout(startBgm, 1400); }, skip?250:850); }
-function startBgm(){ try{ if(!bgm){ bgm=new Audio("intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
-  let v=0; const up=setInterval(()=>{ v=Math.min(.32,v+.02); if(bgm) bgm.volume=v; if(v>=.32) clearInterval(up); },120); }catch(e){} }
+    SFX.impact(); goTo(SLIDES.findIndex(x=>x.id==="cover")); if(!o) setTimeout(startBgm, 1400); }, skip?250:850);
+  // musiqa uzilmaydi: 1,2 soniyada .25 dan .15 gacha pasayadi, ~14 soniya past chalinadi, fayl oxirida o'zi so'nadi
+  const o=outro; outro=null; if(o){ bgm=o; let vol=o.volume; const d=setInterval(()=>{ vol=Math.max(.15,vol-.005); if(bgm===o) o.volume=vol; if(vol<=.15) clearInterval(d); },60); clearTimeout(window._bgmOff); } }
+function startBgm(){ try{ if(!bgm||bgm._outro){ bgm=new Audio("intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
+  let v=0; const up=setInterval(()=>{ v=Math.min(.16,v+.015); if(bgm) bgm.volume=v; if(v>=.16) clearInterval(up); },120);
+  clearTimeout(window._bgmOff); window._bgmOff=setTimeout(stopBgm, 10000); }catch(e){} }   // past ovozda ~10 soniya, keyin o'zi sekin o'chadi
 function stopBgm(){ if(!bgm||bgm.paused) return; const dn=setInterval(()=>{ bgm.volume=Math.max(0,bgm.volume-.03); if(bgm.volume<=0){ bgm.pause(); clearInterval(dn);} },80); }
 function goTo(i, back) {
   const st = R.state || {}; i = Math.max(0, Math.min(SLIDES.length-1, i)); const s = SLIDES[i];
@@ -1118,12 +1126,12 @@ function hostNext() {
 }
 function ivPauseUI(on, msg){ let o=$("#ivpause"); if(!on){ o&&o.remove(); return; } const iv=$(".introv"); if(!iv) return; if(!o){ o=document.createElement("div"); o.id="ivpause"; iv.appendChild(o); }
   o.innerHTML=`<div style="font-size:7rem;line-height:1">${msg==="rew"?"⏮":"⏸"}</div><div style="font-size:2rem;font-weight:800;margin-top:1rem">${msg==="rew"?"Boshiga qaytdi · Back to start":"Pauza · Paused"}</div><div class="mu" style="font-size:1.4rem;margin-top:.8rem">→ ${msg==="rew"?"boshlash":"davom etish"} · ← ${msg==="rew"?"QR slaydga":"boshiga qaytish"}</div>`; }
-function ivPause(){ const v=$("#iv"); if(!v||v.paused) return; v.pause(); ivPauseUI(true); Store.set("sync",{on:1,p:1,t0:Store.now()-v.currentTime*1000}); }
-function ivResume(){ const v=$("#iv"); if(!v||!v.paused) return; ivPauseUI(false); ac(); const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }
+function ivPause(){ const v=$("#iv"); if(!v||v.paused) return; v.pause(); if(outro) outro.pause(); ivPauseUI(true); Store.set("sync",{on:1,p:1,t0:Store.now()-v.currentTime*1000}); }
+function ivResume(){ const v=$("#iv"); if(!v||!v.paused) return; ivPauseUI(false); ac(); if(outro){ try{ outro.currentTime=Math.max(0,v.currentTime-OUT_AT); outro.play().catch(()=>{}); }catch(e){} } const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }
 function hostPrev() { const c = cur(R.state);
   if (c.s.id === "intro" && !introDone) { const v=$("#iv");
     if (v && !v.paused) return ivPause();
-    if (v && v.currentTime > .1) { v.currentTime = 0; ivPauseUI(false); const pb=$("#ivp"); if (pb) pb.style.display=""; Store.set("sync",{on:1,p:1,t0:Store.now()}); return; } }
+    if (v && v.currentTime > .1) { outroKill(); v.volume = 1; v.currentTime = 0; ivPauseUI(false); const pb=$("#ivp"); if (pb) pb.style.display=""; Store.set("sync",{on:1,p:1,t0:Store.now()}); return; } }
   if (c.i > 0) goTo(c.i-1, true); }
 let revealing = -1;
 function hostReveal() { const st = R.state || {}; const c = cur(st); if (c.phase !== "quiz" || revealing === c.q) return; revealing = c.q; setState({...st, sub:"r"}); }
@@ -1148,7 +1156,11 @@ function joinView() {
 }
 function presForm() { $("#pres").innerHTML = `<input id="pin" class="inp mono" inputmode="numeric" placeholder="PIN" maxlength="8" style="max-width:180px;text-align:center"><button class="btn" style="max-width:180px" onclick="presGo()">OK</button>`; $("#pin").focus(); }
 function presGo() { if (($("#pin").value||"").trim() !== HOST_PIN) { $("#pin").value = ""; $("#pin").placeholder = "Wrong PIN"; return; } IS_HOST = true; startHost(); }
-function doJoin() {
+/* telefonda to'liq ekran: Join bosilganda va keyin istalgan teginishda (brauzer ruxsat bersa; iPhone Safari qo'llamaydi) */
+let fsTry=0; function phoneFS(){ if (IS_HOST || document.fullscreenElement || Date.now()-fsTry < 15000) return; fsTry=Date.now(); const el=document.documentElement;
+  try { const r=(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el,{navigationUI:"hide"}); if (r&&r.catch) r.catch(()=>{}); } catch(e) {} }
+if (!IS_HOST) document.addEventListener("click", ()=>{ if (me) phoneFS(); }, {passive:true});
+function doJoin() { fsTry=0; phoneFS();
   const n = ($("#nm").value||"").trim().slice(0,18);
   if (!ROOM) { const r = ($("#rm")?.value||"").replace(/\D/g,""); if (r.length < 4) return alertBox("Room code?"); ROOM = r; Store.on("", playerRender); }
   if (!n) { $("#nm").focus(); return; }
