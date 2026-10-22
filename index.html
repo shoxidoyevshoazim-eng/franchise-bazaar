@@ -14,7 +14,7 @@
   Firebase ma'lumotlarini pastdagi CONFIG ichiga qo'ying -> LIVE rejim: hamma telefonlar ishlaydi.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Anton&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -31,6 +31,42 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 @keyframes rise{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
 @keyframes flip{0%{transform:rotateY(90deg);opacity:.2}100%{transform:none;opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+#hb{position:fixed;inset:0;z-index:70;background:#030406;color:var(--tx);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:24px}
+#hb .ok{font-size:22px;font-weight:800;letter-spacing:.02em}
+#hb .ok b{color:#ff3b4e}
+#hb svg{width:100%;max-width:520px;height:150px;margin:26px 0 22px;overflow:visible}
+#hb .ln{fill:none;stroke:#ff2d45;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:140 860;animation:ecg 2.2s linear infinite;filter:drop-shadow(0 0 6px #ff2d45) drop-shadow(0 0 14px rgba(255,45,69,.7))}
+#hb.ramp .ln{animation-duration:.55s!important;stroke-width:4.5}
+#hb.ramp{animation:hbred 1.4s ease-in forwards}
+@keyframes hbred{to{background:#5a0d18}}
+.gate{position:fixed;inset:0;z-index:30;background:#030406;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2vh}
+.gate .gq{background:#fff;padding:2.2vh;border-radius:2.4vh;box-shadow:0 0 80px rgba(255,45,69,.25)}
+.gate .gq img,.gate .gq canvas{display:block;width:62vh!important;height:62vh!important;image-rendering:pixelated}
+.gate .gs{font:800 3.4vh/1.2 var(--f-ui,sans-serif);color:var(--tx);letter-spacing:.02em}
+.gate .gs span{color:var(--gold)}
+.gate .gc{position:fixed;right:2.4vh;bottom:2vh;font:600 1.8vh/1 monospace;color:#4a5170;letter-spacing:.1em}
+.gate .gc b{color:#8a93ad}
+html.ongate .H{transform:none!important;animation:none!important;filter:none!important}
+html.ongate .H-top,html.ongate #bg,html.ongate #ph{visibility:hidden}
+html.ongate .H-bot{position:fixed;left:0;right:0;bottom:0;padding:1rem 2rem;z-index:31;opacity:.15;transition:opacity .3s}
+html.ongate .H-bot:hover,html.ongate .H-bot:focus-within{opacity:1}
+html.ongate .gate .gc{right:auto;left:2.4vh}
+html.ongate #qr img,html.ongate #qr canvas{width:min(62vh,80vw)!important;height:auto!important;display:block}
+#bqr{background:#fff;padding:2.2vh;border-radius:2.4vh;line-height:0}
+#bqr img,#bqr canvas{width:min(58vh,80vw)!important;height:auto!important;display:block}
+html.ongate #qr{padding:2.2vh;border-radius:2.4vh;border:0}
+#hb .bg{fill:none;stroke:rgba(255,45,69,.12);stroke-width:2}
+#hb .wt{font-size:16px;color:#8a93ad;animation:pulse 2.2s ease-in-out infinite}
+#hb .ko{position:absolute;bottom:26px;left:16px;right:16px;font-size:14px;color:var(--mu)}
+#hb .ko b{color:var(--gold)}
+@keyframes ecg{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){#hb .ln{animation-duration:6s}}
+#sy{position:fixed;inset:0;z-index:80;background:#04050a;color:var(--tx);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .7s ease;overflow:hidden}
+#sy .gl{position:absolute;inset:-20%;background:radial-gradient(circle at 50% 50%,rgba(255,140,40,.75),rgba(255,140,40,0) 55%);opacity:0;pointer-events:none}
+#sy .fl{position:absolute;inset:0;opacity:0;pointer-events:none}
+#sy .lu{position:relative;font-size:42px;font-weight:800;letter-spacing:.04em;animation:pulse 3s ease-in-out infinite}
+#sy .lu small{display:block;font-size:19px;font-weight:600;letter-spacing:0;color:var(--mu);margin-top:6px}
+#sy .bt{position:absolute;left:0;right:0;top:27%;font-size:34px;font-weight:800;letter-spacing:.03em;opacity:0;padding:0 12px}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(var(--gold-rgb),.0)}50%{box-shadow:0 0 40px 6px rgba(var(--gold-rgb),.45)}}
 .pop{animation:pop .5s cubic-bezier(.2,.9,.3,1.3) both}.rise{animation:rise .6s ease both}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:50}
@@ -53,7 +89,7 @@ html.host{font-size:min(calc(var(--vw,100vw)/100),calc(var(--vh,100vh)*.0172))}
 .livepill{font-size:1.4rem;vertical-align:middle;background:var(--red);color:#fff;padding:.2rem .8rem;border-radius:8px;animation:pulse 1.6s infinite;letter-spacing:.1em}
 /* lobby */
 .lobby{display:grid;grid-template-columns:1.15fr 1fr;gap:3rem;flex:1;min-height:0}
-.joinbox{display:flex;gap:2.2rem;align-items:center;margin-top:2.4rem;padding:1.8rem;background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.joinbox{display:flex;gap:2.2rem;align-items:center;margin-top:1.5rem;padding:1.4rem;background:var(--panel);border:1px solid var(--line);border-radius:18px}
 #qr{background:#fff;padding:14px;border-radius:12px;line-height:0}
 .code{font-size:6rem;font-weight:700;color:var(--gold);letter-spacing:.1em;line-height:1}
 .url{font-size:1.3rem;color:var(--mu);word-break:break-all;margin-top:.6rem}
@@ -245,6 +281,18 @@ html.host .fromintro .H-main>div>*:nth-child(1){animation-delay:.25s}html.host .
 html.host .fromintro .H-main>div>*:nth-child(3){animation-delay:.7s}html.host .fromintro .H-main>div>*:nth-child(4){animation-delay:.85s}
 html.host .fromintro .H-main>div>*:nth-child(5){animation-delay:1s}html.host .fromintro .H-main>div>*:nth-child(6){animation-delay:1.2s}
 @keyframes flyup{from{opacity:0;transform:translateY(40px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+
+.reveal{position:fixed;inset:0;z-index:45;background:radial-gradient(ellipse at 50% 30%,#2a1606 0%,#0a0603 60%,#000 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:opacity .9s ease}
+.reveal .rv-l1{font-size:3.4rem;font-weight:800;color:#F6F3EE;letter-spacing:.02em;animation:rise 1s ease both}
+.reveal .rv-uz{font-size:2rem;color:#B9AFA4;margin-top:.6rem;animation:rise 1s .3s ease both}
+.reveal .rv-name{font-family:'Anton',Impact,sans-serif;font-size:13rem;line-height:1;margin-top:2rem;letter-spacing:.04em;background:linear-gradient(180deg,#FFF6E8 0%,#FFB347 50%,#FF4103 72%,#7A1400 100%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:scale(1.8);filter:blur(16px);transition:all .5s cubic-bezier(.2,.9,.3,1.2)}
+.reveal .rv-pts{font-size:2.4rem;color:#FFBE0B;margin-top:1rem;opacity:0;transition:opacity .6s .4s}
+.reveal.hit .rv-name{opacity:1;transform:none;filter:none}.reveal.hit .rv-pts{opacity:1}
+.reveal.hit .rv-l1{color:#FFBE0B}
+.reveal.out{opacity:0;pointer-events:none}
+
+.keepopen{margin-top:.9rem;font-size:1.6rem;font-weight:800;padding:.5rem 1.1rem;border-radius:12px;background:rgba(var(--gold-rgb),.12);border:2px solid var(--gold);display:inline-block;animation:pulse 2s infinite}
+.keepopen-p{margin-top:18px;font-size:18px;font-weight:700;color:var(--tx);background:rgba(var(--gold-rgb),.12);border:2px solid var(--gold);border-radius:12px;padding:10px 14px}
 </style>
 <style id="themes">
 :root{--gold:#FFC845;--goldsh:#B98A14;--ink:#121A35;--teal:#2EE6D6;--red:#FF6B6B;--grn:#34D399;--tx:#F6F8FF;--mu:#B4C1E0;--risk:#FFB4B4;--gold2:#FFDD8F;--bronze:#E59A5B;--panel2:#2B3C70;--panel:#24335F;--line:#3A4C82;--bg1:#1E2A4E;--inp:#16204A;--a0:#FF4D6D;--a1:#3D8BFF;--a2:#FFB020;--a3:#22C55E;--glow:#34478A;--bg2:#121A35;--gold-rgb:255,200,69;--teal-rgb:46,230,214;--mu-rgb:180,193,224;--tx-rgb:246,248,255;--red-rgb:255,107,107;--grn-rgb:52,211,153;--panel2-rgb:43,60,112;--bg2-rgb:18,26,53;--wash:255,255,255;--f-disp:'Plus Jakarta Sans',system-ui,sans-serif;--f-body:'Plus Jakarta Sans',system-ui,sans-serif;--disp-case:none;--disp-track:-.02em;--disp-w:800}
@@ -554,8 +602,11 @@ function ensureHostRoom() { if (ROOM) return;
   try { history.replaceState(null, "", "?host=1&room=" + ROOM); } catch(e) {}
 }
 const ss = (()=>{ try { return sessionStorage; } catch(e) { return {getItem:()=>null,setItem:()=>{}}; } })();
-let PID = ss.getItem("fbz_pid");
-if (!PID) { PID = "p" + Math.random().toString(36).slice(2,10); ss.setItem("fbz_pid", PID); }
+const lsx = (()=>{ try { localStorage.setItem("_t","1"); return localStorage; } catch(e) { return {getItem:()=>null,setItem:()=>{}}; } })();
+// telefon sahifani yopib qayta ochsa ham o'sha o'yinchi bo'lib qoladi (ball yo'qolmaydi)
+let PID = ss.getItem("fbz_pid") || lsx.getItem("fbz_pid_" + ROOM);
+if (!PID) PID = "p" + Math.random().toString(36).slice(2,10);
+ss.setItem("fbz_pid", PID); lsx.setItem("fbz_pid_" + ROOM, PID);
 
 const Store = (() => {
   if (LIVE) {
@@ -638,7 +689,7 @@ const PMW = [["project","loyiha"],["task","vazifa"],["deadline","oxirgi muddat"]
 
 /* Slayd tartibi. ph = shu slaydda talabalar telefonida nima ko'rinadi */
 const SLIDES = [
- {id:"intro", ph:"lobby"}, {id:"cover", ph:"lobby"}, {id:"join", ph:"lobby", live:"lobby"}, {id:"hook", ph:"lobby", steps:1}, {id:"global", ph:"lobby", anim:"routes"},
+ {id:"join", ph:"lobby", live:"lobby"}, {id:"intro", ph:"lobby"}, {id:"cover", ph:"lobby"}, {id:"hook", ph:"lobby", steps:1}, {id:"global", ph:"lobby", anim:"routes"},
  {id:"what", ph:"lobby", steps:3}, {id:"types", ph:"lobby", steps:3}, {id:"how", ph:"lobby", anim:"flow"}, {id:"money", ph:"lobby", steps:4}, {id:"vocab", ph:"lobby"}, {id:"mcd", ph:"lobby", steps:3}, {id:"rules", ph:"lobby"},
  {id:"invest", ph:"invest", live:"invest"}, {id:"events", ph:"events", live:"events", steps:5}, {id:"results", ph:"results", live:"results"},
  {id:"lesson", ph:"results", steps:5}, {id:"proscons", ph:"results", steps:2}, {id:"uzbek", ph:"results", steps:3},
@@ -657,12 +708,12 @@ function cur(st) {
 let R = {}, hostSig = "", anim = null;
 function shell(inner, opts = {}) {
   const st = R.state || {}; const c = cur(st);
-  const showQR = c.i < SLIDES.findIndex(s=>s.id==="invest") && c.s.id !== "join";
+  const showQR = c.s.id !== "join" && c.s.id !== "intro";   // chiqib ketgan talaba istalgan payt qayta skanerlay oladi
   return `<div class="H slide-in">
    <div class="H-top"><div class="mono gold">TIFT · BUSINESS ENGLISH · UNIT 8</div>
     <div class="mono mu">${String(c.i+1).padStart(2,"0")} / ${SLIDES.length} · ${LIVE ? '<span class="grn">● LIVE</span>' : '<span class="demo">DEMO</span>'}</div></div>
    <div class="H-main">${inner}</div>
-   <div class="H-bot"><div class="mu mono" style="display:flex;align-items:center;gap:1.4rem">${showQR ? `<span class="miniqr"><span id="mqr"></span><span>JOIN · <b class="gold">${ROOM}</b></span></span>` : ""}<span>← → · <b id="pcount">${list(R.players).length}</b> players</span></div>
+   <div class="H-bot"><div class="mu mono" style="display:flex;align-items:center;gap:1.4rem">${showQR ? `<span class="miniqr" onclick="bigQR()" title="Q · katta QR" style="cursor:pointer"><span id="mqr"></span><span>JOIN · <b class="gold">${ROOM}</b></span></span>` : ""}<span>← → · <b id="pcount">${list(R.players).length}</b> players</span></div>
     <div><button class="ghost" onclick="hostPrev()">◀</button><button class="nextbtn" onclick="hostNext()">${opts.next || "Next ▶"}</button>
     <button class="ghost" id="mutebtn" onclick="toggleMute()" title="Sound">${MUTED?"🔇":"🔊"}</button><button class="ghost" onclick="pickOpen(true)" title="Rang · Theme">🎨</button><button class="ghost" onclick="toggleFS()">⛶</button><button class="ghost" onclick="hostReset(this)">↺</button></div></div>
   </div>`;
@@ -686,7 +737,7 @@ const VIEWS = {
    <div class="rise" style="font-size:1.9rem;animation-delay:.35s"><span class="mu">Presented by</span> <b>Shoazim · SaidQobilhon · Sodiq</b></div>
    <div class="panel rise" style="margin-top:1.6rem;padding:1.1rem 1.8rem;display:inline-flex;gap:1.4rem;align-items:center;align-self:flex-start;border-left:6px solid var(--gold);animation-delay:.45s">
      <span style="font-size:3rem">📱</span><div><div class="mono gold" style="font-size:1.3rem">TODAY’S LIVE SIMULATION</div><div style="font-size:2.1rem;font-weight:800">Franchise Bazaar — get your phones ready!</div><div class="mu" style="font-size:1.4rem">Telefonlaringizni tayyorlang!</div></div></div>
-  </div>`, {next:"Let’s join ▶"}),
+  </div>`, {next:"Let’s start ▶"}),
  hook: () => shell(`${K("Case 00 · Tashkent, December 2025")}
    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;flex:1;margin-top:1rem">
     <div>${T("Burger King opened in Tashkent. <span class='gold'>Who opened it?</span>","Burger King Toshkentda ochildi. Uni kim ochgan?",4.4)}
@@ -788,21 +839,16 @@ const VIEWS = {
    <div class="mono mu" style="font-size:1.3rem;margin-top:1rem">REAL EXAMPLE: Burger King Tashkent — milestone 1: first restaurant (Dec 2025) → goal: 10 restaurants</div>`)
 };
 const MOUNT = {
- join: () => { try { new QRCode($("#qr"), {text: joinURL(), width: 320, height: 320, colorDark:"#000000", colorLight:"#ffffff"}); } catch(e) {} },
+ join: () => { try { new QRCode($("#qr"), {text: joinURL(), width: 640, height: 640, colorDark:"#000000", colorLight:"#ffffff"}); } catch(e) {} },
  steps: () => setTimeout(()=>{ document.querySelectorAll(".gt i").forEach(i=>{ i.style.transitionDelay=(.5+ +i.dataset.d*.35)+"s"; i.style.width=i.dataset.w+"%"; }); document.querySelectorAll(".ms").forEach(m=>{ m.style.transitionDelay="2s"; m.style.opacity=1; m.style.transform="scale(1)"; }); }, 60)
 };
 
 /* ---- jonli o'yin ekranlari ---- */
 const LIVEV = {
-  lobby: { view: () => shell(`<div class="lobby">
-      <div><div class="kick">Join the game · O‘yinga qo‘shiling</div>
-       <div class="h1" style="margin-top:1rem">Franchise <span class="gold">Bazaar</span> <span class="livepill">LIVE</span></div>
-       <div class="uz" style="font-size:1.8rem">Scan the code, type your name and become an investor.<br>QR kodni skanerlang, ismingizni yozing — investor bo‘ling!</div>
-       <div class="joinbox"><div id="qr"></div><div><div class="mono mu" style="font-size:1.3rem">ROOM CODE</div><div class="code mono">${ROOM}</div><div class="url mono">${esc(joinURL())}</div></div></div></div>
-      <div style="display:flex;flex-direction:column;min-height:0"><div class="count"><b id="pc">0</b> players · o‘yinchi</div>${LIVE ? "" : `<button class="ghost" style="margin:1rem 0 0;align-self:flex-start;font-size:1.3rem;color:var(--gold);border-color:var(--gold)" onclick="addBots()">🤖 Add 12 demo players · Demo o‘yinchilar</button>`}<div id="chips" class="chips"></div></div>
-     </div>`, {next:"Start the lesson ▶"}),
+  lobby: { view: () => shell(`<div class="gate"><div class="gq" id="qr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div>
+      <div class="gc">ROOM ${ROOM} · <b id="pc">0</b></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
     update: (c, st, ps) => { const pc=$("#pc"); if(!pc) return; pc.textContent = ps.length; const box = $("#chips");
-      ps.forEach(p => { if (!box.querySelector(`[data-id="${p.id}"]`)) { const d=document.createElement("div"); d.className="chip pop"; d.dataset.id=p.id; d.textContent=p.name; box.appendChild(d); } }); } },
+      ps.forEach(p => { if (!box.querySelector(`[data-id="${p.id}"]`)) { const d=document.createElement("div"); d.className="chip pop"; d.dataset.id=p.id; d.textContent=p.name; box.appendChild(d); if (AC) SFX.pop(); } }); } },
   invest: {
     view: () => shell(`<div class="qhead"><div><div class="kick">${RND===2?"Round 2 · New market · Yangi bozor":"Round 1 · Invest · Telefoningizni oling!"}</div>
        <div class="h2" style="margin-top:.6rem">${RND===2?"New franchises. Use the 5 checks! 🔍":"Split your 100 TIFT$ between franchises"}</div>
@@ -874,8 +920,15 @@ const LIVEV = {
       <div style="display:flex;gap:3rem;flex:1;min-height:0;align-items:flex-end">
        <div class="podium">${P.map((p,i)=>p?`<div class="pcol"><div style="font-size:3rem">${["🥈","🥇","🥉"][i]}</div><div class="pname">${esc(p.name)}</div><div class="ppts">${p.v} pts</div><div class="pblock" style="height:${H[i]}rem;background:${C[i]};animation-delay:${[.6,1.2,0][i]}s">${N[i]}</div></div>`:`<div class="pcol"></div>`).join("")}</div>
        <div class="panel" style="padding:1.6rem 2rem;width:26rem;margin-bottom:1rem;flex:none;border-left:6px solid var(--gold)"><div class="mono mu">BEST INVESTOR 💰</div><div style="font-size:2.4rem;font-weight:800;margin-top:.4rem">${inv?esc(inv.name):"—"}</div><div class="mono gold" style="font-size:2.6rem;font-weight:700">${inv?fmt(inv.v)+" TIFT$":""}</div><div class="mu" style="margin-top:.6rem;font-size:1.2rem">Round 1 + Round 2 · Eng yaxshi investor</div></div>
-      </div>`, {next:"🎉"}); },
-    mount: () => { confetti(300); setTimeout(()=>confetti(300), 1400); }
+      </div>
+      <div class="reveal" id="reveal"><div class="rv-l1">And the winner of Franchise Bazaar is…</div><div class="rv-uz">Franchise Bazaar g‘olibi…</div>
+       <div class="rv-name" id="rvname">${lb[0]?esc(lb[0].name):"—"}</div><div class="rv-pts mono">${lb[0]?lb[0].v+" pts":""}</div></div>`, {next:"🎉"}); },
+    mount: () => { const rv=$("#reveal"); if(!rv) return;
+      // drumroll → hit → name → podium
+      SFX.drumroll && SFX.drumroll(3.4);
+      setTimeout(()=>{ rv.classList.add("hit"); SFX.impact(); SFX.fanfare(); SFX.cheer && SFX.cheer(6); const fl=document.createElement("div"); fl.className="flashin"; document.body.appendChild(fl); setTimeout(()=>fl.remove(),1200); confetti(320); }, 3500);
+      setTimeout(()=>{ rv.classList.add("out"); confetti(300); }, 8200);
+      setTimeout(()=>{ rv.remove(); }, 9200); }
   }
 };
 
@@ -932,7 +985,7 @@ function bgMarket(){
 
 function hostRender(room) {
   R = room || {}; applyTheme(hostTheme()); if (!R.theme && lsGet('fbz_host_theme')) Store.set('theme', lsGet('fbz_host_theme')); const st = R.state || {slide:0}; const ps = list(R.players); const c = cur(st); RND = c.r;
-  if (c.s.id !== "cover" && c.s.id !== "join" && c.s.id !== "intro") stopBgm(); if (c.s.id === "intro" && hostSig.split("|")[0] !== String(c.i)) { introDone=false; stopBgm(); } document.documentElement.classList.toggle("onintro", c.s.id === "intro");
+  if (c.s.id !== "cover" && c.s.id !== "join" && c.s.id !== "intro") stopBgm(); if (c.s.id === "intro" && hostSig.split("|")[0] !== String(c.i)) { introDone=false; stopBgm(); } document.documentElement.classList.toggle("onintro", c.s.id === "intro"); document.documentElement.classList.toggle("ongate", c.s.id === "join"); if (c.s.id === "join") startHeart(); else stopHeart(); if (c.s.id !== "intro" && R.sync && R.sync.on) Store.set("sync",{on:0});
   const isLive = !!(c.s.live || c.s.q != null);
   const sig = c.i + "|" + c.phase + "|" + (c.s.live==="events" ? c.step : "") + "|" + (c.open?1:0);
   if (sig !== hostSig) {
@@ -983,6 +1036,9 @@ const SFX={
   ding(){ const a=ac(); if(!a) return; const t=a.currentTime; tone(880,t,.6,"sine",.22); tone(1320,t+.08,.7,"sine",.16); },
   buzz(){ const a=ac(); if(!a) return; const t=a.currentTime; tone(140,t,.35,"sawtooth",.12); tone(110,t+.18,.4,"sawtooth",.12); },
   unlock(){ const a=ac(); if(!a) return; const t=a.currentTime; [523,659,784,1047].forEach((f,i)=>tone(f,t+i*.06,.25,"triangle",.18)); },
+  drumroll(d){ const a=ac(); if(!a) return; const t0=a.currentTime; for(let x=0;x<d;x+=.045){ const t=t0+x, g=.04+.22*(x/d); const n=a.createBufferSource(), b=a.createBuffer(1,a.sampleRate*.1,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1; n.buffer=b; const f=a.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1800; const v=a.createGain(); v.gain.setValueAtTime(g,t); v.gain.exponentialRampToValueAtTime(.001,t+.09); n.connect(f); f.connect(v); v.connect(MASTER); n.start(t); } },
+  cheer(d){ const a=ac(); if(!a) return; const t=a.currentTime; const n=a.createBufferSource(), b=a.createBuffer(1,a.sampleRate*d,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1; n.buffer=b; const f=a.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1200; f.Q.value=.6; const v=a.createGain(); v.gain.setValueAtTime(0,t); v.gain.linearRampToValueAtTime(.3,t+.4); v.gain.setValueAtTime(.3,t+d-1.2); v.gain.linearRampToValueAtTime(0,t+d); const l=a.createOscillator(), lg=a.createGain(); l.frequency.value=7; lg.gain.value=.1; l.connect(lg); lg.connect(v.gain); l.start(t); l.stop(t+d); n.connect(f); f.connect(v); v.connect(MASTER); n.start(t); },
+  pop(){ const a=ac(); if(!a) return; const t=a.currentTime; const o=a.createOscillator(), v=a.createGain(); o.type="sine"; o.frequency.setValueAtTime(420,t); o.frequency.exponentialRampToValueAtTime(980,t+.09); v.gain.setValueAtTime(.25,t); v.gain.exponentialRampToValueAtTime(.001,t+.16); o.connect(v); v.connect(MASTER); o.start(t); o.stop(t+.18); },
   fanfare(){ const a=ac(); if(!a) return; const t=a.currentTime; [[523,0],[659,.12],[784,.24],[1047,.42],[784,.62],[1047,.74]].forEach(([f,d])=>{ tone(f,t+d,.5,"square",.08); tone(f/2,t+d,.5,"triangle",.12); }); noise(t+.42,.6,.08,4000); }
 };
 // original upbeat loops (step sequencer, 16ths)
@@ -1013,19 +1069,30 @@ function soundFor(c){ const key=c.i+"|"+c.phase+"|"+c.step+"|"+(c.open?1:0); if(
   if(ph==="qwait"){ stopLoop(); return; }
   if(ph==="quiz"){ SFX.unlock(); startLoop("quiz"); return; }
   if(ph==="qresult"){ stopLoop(); SFX.ding(); return; }
-  if(c.s.live==="final"){ stopLoop(); SFX.fanfare(); setTimeout(SFX.fanfare,900); return; }
+  if(c.s.live==="final"){ stopLoop(); return; }
   stopLoop(); }
+/* ---- katta QR (dars o'rtasida kelganlar yoki chiqib ketganlar uchun): Q tugmasi yoki kichik QR ustiga bosish ---- */
+function bigQR(){ const o=$("#bigqr"); if(o) return o.remove(); const d=document.createElement("div"); d.id="bigqr"; d.className="gate"; d.style.zIndex=95; d.onclick=()=>d.remove();
+  d.innerHTML=`<div class="gq" id="bqr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div><div class="gs" style="font-size:2.2vh;color:#8a93ad;font-weight:600">Chiqib ketgan bo‘lsangiz ham shu QR orqali qayta kiring — ballaringiz saqlangan</div><div class="gc">ROOM ${ROOM} · Q = close</div>`;
+  document.body.appendChild(d); try { new QRCode($("#bqr"), {text: joinURL(), width: 640, height: 640, colorDark:"#000000", colorLight:"#ffffff"}); } catch(e) {} }
+/* ---- yurak urishi ovozi (QR slaydda, telefonlar bilan bir vaqtda) ---- */
+let HB=null; const HBP=[174,1051];
+function thump(t,g){ const a=AC; const o=a.createOscillator(), v=a.createGain(); o.frequency.setValueAtTime(70,t); o.frequency.exponentialRampToValueAtTime(42,t+.2); v.gain.setValueAtTime(0,t); v.gain.linearRampToValueAtTime(g,t+.012); v.gain.exponentialRampToValueAtTime(.0001,t+.25); o.connect(v); v.connect(MASTER); o.start(t); o.stop(t+.3); }
+function startHeart(){ if(HB||!AC) return; let done={}; HB=setInterval(()=>{ if(!AC) return; const now=Store.now(), base=now-now%2200;
+  [base-2200,base,base+2200].forEach(c=>HBP.forEach(o=>{ const at=c+o, dt=(at-now)/1000; if(dt>=0&&dt<.35&&!done[at]){ done[at]=1; const t=AC.currentTime+dt; thump(t,.55); thump(t+.17,.3); } })); },60); }
+function stopHeart(){ if(HB){ clearInterval(HB); HB=null; } }
+function heartRamp(){ if(!AC) return; let t=AC.currentTime+.05, gap=.6; while(gap>.12){ thump(t,.6); t+=gap; gap*=.72; } }
 /* ---- intro video + soft background music ---- */
 let introDone=false, bgm=null;
-function introPlay(){ const v=$("#iv"); if(!v) return; introDone=false; window._fadedIn=false; $("#ivp").style.display="none";
+function introPlay(){ const v=$("#iv"); if(!v) return; stopHeart(); heartRamp(); introDone=false; window._fadedIn=false; $("#ivp").style.display="none";
   try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }catch(e){}
-  v.onended=()=>introEnd(); v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
-function introEnd(skip){ if(introDone) return; introDone=true; ac(); const v=$("#iv"), b=$("#ivblack");
+  v.onplaying=v.onseeked=()=>{ if(!introDone) Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); }; v.onended=()=>introEnd(); v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
+function introEnd(skip){ if(introDone) return; introDone=true; ac(); Store.set("sync",{on:0}); const v=$("#iv"), b=$("#ivblack");
   if(v){ let vol=v.volume; const f=setInterval(()=>{ vol=Math.max(0,vol-.12); v.volume=vol; if(vol<=0){ clearInterval(f); v.pause(); } },40); }
   if(b) b.classList.add("on");
   setTimeout(()=>{ SFX.whoosh(); }, skip?0:250);
   setTimeout(()=>{ const fl=document.createElement("div"); fl.className="flashin"; document.body.appendChild(fl); setTimeout(()=>fl.remove(),1200);
-    SFX.impact(); goTo(1); setTimeout(startBgm, 1400); }, skip?250:850); }
+    SFX.impact(); goTo(SLIDES.findIndex(x=>x.id==="cover")); setTimeout(startBgm, 1400); }, skip?250:850); }
 function startBgm(){ try{ if(!bgm){ bgm=new Audio("intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
   let v=0; const up=setInterval(()=>{ v=Math.min(.32,v+.02); if(bgm) bgm.volume=v; if(v>=.32) clearInterval(up); },120); }catch(e){} }
 function stopBgm(){ if(!bgm||bgm.paused) return; const dn=setInterval(()=>{ bgm.volume=Math.max(0,bgm.volume-.03); if(bgm.volume<=0){ bgm.pause(); clearInterval(dn);} },80); }
@@ -1127,17 +1194,57 @@ function qresView(st, ps) {
   return pShell(`<div class="verdict rise" style="background:${ok?'rgba(var(--grn-rgb),.18)':'rgba(var(--red-rgb),.16)'};border:2px solid ${ok?'var(--grn)':'var(--red)'}">
     <div class="ic">${ok?'🎉':a?'😬':'⏰'}</div><h1>${ok?'Correct! · To‘g‘ri!':a?'Not quite · Xato':'Time is up · Vaqt tugadi'}</h1>
     <div class="mono gold" style="font-size:34px;font-weight:700;margin-top:8px">+${pts}</div></div>
-   <div class="card"><div class="kv"><span>Correct answer</span><b>${SH[q.a]} ${esc(q.o[q.a][0])}</b></div><div class="kv"><span>Total points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div></div>`);
+   ${(()=>{ let n=0; for(let k=st.q;k>=0;k--){ const x=at(me.answers,k); if(x&&x.a===Q[k].a) n++; else break; } return n>=2 ? `<div class="card" style="text-align:center;font-size:22px;font-weight:800;border-color:var(--gold)">🔥 ${n} in a row! <div class="sub" style="margin-top:2px">Ketma-ket ${n} ta to‘g‘ri javob!</div></div>` : ""; })()}
+   ${(()=>{ if(r===1) return `<div class="card" style="text-align:center;font-size:21px;font-weight:800">🥇 You are in 1st place! <div class="sub" style="margin-top:2px">Siz 1-o‘rindasiz! Shunday davom eting!</div></div>`;
+      const ab=lb[r-2]; const diff=ab?ab.v-quizTotal(me,st):0; const ord=r===2?"2nd":r===3?"3rd":r+"th";
+      return `<div class="card" style="text-align:center;font-size:20px;font-weight:800">You are ${ord} — ${diff} points behind ${esc(ab?ab.name:"")}! <div class="sub" style="margin-top:2px">Siz ${r}-o‘rindasiz — ${esc(ab?ab.name:"")}dan ${diff} ball orqadasiz!</div></div>`; })()}
+   <div class="card"><div class="kv"><span>Correct answer · To‘g‘ri javob</span><b>${SH[q.a]} ${esc(q.o[q.a][0])}</b></div><div class="kv"><span>Total points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div></div>`);
+}
+/* ---- QR va intro paytida telefon: qora ekran + yurak urishi chizig'i ---- */
+const ECG="M0 75 L150 75 L170 75 L180 62 L190 75 L215 75 L225 88 L240 10 L255 128 L268 75 L300 75 L320 60 L345 75 L500 75 L520 75 L530 62 L540 75 L565 75 L575 88 L590 10 L605 128 L618 75 L650 75 L670 60 L695 75 L1000 75";
+function heartView(n) { return `<div id="hb"><div class="ok">✓ You’re in, <b>${esc(me.name)}</b></div>
+  <svg viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
+  <div class="wt">Waiting for the start… · Boshlanishini kuting<br>${n} players</div>
+  <div class="ko">📱 Keep this page open · <b>Sahifani yopmang!</b></div></div>`; }
+let WL=null; async function wakeLock(){ try { if ("wakeLock" in navigator && !WL && document.visibilityState==="visible") { WL = await navigator.wakeLock.request("screen"); WL.addEventListener("release", ()=>WL=null); } } catch(e) {} }
+document.addEventListener("visibilitychange", wakeLock); ["click","touchend"].forEach(ev=>document.addEventListener(ev, wakeLock, {passive:true}));
+/* ---- intro paytida telefon: qorong'i ekran, zarbalarda yorishadi, 2 ta katta zarbada chaqnaydi + vibratsiya ---- */
+const SYH=[[16.08,1],[24.18,1],[41.55,.6],[42.62,.6],[43.7,.6],[44.77,.8],[45.82,1],[48.51,.9],[51.21,1],[51.71,.7],[62.8,1]];
+const SYB=[[55.68,"FRANCHISING","#ff6e28"],[78.75,"FRANCHISE BAZAAR","var(--gold)"]];
+let SY=null, SYP=false;
+function syncFx(s, c) {
+  const on = !!(s && s.on && me && c.s.id === "intro");
+  if (on && !SY && !SYP) { const hb = $("#hb");
+    if (hb && !hb.classList.contains("ramp")) { SYP = true; hb.classList.add("ramp"); try { navigator.vibrate && navigator.vibrate([40,260,40,180,40,110,40,70,60]); } catch(e) {}
+      setTimeout(() => { SYP = false; if (R.sync && R.sync.on) { syncFx(R.sync, cur(R.state||{})); if (SY) { const fl = SY.querySelector(".fl"); fl.style.background = "#ff2d45"; fl.animate([{opacity:.95},{opacity:0}], {duration:900, easing:"ease-out"}); try { navigator.vibrate && navigator.vibrate(260); } catch(e) {} } } }, 1400); return; } }
+  if (on && !SY && !SYP) {
+    SY = document.createElement("div"); SY.id = "sy"; SY.innerHTML = `<div class="gl"></div><div class="fl"></div><div class="bt"></div><div class="lu">LOOK UP 👀<small>Katta ekranga qarang</small></div>`;
+    document.body.appendChild(SY); SY.done = {}; SY.t0 = s.t0;
+    const gl = SY.querySelector(".gl"), fl = SY.querySelector(".fl"), bt = SY.querySelector(".bt"), me_ = SY;
+    (function loop(){ if (SY !== me_ || me_.off) return; const t = (Store.now() - me_.t0) / 1000; let e = 0;
+      SYH.forEach(([a,k]) => { if (t >= a && t < a + .8) e = Math.max(e, k * Math.exp(-(t - a) * 6)); }); gl.style.opacity = e.toFixed(3);
+      SYB.forEach(([a,txt,col], i) => { if (t >= a && t < a + 1.5 && !me_.done[i]) { me_.done[i] = 1;
+        fl.style.background = col; fl.animate([{opacity:.92},{opacity:0}], {duration:1000, easing:"ease-out"});
+        bt.textContent = txt; bt.style.color = col; bt.animate([{opacity:0,transform:"scale(1.4)"},{opacity:1,transform:"scale(1)",offset:.15},{opacity:1,offset:.75},{opacity:0}], {duration:2400, fill:"forwards"});
+        me_.animate([{transform:"translateX(0)"},{transform:"translateX(-10px)"},{transform:"translateX(9px)"},{transform:"translateX(-6px)"},{transform:"translateX(0)"}], {duration:450});
+        try { navigator.vibrate && navigator.vibrate([220,80,320]); } catch(e) {} } });
+      requestAnimationFrame(loop); })();
+  } else if (on && SY) { SY.t0 = s.t0; }
+  else if (!on && SY && !SY.off) { const d = SY; d.off = true;
+    d.innerHTML = `<div class="lu" style="animation:none">Ready? 🚀<small>Tayyormisiz? O‘yin boshlanmoqda</small></div>`;
+    setTimeout(() => { d.style.opacity = "0"; setTimeout(() => { d.remove(); if (SY === d) SY = null; }, 750); }, 2200); }
 }
 function playerRender(room) {
   if (IS_HOST) return;
   R = room || {}; applyTheme(playerTheme()); const st0 = R.state || {slide:0}; const c = cur(st0); RND = c.r; const st = {...st0, phase:c.phase, q:c.q, step:c.step, open:c.open}; const ps = list(R.players); me = (R.players||{})[PID] || null;
-  const sig = !me ? "join" : [st.phase, st.open?1:0, st.phase==="events"?st.step:"", st.q, RND, me[KL()]?1:0, st.q!=null && at(me.answers, st.q)?1:0, st.phase==="lobby"?ps.length:""].join("|");
+  syncFx(R.sync, c);
+  const sig = !me ? "join" : [st.phase, st.open?1:0, st.phase==="events"?st.step:"", st.q, RND, me[KL()]?1:0, st.q!=null && at(me.answers, st.q)?1:0, st.phase==="lobby"?ps.length:"", (c.s.id==="join"||c.s.id==="intro")?1:0].join("|");
   if (sig === pSig) return; pSig = sig;
   const nowLocked = (st.phase === "invest" && !st.open) || st.phase === "qwait";
   if (wasLocked && !nowLocked) { wasLocked = false; navigator.vibrate && navigator.vibrate([60,40,120]); setTimeout(()=>{ const t=document.createElement("div"); t.className="unlock"; t.textContent="🔓 GO!"; document.body.appendChild(t); setTimeout(()=>t.remove(), 1100); }, 30); }
   if (!ROOM || !me) { app.innerHTML = joinView(); return; }
-  if (st.phase === "lobby") app.innerHTML = waitView("🎉", `You’re in, ${esc(me.name)}!`, `Siz o‘yindasiz! Wait for the host… · ${ps.length} players`);
+  if (st.phase === "lobby" && (c.s.id === "join" || c.s.id === "intro")) app.innerHTML = heartView(ps.length);
+  else if (st.phase === "lobby") app.innerHTML = waitView("🎉", `You’re in, ${esc(me.name)}!`, `Siz o‘yindasiz! Wait for the host… · ${ps.length} players<div class="keepopen-p">📱 Keep this page open<br><b>Sahifani yopmang!</b></div>`);
   else if (st.phase === "invest" && !st.open && !me[KL()]) app.innerHTML = lockView(RND===2 ? "Round 2 is coming" : "Round 1 is coming", "Look at the big screen and read the franchise cards.<br>Katta ekrandagi kartochkalarni o‘qing.");
   else if (st.phase === "qwait") app.innerHTML = lockView(`Question ${st.q+1} / ${Q.length}`, "Get ready! Savolni katta ekrandan o‘qing.");
   else if (st.phase === "invest") app.innerHTML = me[KL()] ? pShell(`<div class="wait" style="padding-bottom:10px"><div class="big">✅</div><h2>Portfolio locked</h2><div class="sub">Tanlovingiz qabul qilindi. Wait for the news…</div></div>${portfolio(0)}`) : investView();
@@ -1173,9 +1280,11 @@ function startHost() {
     if (["ArrowRight","PageDown"," ","Enter","ArrowDown"].includes(e.key)) { e.preventDefault(); hostNext(); }
     else if (["ArrowLeft","PageUp","ArrowUp"].includes(e.key)) { e.preventDefault(); hostPrev(); }
     else if (e.key === "m" || e.key === "M") { e.preventDefault(); toggleMute(); }
+    else if (e.key === "q" || e.key === "Q" || (e.key === "Escape" && $("#bigqr"))) { e.preventDefault(); if (e.key !== "Escape" || $("#bigqr")) bigQR(); }
     else if (e.key === "F5") { e.preventDefault(); if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }   // pult "start" tugmasi sahifani yangilamasin
     else if (e.key === "b" || e.key === "B" || e.key === "." || e.key === "w" || e.key === "W") { e.preventDefault(); const k=$("#blackout"); if (k) k.remove(); else { const d=document.createElement("div"); d.id="blackout"; d.style.cssText="position:fixed;inset:0;background:#000;z-index:99"; d.onclick=()=>d.remove(); document.body.appendChild(d); } }
   });
+  const wake = () => { ac(); const c = cur(R.state||{}); if (c.s.id === "join") startHeart(); }; ["pointerdown","keydown"].forEach(ev => addEventListener(ev, wake, {once:true}));
   let init = false;
   Store.on("", room => { if (!IS_HOST) return; if (!init) { init = true; if (!room || !room.state || room.state.slide == null) { Store.set("state", {slide:0}); return; } } hostRender(room); });
 }
