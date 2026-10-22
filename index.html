@@ -204,6 +204,25 @@ html.host{font-size:min(calc(var(--vw,100vw)/100),calc(var(--vh,100vh)*.0172))}
 .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:2.6rem 0 2rem;position:relative}
 .timeline:before{content:"";position:absolute;left:0;right:0;top:3.6rem;height:3px;background:var(--line)}
 .tl{text-align:center;display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.timeline.tl5{grid-template-columns:repeat(5,1fr);gap:1.2rem;margin:1.2rem 0 .9rem}
+.timeline.tl5 .tl{gap:.4rem}
+.timeline:after{content:"";position:absolute;left:0;top:3.6rem;height:3px;width:var(--tp,0%);background:linear-gradient(90deg,var(--gold),var(--teal));box-shadow:0 0 12px var(--gold);transition:width .9s cubic-bezier(.3,.8,.3,1)}
+.timeline.tl5:before,.timeline.tl5:after{top:3.95rem}
+.tl.show .dot:after{content:"";position:absolute;inset:-.5rem;border-radius:50%;border:2px solid var(--gold);animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+#repm{position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
+#repm .rp-card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:2.2rem 2.6rem;text-align:center;min-width:34rem}
+#repv{position:fixed;inset:3vh 4vw;width:92vw;height:94vh;z-index:97;border:0;border-radius:12px;background:#fff;box-shadow:0 20px 80px rgba(0,0,0,.6)}
+#emb{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+html.onintro #emb,html.ongate #emb{display:none}
+@media (prefers-reduced-motion:reduce){#emb{display:none}.tl.show .dot:after{animation:none}}
+.thx{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;position:relative}
+.thx-big{font-size:7rem;line-height:1.05;max-width:90%}
+.thx-en{font-size:2.2rem;font-weight:600;color:var(--mu);letter-spacing:.02em}
+.thx-line{width:12rem;height:4px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:.8rem 0}
+.thx-p{font-size:2.8rem;font-weight:700;line-height:1.35;max-width:75%}
+.thx-gold{color:var(--gold);font-style:italic}
+.thx-team{margin-top:1.4rem;font-size:1.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);font-weight:700}
 .tl .dot{width:1.6rem;height:1.6rem;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold);position:relative}
 .tbl{width:100%;border-collapse:collapse;margin-top:2rem;font-size:1.6rem}
 .tbl th{text-align:left;padding:.8rem 1.2rem;background:var(--panel);font-size:1.5rem}
@@ -469,6 +488,23 @@ html[data-th="ember"] .nextbtn{border-radius:0}
 html[data-th="ember"] #ph:before{right:0;top:16vh;width:34vw;height:68vh;clip-path:polygon(6vh 0,100% 0,100% 100%,6vh 100%,0 12.5%,6vh 25%,0 37.5%,6vh 50%,0 62.5%,6vh 75%,0 87.5%);
  background:linear-gradient(#FF4103 0 23%,transparent 23% 25.5%,#FF6D00 25.5% 48.5%,transparent 48.5% 51%,#FFA000 51% 74%,transparent 74% 76.5%,#616161 76.5%)}
 html[data-th="ember"] #ph:after{content:"01\A 02\A 03\A 04";white-space:pre;right:3vw;top:16vh;height:68vh;font:700 6.6vh/17vh 'Barlow Condensed',sans-serif;color:#fff;text-align:right}
+html[data-th="kino"]{--gold:#FF7A2B;--goldsh:#9A2E00;--ink:#0A0807;--teal:#FFC233;--red:#FF6B5B;--grn:#5BE38F;--tx:#F7F3EE;--mu:#D6CCBF;--risk:#FFB08A;--gold2:#FFD08A;--bronze:#E08A3C;--panel2:#2B221B;--panel:#1D1712;--line:#5A4636;--bg1:#16110D;--inp:#120E0A;--a0:#FF5A1F;--a1:#3D8BFF;--a2:#FFC233;--a3:#22C55E;--glow:#2E1A0E;--bg2:#090706;--gold-rgb:255,122,43;--teal-rgb:255,194,51;--mu-rgb:214,204,191;--tx-rgb:247,243,238;--red-rgb:255,107,91;--grn-rgb:91,227,143;--panel2-rgb:43,34,27;--bg2-rgb:9,7,6;--wash:255,255,255;--f-disp:'Anton',Impact,sans-serif;--f-body:'Manrope',system-ui,sans-serif;--disp-case:uppercase;--disp-track:.015em;--disp-w:400}
+html[data-th="kino"] body{background:linear-gradient(160deg,#16110D 0%,#090706 70%) fixed}
+html[data-th="kino"] .h1{line-height:.98}
+html[data-th="kino"].host body[data-sl=cover] .H-main>div{max-width:60%!important}
+html[data-th="kino"] .H-top{border-bottom:0!important;position:relative}
+html[data-th="kino"] .H-top:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FF4103,#FF7A2B 30%,#FFC233 60%,transparent)}
+html[data-th="kino"] .h1 .gold,html[data-th="kino"] .h1 .teal,html[data-th="kino"] .h2 .gold,html[data-th="kino"] .h2 .teal,html[data-th="kino"] .grad,html[data-th="kino"] .code,html[data-th="kino"] .count b,html[data-th="kino"] .fcard .big{background:linear-gradient(180deg,#FFF6E8 0%,#FFC27A 38%,#FF7A2B 62%,#E2501A 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+html[data-th="kino"] .h1,html[data-th="kino"] .h2{text-shadow:none}
+html[data-th="kino"] .uz,html[data-th="kino"] .mu,html[data-th="kino"] .sub,html[data-th="kino"] .H-top,html[data-th="kino"] .H-bot{font-weight:600}
+html[data-th="kino"] .kick{color:#FFC233!important;font-weight:800}
+html[data-th="kino"] .panel,html[data-th="kino"] .fcard,html[data-th="kino"] .lbrow,html[data-th="kino"] .joinbox{border-radius:6px;border-color:#5A4636}
+html[data-th="kino"] .panel[style*="border-left:6px"],html[data-th="kino"] .panel[style*="border-top:6px"]{box-shadow:0 0 34px rgba(255,90,20,.16)}
+html[data-th="kino"] .nextbtn{background:linear-gradient(180deg,#FFC233,#FF7A2B)!important;color:#140B04!important;box-shadow:0 0 26px rgba(255,90,20,.45),0 6px 0 #9A2E00}
+html[data-th="kino"] body{background:radial-gradient(ellipse 90% 45% at 50% 118%,rgba(255,90,20,.20),transparent 70%),linear-gradient(165deg,#17110C 0%,#090706 65%) fixed!important}
+html[data-th="kino"] #ph:before{right:4vw;top:50vh;width:36vw;height:.5vh;border-radius:1vh;background:linear-gradient(90deg,transparent,#FF7A2B 25%,#FFF1DC 50%,#FF7A2B 75%,transparent);box-shadow:0 0 3vh rgba(255,110,30,.7),0 0 9vh rgba(255,80,10,.35)}
+html[data-th="kino"] #ph:after{right:calc(4vw + 18vw - 16vh);top:calc(50vh - 16vh);width:32vh;height:32vh;border-radius:50%;background:radial-gradient(circle,rgba(255,240,220,.55) 0,rgba(255,130,40,.22) 18%,rgba(255,65,3,0) 62%)}
+html[data-th="kino"].host body[data-sl=final] #ph:before,html[data-th="kino"].host body[data-sl=lesson] #ph:before,html[data-th="kino"].host body[data-sl=rules] #ph:before{opacity:.35}
 
 #pick{position:fixed;inset:0;z-index:90;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.45);padding:16px}
 #pick .sheet{background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:18px;padding:16px;width:min(760px,100%);max-height:85vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.4);font-family:var(--f-body),system-ui,sans-serif}
@@ -493,8 +529,8 @@ html.host #pick .sheet{font-size:16px}
 
 /* ===== RANG / DIZAYN TANLASH =====
    Boshlovchi tanlagan dizayn hamma ekranlarga tarqaladi; talaba o'z telefonida boshqasini tanlashi mumkin. */
-const TFONTS = {"classic": "family=Plus+Jakarta+Sans:wght@400;600;700;800", "chess": "family=Anton&family=Manrope:wght@400;600;700;800", "maze": "family=Bebas+Neue&family=Archivo:wght@400;600;700;800", "peace": "family=Oswald:wght@500;600;700&family=DM+Sans:wght@400;600;700;800", "strat": "family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;600;700;800", "mint": "family=Oswald:wght@500;600;700&family=DM+Sans:wght@400;600;700;800", "silver": "family=Bebas+Neue&family=Inter:wght@400;600;700;800", "fire": "family=Anton&family=Manrope:wght@400;600;700;800", "ember": "family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;600;700;800"};
-const TMETA = [{"k": "classic", "n": "Asl", "d": "Ko‘k + oltin", "c": ["#121A35", "#FFC845", "#2EE6D6"]}, {"k": "chess", "n": "Shaxmat", "d": "Yog‘och + olov", "c": ["#140800", "#FF6D00", "#FFBE0B"]}, {"k": "maze", "n": "Labirint", "d": "Oq + qizil", "c": ["#F5F5F5", "#D50000", "#1F0000"]}, {"k": "peace", "n": "O‘rmon", "d": "To‘q yashil", "c": ["#0B2915", "#E4FD97", "#00C853"]}, {"k": "strat", "n": "Kompas", "d": "Tun + olov", "c": ["#001621", "#FF4103", "#21F1A8"]}, {"k": "mint", "n": "Yalpiz", "d": "Yashil + oq", "c": ["#EAFBEE", "#00C853", "#0B2915"]}, {"k": "silver", "n": "Kumush", "d": "Kulrang + oq", "c": ["#F5F5F5", "#111111", "#616161"]}, {"k": "fire", "n": "Olov", "d": "Qora + olov", "c": ["#000000", "#FF4103", "#FFBE0B"]}, {"k": "ember", "n": "Cho‘g‘", "d": "Kulrang + olov", "c": ["#E9E9E9", "#FF4103", "#616161"]}];
+const TFONTS = {"classic": "family=Plus+Jakarta+Sans:wght@400;600;700;800", "chess": "family=Anton&family=Manrope:wght@400;600;700;800", "maze": "family=Bebas+Neue&family=Archivo:wght@400;600;700;800", "peace": "family=Oswald:wght@500;600;700&family=DM+Sans:wght@400;600;700;800", "strat": "family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;600;700;800", "mint": "family=Oswald:wght@500;600;700&family=DM+Sans:wght@400;600;700;800", "silver": "family=Bebas+Neue&family=Inter:wght@400;600;700;800", "fire": "family=Anton&family=Manrope:wght@400;600;700;800", "ember": "family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;600;700;800", "kino": "family=Anton&family=Manrope:wght@500;600;700;800"};
+const TMETA = [{"k": "classic", "n": "Asl", "d": "Ko‘k + oltin", "c": ["#121A35", "#FFC845", "#2EE6D6"]}, {"k": "chess", "n": "Shaxmat", "d": "Yog‘och + olov", "c": ["#140800", "#FF6D00", "#FFBE0B"]}, {"k": "maze", "n": "Labirint", "d": "Oq + qizil", "c": ["#F5F5F5", "#D50000", "#1F0000"]}, {"k": "peace", "n": "O‘rmon", "d": "To‘q yashil", "c": ["#0B2915", "#E4FD97", "#00C853"]}, {"k": "strat", "n": "Kompas", "d": "Tun + olov", "c": ["#001621", "#FF4103", "#21F1A8"]}, {"k": "mint", "n": "Yalpiz", "d": "Yashil + oq", "c": ["#EAFBEE", "#00C853", "#0B2915"]}, {"k": "silver", "n": "Kumush", "d": "Kulrang + oq", "c": ["#F5F5F5", "#111111", "#616161"]}, {"k": "fire", "n": "Olov", "d": "Qora + olov", "c": ["#000000", "#FF4103", "#FFBE0B"]}, {"k": "ember", "n": "Cho‘g‘", "d": "Kulrang + olov", "c": ["#E9E9E9", "#FF4103", "#616161"]}, {"k": "kino", "n": "Kino", "d": "Tizer uslubi · proyektor uchun", "c": ["#090706", "#FF7A2B", "#FFC233"]}];
 let THC = {}, curTheme = "";
 function TH(n){ if (THC[n] == null) THC[n] = getComputedStyle(document.documentElement).getPropertyValue("--" + n).trim(); return THC[n]; }
 function lsGet(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }
@@ -503,8 +539,8 @@ function applyTheme(k){ if (!TFONTS[k]) k = "classic"; if (k === curTheme) retur
   document.documentElement.dataset.th = k; THC = {};
   if (!document.getElementById("tf_" + k)) { const l = document.createElement("link"); l.rel = "stylesheet"; l.id = "tf_" + k;
     l.href = "https://fonts.googleapis.com/css2?" + TFONTS[k] + "&display=swap"; document.head.appendChild(l); } }
-function hostTheme(){ return (typeof R !== "undefined" && R.theme) || lsGet("fbz_host_theme") || "classic"; }
-function playerTheme(){ return lsGet("fbz_my_theme") || (typeof R !== "undefined" && R.theme) || "classic"; }
+function hostTheme(){ return (typeof R !== "undefined" && R.theme) || lsGet("fbz_host_theme") || "kino"; }
+function playerTheme(){ return lsGet("fbz_my_theme") || (typeof R !== "undefined" && R.theme) || "kino"; }
 function pickOpen(asHost){ pickClose(); const now = asHost ? hostTheme() : (lsGet("fbz_my_theme") || "");
   const d = document.createElement("div"); d.id = "pick"; d.onclick = e => { if (e.target === d) pickClose(); };
   const tile = (k, n, dd, cs) => `<button class="t ${now===k?'on':''}" onclick="pickSet('${k}',${asHost})"><span class="sw">${cs.map(c=>`<i style="background:${c}"></i>`).join("")}</span><b>${n}</b><small>${dd}</small></button>`;
@@ -518,7 +554,7 @@ function pickSet(k, asHost){
   if (asHost) { lsSet("fbz_host_theme", k); try { Store.set("theme", k); } catch(e) {} applyTheme(k); hostSig = ""; if (R) hostRender(R); }
   else { lsSet("fbz_my_theme", k || null); applyTheme(playerTheme()); pSig = ""; if (R) playerRender(R); }
   pickClose(); }
-applyTheme(lsGet("fbz_my_theme") || lsGet("fbz_host_theme") || "classic");
+applyTheme(lsGet("fbz_my_theme") || lsGet("fbz_host_theme") || "kino");
 
 /* ekran o'lchami: mobil brauzer panellarini hisobga olib, butun ekranni to'ldirish */
 function fitVP(){ const v = window.visualViewport; const w = Math.round(v ? v.width : innerWidth), h = Math.round(v ? v.height : innerHeight);
@@ -543,7 +579,7 @@ const CONFIG = {
 /* =========================================================================
    2) O'YIN MA'LUMOTLARI
    ========================================================================= */
-const QUIZ_SEC = 20;
+const QUIZ_SEC = 10;   // 10 soniya: internetdan qidirishga ulgurmaydi
 const F = [
  {id:"burger",em:"🍔",nm:"BurgerStar",ty:"Global burger brand",tyu:"Xalqaro burger brendi",sales:100,costs:70,risk:"Imported ingredients",risku:"Mahsulot importdan",
   ret:-10,evEm:"🚫",ev:"Imported meat stopped!",evu:"Import go‘sht to‘xtadi",eff:"Costs +40"},
@@ -575,13 +611,22 @@ const Q = [
   x:"Franchisor = brand owner (Burger King USA). Franchisee = mahalliy biznes."},
  {q:"What is a ROYALTY?",u:"Royalti nima?",
   o:[["a one-time entry fee","bir martalik kirish to‘lovi"],["a tax for the government","davlatga soliq"],["a % of sales paid to the brand","brendga to‘lanadigan savdo foizi"],["a worker’s salary","ishchi maoshi"]],a:2,
-  x:"Royalty = every month, a small % of sales · har oy savdodan kichik foiz."},
+  x:"Royalty = every month, a small % of SALES · har oy savdodan kichik foiz."},
+ {q:"Who was Ray Kroc in 1954?",u:"1954-yilda Ray Kroc kim edi?",
+  o:[["one of the McDonald brothers","aka-uka McDonald'lardan biri"],["a milkshake machine salesman","milkshake apparati sotuvchisi"],["a famous chef","mashhur oshpaz"],["a bank manager","bank rahbari"]],a:1,
+  x:"He sold milkshake mixers — and turned McDonald’s into a franchise empire."},
+ {q:"How many McDonald’s restaurants are run by franchisees?",u:"McDonald’s restoranlarining qanchasini franshiza oluvchilar boshqaradi?",
+  o:[["about 5%","taxminan 5%"],["about 30%","taxminan 30%"],["about 60%","taxminan 60%"],["about 95%","taxminan 95%"]],a:3,
+  x:"About 95% of 45,356 restaurants · deyarli hammasi mahalliy tadbirkorlarniki."},
+ {q:"Who opened Burger King in Tashkent?",u:"Burger King'ni Toshkentda kim ochgan?",
+  o:[["a local company — Holten Group","mahalliy kompaniya — Holten Group"],["Burger King USA itself","Burger King AQShning o‘zi"],["the government","davlat"],["McDonald’s","McDonald’s"]],a:0,
+  x:"A local franchisee bought the right to use the brand — this is franchising."},
  {q:"PROFIT = ?",u:"Foyda qanday hisoblanadi?",
   o:[["Sales + Costs","Savdo + Xarajat"],["Costs − Sales","Xarajat − Savdo"],["Sales × Costs","Savdo × Xarajat"],["Sales − Costs","Savdo − Xarajat"]],a:3,
-  x:"PizzaPoint: 110 − 60 = +50 · Foyda = Savdo − Xarajat."},
- {q:"The last date to finish a task is the…",u:"Vazifani tugatishning oxirgi sanasi — bu…",
-  o:[["deadline","oxirgi muddat"],["budget","byudjet"],["milestone","muhim bosqich"],["forecast","prognoz"]],a:0,
-  x:"Deadline = oxirgi muddat · milestone = muhim bosqich."},
+  x:"Profit = Sales − Costs · Foyda = Savdo − Xarajat."},
+ {q:"Before you buy a franchise, look at the…",u:"Franshiza olishdan oldin nimaga qarash kerak?",
+  o:[["colour of the logo","logotip rangi"],["number of workers","ishchilar soni"],["risk, not only the forecast","faqat prognozga emas, xavfga"],["music in the café","kafedagi musiqa"]],a:2,
+  x:"Look at the risk, not only the forecast · Xavfni o‘qing!"},
  {q:"Why did BurgerStar lose money?",u:"BurgerStar nega zarar qildi?",
   o:[["too many customers","mijozlar juda ko‘p"],["supply problem, costs went up","ta’minot muammosi, xarajat oshdi"],["a bad logo","yomon logotip"],["the royalty was too low","royalti juda past edi"]],a:1,
   x:"Supply chain risk — just like McDonald’s in Kazakhstan (2023)."}
@@ -670,7 +715,7 @@ function rankBy(players, fn) { return players.map(p=>({...p, v:fn(p)})).sort((a,
 const fx = $("#fx"), fxc = fx.getContext("2d"); let parts = [];
 function sizeFx(){ fx.width = innerWidth; fx.height = innerHeight; } sizeFx(); addEventListener("resize", sizeFx);
 function confetti(n = 220) {
-  const cols = ["var(--gold)","var(--teal)","var(--a0)","var(--a1)","var(--grn)","var(--tx)"];
+  const cols = ["gold","teal","a0","a1","grn","tx"].map(k => TH(k) || "#FFC845");
   for (let i=0;i<n;i++) parts.push({x:innerWidth*(.2+Math.random()*.6), y:innerHeight*.35, vx:(Math.random()-.5)*16, vy:-Math.random()*16-4, r:Math.random()*6, c:cols[i%cols.length], l:1});
 }
 (function loop(){ fxc.clearRect(0,0,fx.width,fx.height);
@@ -681,8 +726,8 @@ function confetti(n = 220) {
    5) TAQDIMOT + BOSHLOVCHI EKRANI (PROYEKTOR)
    ========================================================================= */
 const VOCAB = [["franchisor","the company that owns the brand","franshiza beruvchi (brend egasi)"],["franchisee","the local business that buys the right","franshiza oluvchi (mahalliy biznes)"],
- ["franchise fee","money you pay once to start","kirish to‘lovi (bir marta)"],["royalty","a % of sales you pay every month","royalti (har oy savdodan %)"],
- ["supplier","a company that brings products","yetkazib beruvchi"],["forecast","what we expect to happen","prognoz"],["profit / loss","money you win / lose","foyda / zarar"],["risk","a chance that something goes wrong","xavf"]];
+ ["franchise fee","money you pay once to start","kirish to‘lovi (bir marta)"],["royalty","a % of SALES you pay every month","royalti (har oy savdodan %)"],
+ ["risk","a chance that something goes wrong","xavf"],["profit","sales − costs: the money you keep","foyda = savdo − xarajat"]];
 const CHECK = [["🌍","Supply chain","Where do products come from?","Mahsulot qayerdan keladi?"],["👥","Competition","Who is next to you?","Yoningizda kim bor?"],
  ["🏢","Rent contract","Can the price go up?","Ijara narxi oshishi mumkinmi?"],["🔑","Royalty and fees","How much do you pay the brand?","Brendga qancha to‘laysiz?"],["📈","Demand","Do people need it all year?","Talab yil bo‘yi bormi?"]];
 const STEPS = [["Plan","Reja",0,2],["Budget","Byudjet",1,3],["Location","Joy tanlash",2,5],["Team","Jamoa",4,7],["Launch","Ochilish",7,8]];
@@ -690,17 +735,24 @@ const PMW = [["project","loyiha"],["task","vazifa"],["deadline","oxirgi muddat"]
 
 /* Slayd tartibi. ph = shu slaydda talabalar telefonida nima ko'rinadi */
 const SLIDES = [
- {id:"join", ph:"lobby", live:"lobby"}, {id:"intro", ph:"lobby"}, {id:"cover", ph:"lobby"}, {id:"hook", ph:"lobby", steps:1}, {id:"global", ph:"lobby", anim:"routes"},
- {id:"what", ph:"lobby", steps:3}, {id:"types", ph:"lobby", steps:3}, {id:"how", ph:"lobby", anim:"flow"}, {id:"money", ph:"lobby", steps:4}, {id:"vocab", ph:"lobby"}, {id:"mcd", ph:"lobby", steps:3}, {id:"rules", ph:"lobby"},
+ {id:"join", ph:"lobby", live:"lobby"}, {id:"intro", ph:"lobby"}, {id:"cover", ph:"lobby"},
+ {id:"hook", ph:"lobby", steps:1},            // SaidQobilhon: Burger King jumbog'i
+ {id:"story", ph:"lobby", steps:6},           // Shoazim: McDonald's hikoyasi
+ {id:"vocab", ph:"lobby"}, {id:"money", ph:"lobby", steps:4},   // Sodiq: 6 ta so'z + kafe misoli
+ {id:"lesson", ph:"lobby", steps:5},          // Shoazim: nimaga qarab tanlash kerak
+ {id:"rules", ph:"lobby"},
  {id:"invest", ph:"invest", live:"invest"}, {id:"events", ph:"events", live:"events", steps:5}, {id:"results", ph:"results", live:"results"},
- {id:"lesson", ph:"results", steps:5}, {id:"proscons", ph:"results", steps:2}, {id:"uzbek", ph:"results", steps:3},
- {id:"invest2", ph:"invest", live:"invest", r:2}, {id:"events2", ph:"events", live:"events", steps:5, r:2}, {id:"results2", ph:"results", live:"results", r:2},
- {id:"pm", ph:"results", r:2, steps:2}, {id:"steps", ph:"results", r:2},
- ...Q.map((_,i)=>({id:"q"+i, q:i})), {id:"final", ph:"final", live:"final"}
+ // 2-raund — zaxira: faqat "2" tugmasi bosilsa ko'rsatiladi
+ {id:"invest2", ph:"invest", live:"invest", r:2, opt:1}, {id:"events2", ph:"events", live:"events", steps:5, r:2, opt:1}, {id:"results2", ph:"results", live:"results", r:2, opt:1},
+ {id:"wrap", ph:"results"},                    // Shoazim: 3 ta xulosa (testdan oldin)
+ ...Q.map((_,i)=>({id:"q"+i, q:i})), {id:"final", ph:"final", live:"final"},
+ {id:"thanks", ph:"final"}                     // Shoazim: yakuniy so'z
 ];
+// keyingi/oldingi slayd: zaxira (opt) slaydlarni R.state.r2 yoqilmaguncha o'tkazib yuboradi
+function nextIdx(i, d){ const on = !!((R.state||{}).r2); let j = i + d; while (j >= 0 && j < SLIDES.length && SLIDES[j].opt && !on) j += d; return j; }
 function cur(st) {
   st = st || {}; const i = Math.min(Math.max(st.slide||0,0), SLIDES.length-1); const s = SLIDES[i];
-  const r = s.r || (i > SLIDES.findIndex(x=>x.id==="results2") ? 2 : 1);
+  const r = s.r || 1;
   const open = !!st.open;
   if (s.q != null) return {s, i, r, open, phase: st.sub === "r" ? "qresult" : st.sub === "q" ? "quiz" : "qwait", q: s.q, step: st.step||0};
   return {s, i, r, open, phase: s.ph, q: null, step: st.step||0};
@@ -760,8 +812,8 @@ const VIEWS = {
     <div class="panel rise" style="padding:1.8rem;border-top:6px solid var(--gold);animation-delay:.35s"><div class="mono gold" style="font-size:1.3rem">LOCAL OPERATOR</div><div style="font-size:3.2rem;font-weight:800">Franchisee</div><div class="mu" style="font-size:1.5rem">e.g. Holten Group (UZ) · mahalliy biznes</div></div></div>
    <table class="tbl rise" style="animation-delay:.5s"><tr><th class="teal">Franchisor gives · beradi</th><th class="gold">Franchisee pays · to‘laydi</th></tr>
     <tr><td>Brand name and logo · brend</td><td>Franchise fee (one time) · kirish to‘lovi</td></tr><tr><td>Recipes and standards · retsept</td><td>Royalty (% of sales, monthly) · royalti</td></tr><tr><td>Training and support · o‘qitish</td><td>Marketing fee (often) · reklama to‘lovi</td></tr></table>`),
- vocab: () => shell(`${K("Glossary · Topic 40")}${T("Eight key words for today","Bugungi 8 ta asosiy so‘z")}
-   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;flex:1;margin-top:1.6rem">${VOCAB.map((v,i)=>`
+ vocab: () => shell(`${K("Glossary · Topic 39")}${T("Six key words for today","Bugungi 6 ta asosiy so‘z")}
+   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;flex:1;margin-top:1.6rem">${VOCAB.map((v,i)=>`
     <div class="panel pop" style="padding:1.3rem 1.5rem;display:flex;flex-direction:column;gap:.4rem;animation-delay:${.2+i*.08}s"><div class="mono gold" style="font-size:1.2rem">${String(i+1).padStart(2,"0")}</div><div style="font-size:2.3rem;font-weight:800">${v[0]}</div><div style="font-size:1.4rem">${v[1]}</div><div class="gold2" style="font-size:1.4rem;margin-top:auto">${v[2]}</div></div>`).join("")}</div>`),
  mcd: () => shell(`${K("Case 01 · Kazakhstan")}${T("When the supply chain breaks","Ta’minot zanjiri uzilganda nima bo‘ladi?")}
    <div class="panel rise" style="margin-top:1.4rem;padding:1.1rem 1.8rem;border-left:6px solid var(--red);font-size:1.8rem;animation-delay:.2s"><b class="mono red" style="font-size:1.4rem">ROOT CAUSE</b> &nbsp; The franchisee could not get its main supplies (meat) · <span class="mu">asosiy mahsulot kelmay qoldi</span></div>
@@ -769,11 +821,33 @@ const VIEWS = {
     <div class="tl hid" data-s="${i+1}"><div class="mono gold" style="font-size:2rem">${t[0]}</div><div class="dot"></div><div style="font-size:1.9rem;font-weight:800">${t[1]}</div><div class="mu" style="font-size:1.5rem">${t[2]}</div></div>`).join("")}</div>
    <div class="panel hid" data-s="3" style="padding:1.2rem 1.8rem;border-left:6px solid var(--gold);font-size:2rem;font-weight:800"><span class="mono gold" style="font-size:1.4rem">LESSON</span> &nbsp; A franchise is only as strong as its supply chain</div>
    <div class="mono mu src">SOURCE: Hospitality Ireland · Euronews (Jan 2023)</div>`),
+ story: () => shell(`${K("Story · McDonald’s")}${T("How one burger shop became <span class='gold'>45,000 restaurants</span>","Bitta burgerxona qanday qilib 45 mingta restoranga aylandi")}
+   <div class="timeline tl5">${[["1940","Two brothers open a small restaurant","Aka-uka McDonald kichik restoran ochadi"],["1948","A short menu and a super-fast kitchen","Qisqa menyu, juda tez oshxona: “Speedee”"],["1954","Ray Kroc, a milkshake machine salesman, sees the queue","Milkshake apparati sotuvchisi Ray Kroc navbatni ko‘radi"],["1955","Kroc starts selling franchises","Kroc franshiza sotishni boshlaydi"],["1961","He buys the brand for $2.7 million","Brendni 2,7 mln dollarga sotib oladi"]].map((t,i)=>`
+    <div class="tl hid" data-s="${i+1}"><div class="mono gold" style="font-size:2.4rem;font-weight:700">${t[0]}</div><div class="dot"></div><div style="font-size:1.75rem;font-weight:800;line-height:1.2">${t[1]}</div><div class="mu" style="font-size:1.4rem">${t[2]}</div></div>`).join("")}</div>
+   <div class="panel hid" data-s="6" style="padding:1.2rem 1.9rem;border-left:6px solid var(--gold);display:flex;gap:2.6rem;align-items:center;flex-wrap:wrap">
+    <div><div class="mono gold" style="font-size:1.3rem">TODAY · BUGUN</div><div class="mono gold" style="font-size:4.4rem;font-weight:700;line-height:1" data-count="45356">45,356</div><div class="mu" style="font-size:1.4rem">restaurants · restoran</div></div>
+    <div><div class="mono teal" style="font-size:4.4rem;font-weight:700;line-height:1;margin-top:1.6rem" data-count="95" data-pre="~" data-suf="%">~95%</div><div class="mu" style="font-size:1.4rem">run by local franchisees · mahalliy tadbirkorlarniki</div></div>
+    <div style="flex:1;min-width:16rem;font-size:2rem;font-weight:800">“You own the shop. They own the brand.”<div class="mu" style="font-size:1.4rem;font-weight:600">Do‘kon — sizniki, brend — ularniki. 🎬 Film: “The Founder” (2016)</div></div></div>
+   <div class="mono mu src">SOURCES: McDonald’s corporate history · Form 10-K (FY2025)</div>`),
+ wrap: () => shell(`${K("Summary · Xulosa")}${T("Three things to remember","Esda qoladigan 3 narsa")}
+   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.4rem">${[["🏪","You own the shop. They own the brand.","Do‘kon — sizniki, brend — ularniki."],["💸","Royalty is paid on SALES, not on profit.","Royalti foydadan emas, savdodan."],["⚠️","Look at the risk, not only the forecast.","Faqat prognozga emas, xavfga qarang."]].map((r,i)=>`
+    <div class="panel pop" style="padding:1.5rem 1.7rem;border-top:6px solid var(--gold);animation-delay:${.2+i*.15}s"><div style="font-size:3rem">${r[0]}</div><div style="font-size:2.3rem;font-weight:800;line-height:1.2;margin-top:.6rem">${r[1]}</div><div class="mu" style="font-size:1.55rem;margin-top:.4rem">${r[2]}</div></div>`).join("")}</div>
+   <div class="panel rise" style="margin-top:1.4rem;padding:1.1rem 1.8rem;border-left:6px solid var(--teal);font-size:1.8rem;animation-delay:.7s"><b class="mono teal" style="font-size:1.35rem">TOPIC 40</b> &nbsp; Opening a franchise is a <b>project</b>: plan, budget, team, deadline. <span class="mu">Franshiza ochish — loyiha: reja, byudjet, jamoa, muddat.</span></div>
+   <div class="rise" style="margin-top:auto;text-align:center;font-size:2.2rem;font-weight:700;animation-delay:.9s"><span class="mu">Now let’s check what you remember…</span> <span class="gold">Quiz time! 📱</span></div>`, {next:"Quiz ▶"}),
+ thanks: () => shell(`<div class="thx">
+    <div class="kick rise" style="animation-delay:.2s">Franchise Bazaar · TIFT · Topics 39–40</div>
+    <div class="h1 rise thx-big" style="animation-delay:.5s"><span class="grad">E’tiboringiz uchun rahmat!</span></div>
+    <div class="thx-en rise" style="animation-delay:.9s">Thank you for your attention!</div>
+    <div class="thx-line rise" style="animation-delay:1.6s"></div>
+    <div class="thx-p rise" style="animation-delay:2.2s">Bugungi kuningizga biroz yangilik va, albatta, <b class="gold">quvonch</b> bera olgan bo‘lsak — xursandmiz.</div>
+    <div class="thx-p thx-gold rise" style="animation-delay:3.2s">Ketkazgan vaqtingizga rozi bo‘ling.</div>
+    <div style="position:absolute;right:0;bottom:0;opacity:.3"><button class="ghost" onclick="exportReport()" style="font-size:1.1rem" title="E">📊 Natijalar</button></div>
+   </div>`, {next:"✓"}),
  rules: () => shell(`${K("Simulation · Rules")}${T("Franchise Bazaar: the rules","O‘yin qoidalari")}
    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.3rem">${[["💰","You have 100 TIFT$","Har biringizda 100 TIFT$ bor"],["🧩","Split it between franchises — or keep cash","Franshizalarga bo‘lib tiking yoki naqd saqlang"],["🏆","The biggest profit wins","Eng ko‘p foyda — g‘olib"]].map((r,i)=>`
     <div class="panel pop" style="padding:1.3rem 1.6rem;border-top:6px solid var(--gold);animation-delay:${.2+i*.15}s"><div style="font-size:3rem">${r[0]}</div><div style="font-size:2.2rem;font-weight:800;margin-top:.6rem">${r[1]}</div><div class="mu" style="font-size:1.5rem;margin-top:.3rem">${r[2]}</div></div>`).join("")}</div>
    <div class="panel rise" style="margin-top:1.3rem;padding:1.2rem;text-align:center;animation-delay:.7s"><div class="mono gold" style="font-size:3.8rem;font-weight:700">PROFIT = SALES − COSTS</div><div class="mu" style="font-size:1.8rem">Foyda = Savdo − Xarajat</div></div>`, {next:"Open the market ▶"}),
- lesson: () => shell(`${K("Lesson · Due diligence")}${T("Five checks before you buy","Franshiza olishdan oldin 5 ta tekshiruv")}
+ lesson: () => shell(`${K("Lesson · Due diligence")}${T("Before you buy: five questions","Franshiza olishdan oldin 5 ta savol")}
    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:2rem;flex:1;margin-top:1.4rem">
     <div style="display:flex;flex-direction:column;gap:.6rem">${CHECK.map((c,i)=>`<div class="panel hid" data-s="${i+1}" style="padding:.65rem 1.4rem;display:flex;gap:1.2rem;align-items:center"><span style="font-size:2.2rem">${c[0]}</span><div><div style="font-size:1.7rem;font-weight:800">${c[1]}: <span class="mu" style="font-weight:600">${c[2]}</span></div><div class="gold2" style="font-size:1.4rem">${c[3]}</div></div></div>`).join("")}</div>
     <div class="panel rise" style="padding:2.4rem;border-left:6px solid var(--gold);display:flex;flex-direction:column;justify-content:center;animation-delay:.3s"><div class="mono gold" style="font-size:1.3rem">KEY TAKEAWAY</div><div style="font-size:3.6rem;font-weight:800;line-height:1.1;margin-top:1rem">Look at the <span class="red">risk</span>, not only the forecast.</div><div class="mu" style="font-size:1.6rem;margin-top:1rem">Faqat prognozga emas, xavfga ham qarang.</div></div></div>`),
@@ -971,12 +1045,25 @@ function startAnim(kind) {
 function stopAnim(){ if (anim) cancelAnimationFrame(anim); anim = null; }
 
 /* fon: birja shamchalari (butun taqdimot davomida) */
+/* sekin ko'tariladigan cho'g' uchqunlari (tizerdagi kabi) — matnga xalaqit bermaydigan darajada xira */
+function bgEmbers(){ if ($("#emb")) return; const cv=document.createElement("canvas"); cv.id="emb"; document.body.appendChild(cv); const x=cv.getContext("2d");
+  let W,H; const fit=()=>{ W=cv.width=innerWidth; H=cv.height=innerHeight; }; fit(); addEventListener("resize",fit);
+  const mk=(y)=>({x:Math.random()*W, y:y??H+10, r:.8+Math.random()*2.2, vy:.25+Math.random()*.7, vx:(Math.random()-.5)*.3, ph:Math.random()*6.28, c:Math.random()<.75?0:1});
+  const P=[]; for(let i=0;i<46;i++) P.push(mk(Math.random()*H));
+  // yengil: har rang uchun bitta tayyor "porlash" rasmi, har kadrda faqat drawImage (zaif noutbukda ham sekinlashmaydi)
+  let spr=[], sprKey=""; const sprite=c=>{ const o=document.createElement("canvas"); o.width=o.height=32; const g=o.getContext("2d"), r=g.createRadialGradient(16,16,0,16,16,16); r.addColorStop(0,"#fff"); r.addColorStop(.18,c); r.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=r; g.fillRect(0,0,32,32); return o; };
+  let last=0; (function f(t){ requestAnimationFrame(f); if(document.hidden || document.documentElement.classList.contains("onintro") || t-last<33) return; last=t;
+    const cols=[TH("gold")||TH("gold"),TH("teal")||TH("teal")]; if(cols.join()!==sprKey){ sprKey=cols.join(); spr=cols.map(sprite); }
+    x.clearRect(0,0,W,H);
+    P.forEach((p,i)=>{ p.y-=p.vy*2; p.x+=(p.vx+Math.sin(p.ph+p.y*.01)*.25)*2; p.ph+=.06; if(p.y<-10) P[i]=mk();
+      const a=(.22+.25*Math.sin(p.ph*2))*Math.min(1,p.y/(H*.35)); if(a<=0) return; x.globalAlpha=a; const d=p.r*7; x.drawImage(spr[p.c],p.x-d/2,p.y-d/2,d,d); });
+    x.globalAlpha=1; })(0); }
 function bgMarket(){
   const cv = document.createElement("canvas"); cv.id = "bg"; document.body.prepend(cv); const x = cv.getContext("2d");
   let W, H, last = 100, acc = 0, t = 0; const C = []; const fit = () => { W = cv.width = innerWidth; H = cv.height = innerHeight; }; fit(); addEventListener("resize", fit);
   const mk = () => { const o=last, c2=o+(Math.random()-.47)*6; last=c2; return [o, Math.max(o,c2)+Math.random()*3, Math.min(o,c2)-Math.random()*3, c2]; };
   for (let i=0;i<90;i++) C.push(mk());
-  (function f(){ t++; acc++; if (acc>50) { acc=0; C.push(mk()); C.shift(); } x.clearRect(0,0,W,H);
+  let fr = 0; (function f(){ if ((fr++) & 1 || document.hidden) return requestAnimationFrame(f); t++; acc+=2; if (acc>50) { acc=0; C.push(mk()); C.shift(); } x.clearRect(0,0,W,H);
     let mn=1e9, mx=-1e9; C.forEach(k=>{ mn=Math.min(mn,k[2]); mx=Math.max(mx,k[1]); });
     const cw=W/C.length, Y=v=>H*.25+(mx-v)/(mx-mn)*H*.55, off=(acc/50)*cw;
     C.forEach((k,i)=>{ const cx=i*cw-off+cw/2, up=k[3]>=k[0], col=up?TH("gold-rgb"):TH("teal-rgb"); x.strokeStyle=`rgba(${col},.12)`; x.beginPath(); x.moveTo(cx,Y(k[1])); x.lineTo(cx,Y(k[2])); x.stroke();
@@ -990,7 +1077,7 @@ function hostRender(room) {
   const isLive = !!(c.s.live || c.s.q != null);
   const sig = c.i + "|" + c.phase + "|" + (c.s.live==="events" ? c.step : "") + "|" + (c.open?1:0);
   if (sig !== hostSig) {
-    hostSig = sig; stopAnim(); document.body.dataset.sl = c.s.id; soundFor(c);
+    hostSig = sig; stopAnim(); document.body.dataset.sl = c.s.id; soundFor(c); if (c.s.id === "thanks") setTimeout(()=>{ confetti(140); try{ SFX.ding(); }catch(e){} }, 3400);
     if (c.s.q != null) { const L = LIVEV[c.phase==="qwait" ? "quiz" : c.phase]; app.innerHTML = L.view(c, st, ps); L.mount && L.mount(c, st, ps); }
     else if (c.s.live) { const L = LIVEV[c.s.live]; app.innerHTML = L.view(c, st, ps); if (c.s.live==="lobby") MOUNT.join(); L.mount && L.mount(c, st, ps); }
     else { app.innerHTML = VIEWS[c.s.id](); MOUNT[c.s.id] && MOUNT[c.s.id](); if (c.s.anim) startAnim(c.s.anim); }
@@ -1001,7 +1088,11 @@ function hostRender(room) {
       const nb = $(".nextbtn"); if (nb) nb.textContent = "🔓 START"; }
     const mq = $("#mqr"); if (mq) { try { new QRCode(mq, {text: joinURL(), width: 64, height: 64, colorDark:"#000000", colorLight:"#ffffff"}); } catch(e) {} }
   }
-  if (!isLive) document.querySelectorAll("[data-s]").forEach(el => el.classList.toggle("show", c.step >= +el.dataset.s));
+  if (!isLive) { document.querySelectorAll("[data-s]").forEach(el => el.classList.toggle("show", c.step >= +el.dataset.s));
+    const tlw = $(".timeline"); if (tlw) { const n = tlw.querySelectorAll(".tl").length, k = tlw.querySelectorAll(".tl.show").length; tlw.style.setProperty("--tp", (k <= 1 ? 0 : (k-1)/(n-1)*100) + "%"); }
+    document.querySelectorAll("[data-count]").forEach(el => { const box = el.closest("[data-s]"); if ((box && !box.classList.contains("show")) || el.dataset.done) return; el.dataset.done = 1;
+      const to = +el.dataset.count, pre = el.dataset.pre || "", suf = el.dataset.suf || "", t0 = performance.now();
+      (function tick(t){ const k = Math.min(1, (t - t0) / 1600), v = Math.round(to * (1 - Math.pow(1 - k, 3))); el.textContent = pre + v.toLocaleString("en-US") + suf; if (k < 1) requestAnimationFrame(tick); })(t0); }); }
   const L = isLive ? LIVEV[c.s.q != null ? (c.phase==="qwait" ? "quiz" : c.phase) : c.s.live] : null; L && L.update && L.update(c, st, ps);
   const pcount = $("#pcount"); if (pcount) pcount.textContent = ps.length;
   if (!LIVE) botAct(c);
@@ -1020,7 +1111,7 @@ function botAct(c) {
       for (let k=0;k<10;k++) { if (!greedy && Math.random() < .08) cash += 10; else alloc[picks[Math.floor(Math.random()*picks.length)]] += 10; }
       Store.update("players/"+p.id, r2 ? {alloc2:alloc, cash2:cash, locked2:true} : {alloc, cash, locked:true}); }, 800 + i*900 + Math.random()*800); }); }
   if (c.phase === "quiz") bots.forEach((p) => { setTimeout(() => { const st = R.state||{}; const cc = cur(st); if (cc.phase !== "quiz" || cc.q !== c.q) return;
-      const a = Math.random() < .65 ? Q[c.q].a : Math.floor(Math.random()*4); Store.set(`players/${p.id}/answers/${c.q}`, {a, t:Store.now()}); }, 1500 + Math.random()*13000); });
+      const a = Math.random() < .65 ? Q[c.q].a : Math.floor(Math.random()*4); Store.set(`players/${p.id}/answers/${c.q}`, {a, t:Store.now()}); }, 1200 + Math.random()*7500); });
 }
 
 
@@ -1122,7 +1213,7 @@ function hostNext() {
   if (c.s.q != null && c.phase === "qwait") { revealing = -1; const qStarts = {...(st.qStarts||{})}; qStarts[c.q] = Store.now(); return setState({...st, sub:"q", qStarts}); }
   if (c.s.steps && c.step < c.s.steps) return setState({...st, step: c.step+1});
   if (c.s.q != null && c.phase === "quiz") return hostReveal(true);
-  if (c.i < SLIDES.length-1) goTo(c.i+1); else confetti(300);
+  const nx = nextIdx(c.i, 1); if (nx < SLIDES.length) goTo(nx); else confetti(300);
 }
 function ivPauseUI(on, msg){ let o=$("#ivpause"); if(!on){ o&&o.remove(); return; } const iv=$(".introv"); if(!iv) return; if(!o){ o=document.createElement("div"); o.id="ivpause"; iv.appendChild(o); }
   o.innerHTML=`<div style="font-size:7rem;line-height:1">${msg==="rew"?"⏮":"⏸"}</div><div style="font-size:2rem;font-weight:800;margin-top:1rem">${msg==="rew"?"Boshiga qaytdi · Back to start":"Pauza · Paused"}</div><div class="mu" style="font-size:1.4rem;margin-top:.8rem">→ ${msg==="rew"?"boshlash":"davom etish"} · ← ${msg==="rew"?"QR slaydga":"boshiga qaytish"}</div>`; }
@@ -1132,10 +1223,58 @@ function hostPrev() { const c = cur(R.state);
   if (c.s.id === "intro" && !introDone) { const v=$("#iv");
     if (v && !v.paused) return ivPause();
     if (v && v.currentTime > .1) { outroKill(); v.volume = 1; v.currentTime = 0; ivPauseUI(false); const pb=$("#ivp"); if (pb) pb.style.display=""; Store.set("sync",{on:1,p:1,t0:Store.now()}); return; } }
-  if (c.i > 0) goTo(c.i-1, true); }
+  const pv = nextIdx(c.i, -1); if (pv >= 0) goTo(pv, true); }
 let revealing = -1;
 function hostReveal() { const st = R.state || {}; const c = cur(st); if (c.phase !== "quiz" || revealing === c.q) return; revealing = c.q; setState({...st, sub:"r"}); }
 let resetArm = 0;
+/* ---- darsdan keyin: har bir talabaning natijasi (Excel yoki PDF) — kim qanchalik tushungani ---- */
+function reportData(){ const st = R.state || {}; const ps = list(R.players).filter(p => !LIVE || !p.bot);   // DEMO rejimida sinov o'yinchilari ham ko'rinadi
+  const QS = Q.map((_,i)=>i); const ok = (p,i) => { const a = at(p.answers, i); return a == null ? "" : (a.a === Q[i].a ? 1 : 0); };
+  const rk = rankBy(ps, p => quizTotal(p, st));
+  const head = ["№","Ism","To'g'ri (8 tadan)","Tushunish %","Test bali","1-raund pul (TIFT)","Foyda / zarar","Eng ko'p tikkan","BurgerStar'ga (xavfli)", ...QS.map(i => "S" + (i+1))];
+  const rows = rk.map((p,k) => { const c = QS.filter(i => ok(p,i) === 1).length; const m = money(p,5,1); const al = p.alloc || {};
+    const top = F.slice().sort((x,y)=>(al[y.id]||0)-(al[x.id]||0))[0]; const topTxt = p.locked && (al[top.id]||0) > 0 ? top.nm + " (" + al[top.id] + ")" : (p.locked ? "naqd" : "tikmagan");
+    return [k+1, p.name, c, Math.round(c/Q.length*100), quizTotal(p,st), p.locked ? Math.round(m*10)/10 : "", p.locked ? Math.round((m-100)*10)/10 : "", topTxt, p.locked ? (al.burger||0) : "", ...QS.map(i => ok(p,i))]; });
+  const qpct = QS.map(i => { const ans = ps.filter(p => ok(p,i) !== ""); return ans.length ? Math.round(ans.filter(p => ok(p,i) === 1).length / ans.length * 100) : null; });
+  const avg = rows.length ? Math.round(rows.reduce((t,r)=>t+r[3],0)/rows.length) : 0;
+  const d = new Date(); return {head, rows, qpct, avg, n: rows.length, date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5)}; }
+function reportMenu(){ const o=$("#repm"); if(o) return o.remove(); const d=document.createElement("div"); d.id="repm";
+  d.innerHTML=`<div class="rp-card"><div style="font-size:2.4rem;font-weight:800">📊 Natijalar · Results</div><div class="mu" style="font-size:1.4rem;margin:.4rem 0 1.4rem">Har bir talaba: to‘g‘ri javoblar, tushunish %, o‘yin natijasi</div>
+   <div style="display:flex;gap:1rem;justify-content:center"><button class="nextbtn" onclick="reportExcel()">⬇ Excel</button><button class="nextbtn" onclick="reportPDF()">📄 PDF</button><button class="ghost" onclick="reportMenu()">✕</button></div>
+   <div class="mu" style="font-size:1.2rem;margin-top:1.2rem">↻ bosishdan oldin yuklab oling!</div></div>`;
+  d.onclick=e=>{ if(e.target===d) d.remove(); }; document.body.appendChild(d); }
+function exportReport(){ reportMenu(); }
+function loadXLSX(){ return window.XLSX ? Promise.resolve() : new Promise((ok,no)=>{ const sc=document.createElement("script"); sc.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"; sc.onload=ok; sc.onerror=no; document.head.appendChild(sc); }); }
+async function reportExcel(){ const D = reportData(); const name = "Franchise_Bazaar_natijalar_" + D.date;
+  const rows = D.rows.map(r => r.map((v,i) => i===3 ? v/100 : v));
+  const sum = ["", "Savol bo'yicha to'g'ri %", "", D.avg/100, "", "", "", "", "", ...D.qpct.map(v => v==null ? "" : v/100)];
+  const qrow = ["", "Savollar", "", "", "", "", "", "", "", ...Q.map(q => q.q)];
+  try { await loadXLSX(); const ws = XLSX.utils.aoa_to_sheet([["Franchise Bazaar — natijalar · " + D.date + " " + D.time + " · " + D.n + " talaba"], [], D.head, ...rows, [], sum, qrow]);
+    ws["!cols"] = [{wch:4},{wch:16},{wch:9},{wch:10},{wch:9},{wch:12},{wch:10},{wch:18},{wch:12}, ...Q.map(()=>({wch:5}))];
+    const r0 = 3; for (let r = r0; r < r0 + rows.length; r++) { const c = XLSX.utils.encode_cell({r, c:3}); if (ws[c]) ws[c].z = "0%"; }
+    const sr = r0 + rows.length + 1; for (let c = 3; c < sum.length; c++) { const a = XLSX.utils.encode_cell({r:sr, c}); if (ws[a] && ws[a].t === "n") ws[a].z = "0%"; }
+    ws["!autofilter"] = {ref: XLSX.utils.encode_range({s:{r:2,c:0}, e:{r:2+rows.length, c:D.head.length-1}})};
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Natijalar"); XLSX.writeFile(wb, name + ".xlsx");
+  } catch(e) { // internet bo'lmasa — CSV (Excel'da ham ochiladi)
+    const csv = "\uFEFF" + [D.head, ...D.rows.map(r => r.map((v,i)=> i===3 ? v+"%" : v)), [], ["", "Savol bo'yicha to'g'ri %", "", D.avg+"%", "", "", "", "", "", ...D.qpct.map(v => v==null ? "" : v+"%")]].map(r => r.map(v => { v = String(v ?? ""); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }).join(";")).join("\r\n");
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"})); a.download = name + ".csv"; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1000); } }
+function reportPDF(){ const D = reportData(); const m=$("#repm"); if(m) m.remove();
+  const bar = v => v==null ? '<span style="color:#999">—</span>' : `<div class="bar"><i style="width:${v}%;background:${v>=70?'#1f9d55':v>=40?'#e3a008':'#d64545'}"></i></div><b>${v}%</b>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Franchise Bazaar — natijalar ${D.date}</title><style>
+   @page{size:A4 landscape;margin:12mm}*{box-sizing:border-box}body{font:12px/1.4 Arial,Helvetica,sans-serif;color:#111;margin:0;padding:18px;background:#fff}
+   h1{font-size:22px;margin:0}.sub{color:#555;margin:2px 0 14px}.kpi{display:flex;gap:14px;margin-bottom:14px}.kpi div{border:1px solid #ddd;border-radius:8px;padding:8px 14px}.kpi b{font-size:20px;display:block}
+   table{width:100%;border-collapse:collapse;margin-top:6px}th,td{border:1px solid #ddd;padding:4px 6px;text-align:center}th{background:#f3f0ea;font-size:11px}td.l{text-align:left}
+   .y{background:#e8f6ee;color:#1f7a45;font-weight:700}.n{background:#fbeaea;color:#b33}.e{color:#bbb}
+   .qs{display:grid;grid-template-columns:1fr 200px 40px;gap:4px 10px;align-items:center;margin-top:8px}.bar{height:10px;background:#eee;border-radius:5px;overflow:hidden}.bar i{display:block;height:100%}
+   .tool{position:sticky;top:0;background:#fff;padding:6px 0 10px;display:flex;gap:8px}.tool button{font:700 14px Arial;padding:8px 14px;border-radius:8px;border:0;background:#ff7a2b;color:#fff;cursor:pointer}.tool button.g{background:#666}
+   @media print{.tool{display:none}body{padding:0}}</style></head><body>
+   <div class="tool"><button onclick="print()">🖨 PDF saqlash / Chop etish</button><button class="g" onclick="parent.document.getElementById('repv').remove()">✕ Yopish</button></div>
+   <h1>Franchise Bazaar — dars natijalari</h1><div class="sub">TIFT · Business English · Topics 39–40 · ${D.date} ${D.time} · Xona ${ROOM}</div>
+   <div class="kpi"><div>Talabalar<b>${D.n}</b></div><div>O‘rtacha tushunish<b>${D.avg}%</b></div><div>Eng yaxshi natija<b>${D.rows[0] ? D.rows[0][1] : "—"}</b></div></div>
+   <table><tr>${D.head.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${D.rows.map(r=>`<tr>${r.map((v,i)=> i>=9 ? `<td class="${v===1?'y':v===0?'n':'e'}">${v===1?'✓':v===0?'✗':'·'}</td>` : `<td class="${i===1||i===7?'l':''}">${esc(i===3?v+'%':v)}</td>`).join("")}</tr>`).join("")}</table>
+   <h3 style="margin:16px 0 0">Savollar bo‘yicha — sinfning necha foizi to‘g‘ri javob berdi</h3>
+   <div class="qs">${Q.map((q,i)=>`<div><b>S${i+1}.</b> ${esc(q.q)} <span style="color:#888">— ${esc(q.o[q.a][0])}</span></div>${bar(D.qpct[i])}`).join("")}</div></body></html>`;
+  const f = document.createElement("iframe"); f.id = "repv"; document.body.appendChild(f); f.srcdoc = html; }
 function hostReset(btn) { const b = btn || document.activeElement; if (Date.now() - resetArm > 3000) { resetArm = Date.now(); if (b && b.tagName==="BUTTON") { b.textContent = "Tap again to reset"; setTimeout(()=>{ b.textContent = "↺"; }, 3000); } return; }
   resetArm = 0; revealing=-1; hostSig=""; botDone = {}; Store.set("", {state:{slide:0}}); }
 
@@ -1279,7 +1418,7 @@ function playerRender(room) {
   else if (st.phase === "qresult") { app.innerHTML = qresView(st, ps); if (at(me.answers, st.q)?.a === Q[st.q].a) confetti(120); }
   else if (st.phase === "final") { const lb = rankBy(ps, p=>quizTotal(p,st)); const r = lb.findIndex(p=>p.id===PID)+1;
     app.innerHTML = pShell(`<div class="verdict rise" style="background:rgba(var(--gold-rgb),.14);border:2px solid var(--gold)"><div class="ic">${r<=3?["🥇","🥈","🥉"][r-1]:"🎓"}</div><h1>Thank you! · Rahmat!</h1></div>
-     <div class="card"><div class="kv"><span>Quiz points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Quiz rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div><div class="kv"><span>Investment · Pul (R1 + R2)</span><b class="mono">${fmt(money(me,5,1)+money(me,5,2))} TIFT$</b></div></div>
+     <div class="card"><div class="kv"><span>Quiz points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Quiz rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div><div class="kv"><span>Investment · Pul${me.locked2?" (R1 + R2)":""}</span><b class="mono">${fmt(money(me,5,1)+(me.locked2?money(me,5,2):0))} TIFT$</b></div></div>
      <div class="card" style="text-align:center;font-weight:700">Look at the RISK, not only the forecast!<div class="sub">Faqat prognozga emas, xavfga ham qarang!</div></div>`);
     if (r>=1 && r<=3) confetti(250); }
 }
@@ -1297,12 +1436,14 @@ setInterval(() => {
 }, 150);
 
 function startHost() {
-  ensureHostRoom(); bgMarket();
+  ensureHostRoom(); bgMarket(); bgEmbers();
   document.documentElement.classList.add("host");
   addEventListener("keydown", e => { if (e.target.tagName === "INPUT") return;
     if (["ArrowRight","PageDown"," ","Enter","ArrowDown"].includes(e.key)) { e.preventDefault(); hostNext(); }
     else if (["ArrowLeft","PageUp","ArrowUp"].includes(e.key)) { e.preventDefault(); hostPrev(); }
     else if (e.key === "m" || e.key === "M") { e.preventDefault(); toggleMute(); }
+    else if (e.key === "e" || e.key === "E") { e.preventDefault(); exportReport(); }
+    else if (e.key === "2") { e.preventDefault(); const on = !(R.state||{}).r2; setState({...(R.state||{}), r2: on}); const h=document.createElement("div"); h.textContent = on ? "Round 2 ON · 2-raund yoqildi" : "Round 2 OFF · 2-raund o‘chirildi"; h.style.cssText="position:fixed;left:50%;top:2rem;transform:translateX(-50%);z-index:99;background:rgba(0,0,0,.8);color:#fff;padding:.7rem 1.2rem;border-radius:8px;font:700 18px sans-serif"; document.body.appendChild(h); setTimeout(()=>h.remove(),1800); }
     else if (e.key === "q" || e.key === "Q" || (e.key === "Escape" && $("#bigqr"))) { e.preventDefault(); if (e.key !== "Escape" || $("#bigqr")) bigQR(); }
     else if (e.key === "F5") { e.preventDefault(); if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }   // pult "start" tugmasi sahifani yangilamasin
     else if (e.key === "b" || e.key === "B" || e.key === "." || e.key === "w" || e.key === "W") { e.preventDefault(); const k=$("#blackout"); if (k) k.remove(); else { const d=document.createElement("div"); d.id="blackout"; d.style.cssText="position:fixed;inset:0;background:#000;z-index:99"; d.onclick=()=>d.remove(); document.body.appendChild(d); } }
