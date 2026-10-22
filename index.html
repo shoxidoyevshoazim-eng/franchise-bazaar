@@ -924,7 +924,7 @@ function bgMarket(){
 
 function hostRender(room) {
   R = room || {}; applyTheme(hostTheme()); if (!R.theme && lsGet('fbz_host_theme')) Store.set('theme', lsGet('fbz_host_theme')); const st = R.state || {slide:0}; const ps = list(R.players); const c = cur(st); RND = c.r;
-  if (c.s.id !== "cover" && c.s.id !== "join" && c.s.id !== "intro") stopBgm(); document.documentElement.classList.toggle("onintro", c.s.id === "intro");
+  if (c.s.id !== "cover" && c.s.id !== "join" && c.s.id !== "intro") stopBgm(); if (c.s.id === "intro" && hostSig.split("|")[0] !== String(c.i)) { introDone=false; stopBgm(); } document.documentElement.classList.toggle("onintro", c.s.id === "intro");
   const isLive = !!(c.s.live || c.s.q != null);
   const sig = c.i + "|" + c.phase + "|" + (c.s.live==="events" ? c.step : "") + "|" + (c.open?1:0);
   if (sig !== hostSig) {
@@ -963,9 +963,9 @@ function botAct(c) {
 
 /* ---- intro video + soft background music ---- */
 let introDone=false, bgm=null;
-function introPlay(){ const v=$("#iv"); if(!v) return; $("#ivp").style.display="none";
+function introPlay(){ const v=$("#iv"); if(!v) return; introDone=false; window._fadedIn=false; $("#ivp").style.display="none";
   try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }catch(e){}
-  v.onended=()=>introEnd(); v.onerror=()=>introEnd(true); v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
+  v.onended=()=>introEnd(); v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-0.4) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
 function introEnd(skip){ if(introDone) return; introDone=true; const b=$("#ivblack"); if(b) b.classList.add("on");
   setTimeout(()=>{ goTo(1); startBgm(); }, skip?150:900); }
 function startBgm(){ try{ if(!bgm){ bgm=new Audio("intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
@@ -980,7 +980,9 @@ function goTo(i, back) {
 }
 function hostNext() {
   const st = R.state || {}; const c = cur(st);
-  if (c.s.id === "intro") { const v=$("#iv"); if (v && v.paused && !introDone && v.currentTime < .1) return introPlay(); return introEnd(true); }
+  if (c.s.id === "intro") { const v=$("#iv"); if (v && v.paused && !introDone && v.currentTime < .1) return introPlay();
+    if (v && !v.paused && Date.now() - (window._skipArm||0) > 2500) { window._skipArm = Date.now(); const h=document.createElement("div"); h.textContent="Press again to skip · O‘tkazish uchun yana bosing"; h.style.cssText="position:fixed;right:2rem;bottom:2rem;z-index:60;background:rgba(0,0,0,.7);color:#fff;padding:.6rem 1rem;border-radius:8px;font:600 16px sans-serif"; document.body.appendChild(h); setTimeout(()=>h.remove(),2400); return; }
+    return introEnd(true); }
   if (c.s.live === "invest" && !c.open) return setState({...st, open:true});
   if (c.s.q != null && c.phase === "qwait") { revealing = -1; const qStarts = {...(st.qStarts||{})}; qStarts[c.q] = Store.now(); return setState({...st, sub:"q", qStarts}); }
   if (c.s.steps && c.step < c.s.steps) return setState({...st, step: c.step+1});
@@ -1109,7 +1111,12 @@ setInterval(() => {
 function startHost() {
   ensureHostRoom(); bgMarket();
   document.documentElement.classList.add("host");
-  addEventListener("keydown", e => { if (["ArrowRight","PageDown"," ","Enter"].includes(e.key) && e.target.tagName !== "INPUT") { e.preventDefault(); hostNext(); } });
+  addEventListener("keydown", e => { if (e.target.tagName === "INPUT") return;
+    if (["ArrowRight","PageDown"," ","Enter","ArrowDown"].includes(e.key)) { e.preventDefault(); hostNext(); }
+    else if (["ArrowLeft","PageUp","ArrowUp"].includes(e.key)) { e.preventDefault(); hostPrev(); }
+    else if (e.key === "F5") { e.preventDefault(); if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }   // pult "start" tugmasi sahifani yangilamasin
+    else if (e.key === "b" || e.key === "B" || e.key === "." || e.key === "w" || e.key === "W") { e.preventDefault(); const k=$("#blackout"); if (k) k.remove(); else { const d=document.createElement("div"); d.id="blackout"; d.style.cssText="position:fixed;inset:0;background:#000;z-index:99"; d.onclick=()=>d.remove(); document.body.appendChild(d); } }
+  });
   let init = false;
   Store.on("", room => { if (!IS_HOST) return; if (!init) { init = true; if (!room || !room.state || room.state.slide == null) { Store.set("state", {slide:0}); return; } } hostRender(room); });
 }
