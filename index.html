@@ -265,6 +265,7 @@ html:not(.host) .stepper button{width:44px;height:44px;font-size:24px}
 html:not(.host) .stepper .v{font-size:22px;min-width:48px}
 
 .introv{position:fixed;inset:0;background:#000;z-index:40;display:flex;align-items:center;justify-content:center}
+#ivpause{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.55);color:#fff;text-align:center;pointer-events:none}
 .introv video{width:100%;height:100%;object-fit:contain;background:#000}
 .ivplay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;color:#fff}
 .ivblack{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .8s ease}
@@ -1086,7 +1087,7 @@ function heartRamp(){ if(!AC) return; let t=AC.currentTime+.05, gap=.6; while(ga
 let introDone=false, bgm=null;
 function introPlay(){ const v=$("#iv"); if(!v) return; stopHeart(); heartRamp(); introDone=false; window._fadedIn=false; $("#ivp").style.display="none";
   try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }catch(e){}
-  v.onplaying=v.onseeked=()=>{ if(!introDone) Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); }; v.onended=()=>introEnd(); v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
+  v.onplaying=()=>{ if(!introDone){ ivPauseUI(false); Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); } }; v.onseeked=()=>{ if(!introDone && !v.paused) Store.set("sync",{on:1,t0:Store.now()-v.currentTime*1000}); }; v.onended=()=>introEnd(); v.onclick=()=>{ if(introDone) return; v.paused?ivResume():ivPause(); }; v.onerror=()=>introEnd(true); v.ontimeupdate=()=>{ if(v.duration && v.currentTime > v.duration-1.7) introEnd(); }; v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>introEnd(true)); }
 function introEnd(skip){ if(introDone) return; introDone=true; ac(); Store.set("sync",{on:0}); const v=$("#iv"), b=$("#ivblack");
   if(v){ let vol=v.volume; const f=setInterval(()=>{ vol=Math.max(0,vol-.12); v.volume=vol; if(vol<=0){ clearInterval(f); v.pause(); } },40); }
   if(b) b.classList.add("on");
@@ -1106,6 +1107,7 @@ function goTo(i, back) {
 function hostNext() {
   ac(); const st = R.state || {}; const c = cur(st);
   if (c.s.id === "intro") { const v=$("#iv"); if (v && v.paused && !introDone && v.currentTime < .1) return introPlay();
+    if (v && v.paused && !introDone) return ivResume();
     if (v && !v.paused && Date.now() - (window._skipArm||0) > 2500) { window._skipArm = Date.now(); const h=document.createElement("div"); h.textContent="Press again to skip · O‘tkazish uchun yana bosing"; h.style.cssText="position:fixed;right:2rem;bottom:2rem;z-index:60;background:rgba(0,0,0,.7);color:#fff;padding:.6rem 1rem;border-radius:8px;font:600 16px sans-serif"; document.body.appendChild(h); setTimeout(()=>h.remove(),2400); return; }
     return introEnd(true); }
   if (c.s.live === "invest" && !c.open) return setState({...st, open:true});
@@ -1114,7 +1116,15 @@ function hostNext() {
   if (c.s.q != null && c.phase === "quiz") return hostReveal(true);
   if (c.i < SLIDES.length-1) goTo(c.i+1); else confetti(300);
 }
-function hostPrev() { const c = cur(R.state); if (c.i > 0) goTo(c.i-1, true); }
+function ivPauseUI(on, msg){ let o=$("#ivpause"); if(!on){ o&&o.remove(); return; } const iv=$(".introv"); if(!iv) return; if(!o){ o=document.createElement("div"); o.id="ivpause"; iv.appendChild(o); }
+  o.innerHTML=`<div style="font-size:7rem;line-height:1">${msg==="rew"?"⏮":"⏸"}</div><div style="font-size:2rem;font-weight:800;margin-top:1rem">${msg==="rew"?"Boshiga qaytdi · Back to start":"Pauza · Paused"}</div><div class="mu" style="font-size:1.4rem;margin-top:.8rem">→ ${msg==="rew"?"boshlash":"davom etish"} · ← ${msg==="rew"?"QR slaydga":"boshiga qaytish"}</div>`; }
+function ivPause(){ const v=$("#iv"); if(!v||v.paused) return; v.pause(); ivPauseUI(true); Store.set("sync",{on:1,p:1,t0:Store.now()-v.currentTime*1000}); }
+function ivResume(){ const v=$("#iv"); if(!v||!v.paused) return; ivPauseUI(false); ac(); const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }
+function hostPrev() { const c = cur(R.state);
+  if (c.s.id === "intro" && !introDone) { const v=$("#iv");
+    if (v && !v.paused) return ivPause();
+    if (v && v.currentTime > .1) { v.currentTime = 0; ivPauseUI(false); const pb=$("#ivp"); if (pb) pb.style.display=""; Store.set("sync",{on:1,p:1,t0:Store.now()}); return; } }
+  if (c.i > 0) goTo(c.i-1, true); }
 let revealing = -1;
 function hostReveal() { const st = R.state || {}; const c = cur(st); if (c.phase !== "quiz" || revealing === c.q) return; revealing = c.q; setState({...st, sub:"r"}); }
 let resetArm = 0;
@@ -1221,7 +1231,8 @@ function syncFx(s, c) {
     SY = document.createElement("div"); SY.id = "sy"; SY.innerHTML = `<div class="gl"></div><div class="fl"></div><div class="bt"></div><div class="lu">LOOK UP 👀<small>Katta ekranga qarang</small></div>`;
     document.body.appendChild(SY); SY.done = {}; SY.t0 = s.t0;
     const gl = SY.querySelector(".gl"), fl = SY.querySelector(".fl"), bt = SY.querySelector(".bt"), me_ = SY;
-    (function loop(){ if (SY !== me_ || me_.off) return; const t = (Store.now() - me_.t0) / 1000; let e = 0;
+    me_.p = s.p;
+    (function loop(){ if (SY !== me_ || me_.off) return; if (me_.p) { me_.querySelector(".gl").style.opacity = 0; return requestAnimationFrame(loop); } const t = (Store.now() - me_.t0) / 1000; let e = 0;
       SYH.forEach(([a,k]) => { if (t >= a && t < a + .8) e = Math.max(e, k * Math.exp(-(t - a) * 6)); }); gl.style.opacity = e.toFixed(3);
       SYB.forEach(([a,txt,col], i) => { if (t >= a && t < a + 1.5 && !me_.done[i]) { me_.done[i] = 1;
         fl.style.background = col; fl.animate([{opacity:.92},{opacity:0}], {duration:1000, easing:"ease-out"});
@@ -1229,7 +1240,7 @@ function syncFx(s, c) {
         me_.animate([{transform:"translateX(0)"},{transform:"translateX(-10px)"},{transform:"translateX(9px)"},{transform:"translateX(-6px)"},{transform:"translateX(0)"}], {duration:450});
         try { navigator.vibrate && navigator.vibrate([220,80,320]); } catch(e) {} } });
       requestAnimationFrame(loop); })();
-  } else if (on && SY) { SY.t0 = s.t0; }
+  } else if (on && SY) { if (Math.abs(s.t0 - SY.t0) > 400) { const t = (Store.now() - s.t0) / 1000; SY.done = {}; SYB.forEach(([a],i) => { if (a < t - .1) SY.done[i] = 1; }); } SY.t0 = s.t0; SY.p = s.p; }
   else if (!on && SY && !SY.off) { const d = SY; d.off = true;
     d.innerHTML = `<div class="lu" style="animation:none">Ready? 🚀<small>Tayyormisiz? O‘yin boshlanmoqda</small></div>`;
     setTimeout(() => { d.style.opacity = "0"; setTimeout(() => { d.remove(); if (SY === d) SY = null; }, 750); }, 2200); }
