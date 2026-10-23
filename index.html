@@ -787,7 +787,7 @@ const T = (t, u, size, d=.08) => `<div class="h2 rise" style="margin-top:.6rem;$
 const delay = i => `style="animation-delay:${.15+i*.1}s"`;
 
 const VIEWS = {
- intro: () => `<div class="introv"><video id="iv" src="intro.mp4" preload="auto" playsinline></video>
+ intro: () => `<div class="introv"><video id="iv" src="${INTRO_URL || "intro.mp4"}" preload="auto" playsinline></video>
    <div id="ivp" class="ivplay"><button class="nextbtn" style="font-size:3rem;padding:1.5rem 4rem" onclick="introPlay()">▶ PLAY INTRO</button>
    <div class="mu" style="position:absolute;left:2.4rem;bottom:2.2rem;font-size:1.05rem;opacity:.45">Space / → · Videoni boshlash · ⛶ avval to‘liq ekran</div>
    <div style="position:absolute;bottom:2rem;right:2.4rem;display:flex;gap:.6rem"><button class="ghost" onclick="toggleFS()">⛶</button><button class="ghost" onclick="introEnd(true)">Skip ▶▶</button></div></div>
@@ -932,7 +932,7 @@ const MOUNT = {
 const LIVEV = {
   lobby: { view: () => shell(`<div class="gate"><div class="gq" id="qr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div>
       <svg class="gecg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
-      <div class="gc">ROOM ${ROOM} · <b id="pc">0</b></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
+      <div class="gc">ROOM ${ROOM} · <b id="pc">0</b> · <span id="vpre">${INTRO_URL ? "🎬 ✓" : "🎬 …"}</span></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
     update: (c, st, ps) => { const pc=$("#pc"); if(!pc) return; pc.textContent = ps.length; const box = $("#chips");
       ps.forEach(p => { if (!box.querySelector(`[data-id="${p.id}"]`)) { const d=document.createElement("div"); d.className="chip pop"; d.dataset.id=p.id; d.textContent=p.name; box.appendChild(d); if (AC) SFX.pop(); } }); } },
   invest: {
@@ -1199,7 +1199,7 @@ function heartRamp(){ if(!AC) return; let t=AC.currentTime+.05, gap=.6; while(ga
 /* ---- intro video + soft background music ---- */
 let introDone=false, bgm=null, outro=null; const OUT_AT=88.81;   // video musiqasi shu soniyadan uzluksiz davom ettiriladi (intro_outro.mp3)
 // video oxirida qo'shiq uzilmaydi: o'sha joyidan past ovozda davom etadi (intro_outro.mp3 = videoning 88.81-soniyasidan keyingi qismi)
-function outroStart(v){ if(outro) return; const o=new Audio("intro_outro.mp3"); o._outro=1; o.muted=MUTED; o.volume=.25; outro=o;
+function outroStart(v){ if(outro) return; const o=new Audio(PRE["intro_outro.mp3"] || "intro_outro.mp3"); o._outro=1; o.muted=MUTED; o.volume=.25; outro=o;
   try{ o.currentTime=Math.max(0,v.currentTime-OUT_AT); }catch(e){} const p=o.play(); if(p&&p.catch) p.catch(()=>{});
   o.addEventListener("playing",()=>{ v.volume=0; },{once:true}); setTimeout(()=>{ v.volume=0; },250); }
 function outroKill(){ if(outro){ try{ outro.pause(); }catch(e){} outro=null; } }
@@ -1214,7 +1214,7 @@ function introEnd(skip){ if(introDone) return; introDone=true; ac(); Store.set("
     SFX.impact(); goTo(SLIDES.findIndex(x=>x.id==="cover")); if(!o) setTimeout(startBgm, 1400); }, skip?250:850);
   // musiqa uzilmaydi: 1,2 soniyada .25 dan .15 gacha pasayadi, ~14 soniya past chalinadi, fayl oxirida o'zi so'nadi
   const o=outro; outro=null; if(o){ bgm=o; let vol=o.volume; const d=setInterval(()=>{ vol=Math.max(.15,vol-.005); if(bgm===o) o.volume=vol; if(vol<=.15) clearInterval(d); },60); clearTimeout(window._bgmOff); } }
-function startBgm(){ try{ if(!bgm||bgm._outro){ bgm=new Audio("intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
+function startBgm(){ try{ if(!bgm||bgm._outro){ bgm=new Audio(PRE["intro_soft.mp3"] || "intro_soft.mp3"); bgm.loop=true; } bgm.volume=0; const p=bgm.play(); if(p&&p.catch) p.catch(()=>{});
   let v=0; const up=setInterval(()=>{ v=Math.min(.16,v+.015); if(bgm) bgm.volume=v; if(v>=.16) clearInterval(up); },120);
   clearTimeout(window._bgmOff); window._bgmOff=setTimeout(stopBgm, 10000); }catch(e){} }   // past ovozda ~10 soniya, keyin o'zi sekin o'chadi
 function stopBgm(){ if(!bgm||bgm.paused) return; const dn=setInterval(()=>{ bgm.volume=Math.max(0,bgm.volume-.03); if(bgm.volume<=0){ bgm.pause(); clearInterval(dn);} },80); }
@@ -1486,7 +1486,19 @@ setInterval(() => {
     if (left <= 0 && tb) document.querySelectorAll(".pbtn").forEach(b=>b.disabled=true); }
 }, 150);
 
-function startHost() {
+/* ---- kirish videosini QR paytidayoq to'liq yuklab olish: PLAY bosilganda internet sekin bo'lsa ham video qotmaydi ---- */
+let INTRO_URL = null;
+function preloadIntro(){ if (INTRO_URL || window._preIntro) return; window._preIntro = 1;
+  fetch("intro.mp4").then(async r => { if (!r.ok || !r.body) throw 0; const total = +r.headers.get("content-length") || 0, rd = r.body.getReader(), parts = []; let got = 0;
+    for (;;) { const {done, value} = await rd.read(); if (done) break; parts.push(value); got += value.length; const el = $("#vpre"); if (el && total) el.textContent = "🎬 " + Math.round(got/total*100) + "%"; }
+    INTRO_URL = URL.createObjectURL(new Blob(parts, {type:"video/mp4"})); const el = $("#vpre"); if (el) el.textContent = "🎬 ✓";
+    const v = $("#iv"); if (v && v.paused && v.currentTime < .1) v.src = INTRO_URL; preloadRest(); })
+  .catch(() => { window._preIntro = 0; setTimeout(preloadIntro, 5000); }); }
+// video tayyor bo'lgach: musiqa fayllari va Excel kutubxonasi ham oldindan yuklanadi (dars oxirigacha internet uzilsa ham ishlaydi)
+const PRE = {};
+function preloadRest(){ ["intro_outro.mp3","intro_soft.mp3"].forEach(f => { if (PRE[f]) return; fetch(f).then(r => r.ok ? r.blob() : Promise.reject()).then(b => { PRE[f] = URL.createObjectURL(b); }).catch(()=>{}); });
+  try { loadXLSX().catch(()=>{}); } catch(e) {} }
+function startHost() { preloadIntro();
   ensureHostRoom(); bgMarket(); bgEmbers();
   document.documentElement.classList.add("host");
   addEventListener("keydown", e => { if (e.target.tagName === "INPUT") return;
