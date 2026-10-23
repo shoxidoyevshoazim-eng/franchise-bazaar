@@ -224,6 +224,11 @@ html.onintro #emb,html.ongate #emb{display:none}
 .thx-gold{color:var(--gold);font-style:italic}
 .thx-team{margin-top:1.4rem;font-size:1.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);font-weight:700}
 html:not(.host) .pal{display:none!important}   /* telefonda rang tanlash tugmasi kerak emas */
+.gate .gecg{width:min(62vh,80vw);height:7vh;overflow:visible;margin-top:-.6vh}
+.gate .gecg .bg{fill:none;stroke:rgba(255,45,69,.12);stroke-width:2}
+.gate .gecg .ln{fill:none;stroke:#ff2d45;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:140 860;animation:ecg 2.2s linear infinite;filter:drop-shadow(0 0 5px #ff2d45)}
+#hb .snd{margin-top:14px;font-size:15px;font-weight:700;color:#ffb3bc;animation:pulse 2.2s ease-in-out infinite}
+#hb .sbtn{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid #3a1d22;background:#140a0c;color:#fff;font-size:20px}
 .tl .dot{width:1.6rem;height:1.6rem;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold);position:relative}
 .tbl{width:100%;border-collapse:collapse;margin-top:2rem;font-size:1.6rem}
 .tbl th{text-align:left;padding:.8rem 1.2rem;background:var(--panel);font-size:1.5rem}
@@ -924,6 +929,7 @@ const MOUNT = {
 /* ---- jonli o'yin ekranlari ---- */
 const LIVEV = {
   lobby: { view: () => shell(`<div class="gate"><div class="gq" id="qr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div>
+      <svg class="gecg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
       <div class="gc">ROOM ${ROOM} · <b id="pc">0</b></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
     update: (c, st, ps) => { const pc=$("#pc"); if(!pc) return; pc.textContent = ps.length; const box = $("#chips");
       ps.forEach(p => { if (!box.querySelector(`[data-id="${p.id}"]`)) { const d=document.createElement("div"); d.className="chip pop"; d.dataset.id=p.id; d.textContent=p.name; box.appendChild(d); if (AC) SFX.pop(); } }); } },
@@ -1302,7 +1308,7 @@ function presGo() { if (($("#pin").value||"").trim() !== HOST_PIN) { $("#pin").v
 let fsTry=0; function phoneFS(){ if (IS_HOST || document.fullscreenElement || Date.now()-fsTry < 15000) return; fsTry=Date.now(); const el=document.documentElement;
   try { const r=(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el,{navigationUI:"hide"}); if (r&&r.catch) r.catch(()=>{}); } catch(e) {} }
 if (!IS_HOST) document.addEventListener("click", ()=>{ if (me) phoneFS(); }, {passive:true});
-function doJoin() { fsTry=0; phoneFS();
+function doJoin() { fsTry=0; phoneFS(); pAudio();
   const n = ($("#nm").value||"").trim().slice(0,18);
   if (!ROOM) { const r = ($("#rm")?.value||"").replace(/\D/g,""); if (r.length < 4) return alertBox("Room code?"); ROOM = r; Store.on("", playerRender); }
   if (!n) { $("#nm").focus(); return; }
@@ -1366,9 +1372,25 @@ function qresView(st, ps) {
 }
 /* ---- QR va intro paytida telefon: qora ekran + yurak urishi chizig'i ---- */
 const ECG="M0 75 L150 75 L170 75 L180 62 L190 75 L215 75 L225 88 L240 10 L255 128 L268 75 L300 75 L320 60 L345 75 L500 75 L520 75 L530 62 L540 75 L565 75 L575 88 L590 10 L605 128 L618 75 L650 75 L670 60 L695 75 L1000 75";
+/* ---- telefonda yurak urishi ovozi: hamma telefon bitta umumiy soat bo'yicha uradi (katta ekrandagi chiziq va kolonka bilan bir vaqtda) ---- */
+let pAC=null, pMute=false, pDone={};
+function pAudio(){ if (IS_HOST) return; try { if (!pAC) pAC = new (window.AudioContext||window.webkitAudioContext)(); if (pAC.state === "suspended") pAC.resume(); } catch(e) {} }
+function pSndOn(){ return !!(pAC && pAC.state === "running"); }
+function pSndText(){ return pMute ? "🔇 Ovoz o‘chirilgan · Sound off" : pSndOn() ? "🔊 Ovozni balandroq qiling · Turn your sound up!" : "🔊 Ekranga teging — ovoz yoqiladi · Tap for sound"; }
+function pToggle(){ pAudio(); pMute = !pMute; const b=$("#sbtn"); if (b) b.textContent = pMute ? "🔇" : "🔊"; const t=$("#snd"); if (t) t.textContent = pSndText(); }
+function pThump(t, g){ const a=pAC; const o=a.createOscillator(), v=a.createGain(); o.type="triangle"; o.frequency.setValueAtTime(190,t); o.frequency.exponentialRampToValueAtTime(95,t+.12); v.gain.setValueAtTime(0,t); v.gain.linearRampToValueAtTime(g,t+.008); v.gain.exponentialRampToValueAtTime(.0001,t+.2); o.connect(v); v.connect(a.destination); o.start(t); o.stop(t+.22);
+  const n=a.createBufferSource(), b=a.createBuffer(1,a.sampleRate*.03,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=(Math.random()*2-1)*(1-i/ch.length); n.buffer=b; const f=a.createBiquadFilter(); f.type="highpass"; f.frequency.value=900; const w=a.createGain(); w.gain.value=g*.35; n.connect(f); f.connect(w); w.connect(a.destination); n.start(t); }
+if (!IS_HOST) { document.addEventListener("click", pAudio, {passive:true}); document.addEventListener("touchend", pAudio, {passive:true});
+  setInterval(()=>{ const hb=$("#hb"); const t=$("#snd"); if (t && t.textContent !== pSndText()) t.textContent = pSndText();
+    if (!hb || hb.classList.contains("ramp") || SY || SYP || pMute || !pSndOn()) return;
+    const now=Store.now(), base=now-now%2200;
+    [base-2200,base,base+2200].forEach(c=>[174,1051].forEach(o=>{ const at=c+o, dt=(at-now)/1000; if(dt>=0&&dt<.35&&!pDone[at]){ pDone[at]=1; const tt=pAC.currentTime+dt; pThump(tt,.55); pThump(tt+.17,.3);
+      setTimeout(()=>{ try{ navigator.vibrate && navigator.vibrate(25); }catch(e){} }, dt*1000); } })); }, 60); }
+function pRamp(){ if (!pSndOn() || pMute) return; let t=pAC.currentTime+.05, gap=.6; while(gap>.12){ pThump(t,.6); t+=gap; gap*=.72; } }
 function heartView(n) { return `<div id="hb"><div class="ok">✓ You’re in, <b>${esc(me.name)}</b></div>
   <svg viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
   <div class="wt">Waiting for the start… · Boshlanishini kuting<br>${n} players</div>
+  <div class="snd" id="snd">${pSndText()}</div><button class="sbtn" id="sbtn" onclick="event.stopPropagation(); pToggle()">${pMute?"🔇":"🔊"}</button>
   <div class="ko">📱 Keep this page open · <b>Sahifani yopmang!</b></div></div>`; }
 let WL=null; async function wakeLock(){ try { if ("wakeLock" in navigator && !WL && document.visibilityState==="visible") { WL = await navigator.wakeLock.request("screen"); WL.addEventListener("release", ()=>WL=null); } } catch(e) {} }
 document.addEventListener("visibilitychange", wakeLock); ["click","touchend"].forEach(ev=>document.addEventListener(ev, wakeLock, {passive:true}));
@@ -1379,7 +1401,7 @@ let SY=null, SYP=false;
 function syncFx(s, c) {
   const on = !!(s && s.on && me && c.s.id === "intro");
   if (on && !SY && !SYP) { const hb = $("#hb");
-    if (hb && !hb.classList.contains("ramp")) { SYP = true; hb.classList.add("ramp"); try { navigator.vibrate && navigator.vibrate([40,260,40,180,40,110,40,70,60]); } catch(e) {}
+    if (hb && !hb.classList.contains("ramp")) { SYP = true; hb.classList.add("ramp"); pRamp(); try { navigator.vibrate && navigator.vibrate([40,260,40,180,40,110,40,70,60]); } catch(e) {}
       setTimeout(() => { SYP = false; if (R.sync && R.sync.on) { syncFx(R.sync, cur(R.state||{})); if (SY) { const fl = SY.querySelector(".fl"); fl.style.background = "#ff2d45"; fl.animate([{opacity:.95},{opacity:0}], {duration:900, easing:"ease-out"}); try { navigator.vibrate && navigator.vibrate(260); } catch(e) {} } } }, 1400); return; } }
   if (on && !SY && !SYP) {
     SY = document.createElement("div"); SY.id = "sy"; SY.innerHTML = `<div class="gl"></div><div class="fl"></div><div class="bt"></div><div class="lu">LOOK UP 👀<small>Katta ekranga qarang</small></div>`;
