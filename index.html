@@ -684,9 +684,9 @@ const Store = (() => {
     db.ref(".info/serverTimeOffset").on("value", s => off = s.val() || 0);
     const r = p => db.ref("rooms/" + ROOM + (p ? "/" + p : ""));
     let got = false;
-    const diag = m => { if (got) return; const d = document.createElement("div"); d.style.cssText = "position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:9999;background:var(--panel2);color:#fff;padding:24px 28px;border-radius:16px;font:600 20px/1.5 sans-serif;max-width:90vw;text-align:center;border:2px solid var(--red)"; d.innerHTML = m; document.body.appendChild(d); };
-    setTimeout(() => diag("⚠️ Firebase bilan aloqa yo‘q (8 soniya).<br>Internetni tekshiring yoki sahifani yangilang (F5)."), 8000);
-    return { on:(p,cb)=>r(p).on("value", s=>{ got = true; cb(s.val()); }, err => diag("⚠️ Firebase xatosi: " + esc(err && (err.code || err.message)))), set:(p,v)=>r(p).set(v).catch(e=>diag("⚠️ Yozib bo‘lmadi: "+esc(e.code||e.message))), update:(p,v)=>r(p).update(v).catch(e=>diag("⚠️ Yozib bo‘lmadi: "+esc(e.code||e.message))), now:()=>Date.now()+off };
+    const diag = m => { if (got) return; const d = document.createElement("div"); d.style.cssText = "position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:9999;background:var(--panel2);color:#fff;padding:24px 28px;border-radius:16px;font:600 20px/1.5 sans-serif;max-width:90vw;text-align:center;border:2px solid var(--red)"; d.className = "fbdiag"; d.innerHTML = m; document.body.appendChild(d); };
+    let armed = false; const arm = () => { if (armed) return; armed = true; setTimeout(() => diag("⚠️ Firebase bilan aloqa yo‘q (8 soniya).<br>Internetni tekshiring yoki sahifani yangilang (F5)."), 8000); };   // 8 soniya PIN kiritilgandan keyin hisoblanadi
+    return { on:(p,cb)=>{ arm(); return r(p).on("value", s=>{ if (!got) document.querySelectorAll(".fbdiag").forEach(x=>x.remove()); got = true; cb(s.val()); }, err => diag("⚠️ Firebase xatosi: " + esc(err && (err.code || err.message)))); }, set:(p,v)=>r(p).set(v).catch(e=>diag("⚠️ Yozib bo‘lmadi: "+esc(e.code||e.message))), update:(p,v)=>r(p).update(v).catch(e=>diag("⚠️ Yozib bo‘lmadi: "+esc(e.code||e.message))), now:()=>Date.now()+off };
   }
   const key = () => "fbz_room_" + ROOM; const subs = [];
   let bc = null; try { bc = ("BroadcastChannel" in window) ? new BroadcastChannel("fbz") : null; } catch(e) {}
@@ -949,7 +949,7 @@ const MOUNT = {
 /* ---- jonli o'yin ekranlari ---- */
 const LIVEV = {
   lobby: { view: () => shell(`<div class="gate"><div class="gq" id="qr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div>
-      <div class="glink">yoki · or: <b>${esc(location.host + location.pathname.replace(/index\.html$/,""))}</b> · Room <b class="gold">${ROOM}</b></div>
+      
       <svg class="gecg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
       <button class="ghost gcopy" onclick="copyLink(this)" title="Telegram guruhga tashlash uchun">📋 Linkni nusxalash</button><div class="gc">ROOM ${ROOM} · <b id="pc">0</b> · <span id="vpre">${INTRO_URL ? "🎬 ✓" : "🎬 …"}</span></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
     update: (c, st, ps) => { const pc=$("#pc"); if(!pc) return; pc.textContent = ps.length; const box = $("#chips");
