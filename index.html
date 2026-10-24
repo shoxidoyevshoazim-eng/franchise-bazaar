@@ -99,14 +99,17 @@ html.host{font-size:min(calc(var(--vw,100vw)/100),calc(var(--vh,100vh)*.0172))}
 .chips{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.4rem;align-content:flex-start;overflow:hidden}
 .chip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:.6rem 1.3rem;font-size:1.6rem;font-weight:700}
 /* franchise cards host */
-.frow{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;flex:1;min-height:0;margin-top:1.6rem}
-.fcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem;position:relative;overflow:hidden}
-.fcard .em{font-size:3.6rem;line-height:1}
-.fcard .nm{font-size:2rem;font-weight:800}
+.frow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.2rem;flex:1;min-height:0;margin-top:1.6rem}
+.fcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.1rem;display:flex;flex-direction:column;gap:.35rem;position:relative;overflow:hidden}
+.fcard .em{font-size:3rem;line-height:1}
+.fcard .nm{font-size:1.8rem;font-weight:800}
 .fcard .ty{font-size:1.15rem;color:var(--mu)}
 .fcard .rowv{display:flex;justify-content:space-between;font-size:1.3rem}
-.fcard .big{font-size:3.2rem;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
+.fcard .big{font-size:2.8rem;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
 .fcard .risk{font-size:1.15rem;color:var(--risk);margin-top:auto}
+.qres .opt{font-size:1.5rem;min-height:auto;padding:.9rem 1.3rem}
+@media (max-height:820px){html.host .fcard .ty{display:none}}   /* kichik ekranda 6 ta kartochka sig'ishi uchun */
+.qres .opt small{font-size:1.45rem}
 .crowd{margin-top:.6rem}
 .crowd .bar{height:14px;background:rgba(var(--wash),.08);border-radius:7px;overflow:hidden}
 .crowd .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));width:0;transition:width .8s ease}
@@ -135,12 +138,16 @@ html.host{font-size:min(calc(var(--vw,100vw)/100),calc(var(--vh,100vh)*.0172))}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:4rem;font-weight:700}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:auto}
-.opt{border-radius:14px;padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.4rem;font-size:2.1rem;font-weight:800;position:relative;overflow:hidden;min-height:8.5rem;color:#fff}
+.opt{border-radius:14px;padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.4rem;font-size:1.8rem;font-weight:800;position:relative;overflow:hidden;min-height:8.5rem;color:#fff}
 .opt .sh{font-size:2.6rem;width:3rem;text-align:center;flex:none}
-.opt small{display:block;font-size:1.3rem;font-weight:600;opacity:.9}
+.opt small{display:block;font-size:1.9rem;font-weight:700;opacity:1;margin-top:.2rem}
 .opt .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:2.6rem}
 .opt .fill{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.18);width:0;transition:width 1s ease}
 .opt.dim{opacity:.32}.opt.ok{outline:5px solid #fff;animation:glow 1.6s infinite}
+.rotd{display:block}.rotd.rotin{animation:rotin .35s ease-out}@keyframes rotin{from{opacity:0;transform:translateY(.7em)}to{opacity:1;transform:none}}
+.vwin{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;min-height:0}
+.opt.vbig{width:min(74rem,92%);min-height:13rem;font-size:2.4rem;padding:2rem 3rem;outline:6px solid #fff;box-shadow:0 0 60px rgba(var(--gold-rgb),.35)}.opt.vbig small{font-size:4rem;line-height:1.1}.opt.vbig .sh{font-size:4.2rem;width:5rem}
+.vcnt{font-size:2.8rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace}
 .c0{background:var(--a0)}.c1{background:var(--a1)}.c2{background:var(--a2)}.c3{background:var(--a3)}
 .answered{font-size:1.6rem;color:var(--mu);margin-top:.8rem}
 .qres{display:grid;grid-template-columns:1.6fr 1fr;gap:2rem;flex:1;min-height:0;margin-top:1.4rem}
@@ -180,7 +187,7 @@ html.host{font-size:min(calc(var(--vw,100vw)/100),calc(var(--vh,100vh)*.0172))}
 .meter i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .3s}
 .pbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .pbtn{border-radius:16px;min-height:150px;padding:14px;color:#fff;font-weight:800;font-size:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:6px;box-shadow:0 6px 0 rgba(0,0,0,.25)}
-.pbtn .sh{font-size:34px}.pbtn small{font-size:13px;font-weight:600;opacity:.9}
+.pbtn .sh{font-size:30px}.pbtn small{font-size:17px;font-weight:700;opacity:1}
 .pbtn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
 .ptop{position:sticky;top:0;z-index:6;margin:0 -16px 10px;padding:4px 16px 8px;background:var(--bg2,#0b0a09);box-shadow:0 6px 14px rgba(0,0,0,.35)}
 .ptimer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:14px;font-weight:700;color:var(--mu)}
@@ -230,6 +237,9 @@ html.onintro #emb,html.ongate #emb{display:none}
 .thx-gold{color:var(--gold);font-style:italic}
 .thx-team{margin-top:1.4rem;font-size:1.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);font-weight:700}
 html:not(.host) .pal{display:none!important}   /* telefonda rang tanlash tugmasi kerak emas */
+.gate .glink{font:600 2.1vh/1.3 var(--f-ui,sans-serif);color:#b9b2a8;margin-top:-1vh}
+.gate .glink b{color:#f6f3ee}
+.gate .gcopy{position:fixed;right:2.4vh;top:2.4vh;font-size:1.6vh;opacity:.35}.gate .gcopy:hover{opacity:1}
 .gate .gecg{width:min(62vh,80vw);height:7vh;overflow:visible;margin-top:-.6vh}
 .gate .gecg .bg{fill:none;stroke:rgba(255,45,69,.12);stroke-width:2}
 .gate .gecg .ln{fill:none;stroke:#ff2d45;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:140 860;animation:ecg 2.2s linear infinite;filter:drop-shadow(0 0 5px #ff2d45)}
@@ -288,9 +298,11 @@ html:not(.host) .verdict{padding:46px 14px}
 html:not(.host) .verdict .ic{font-size:110px}
 html:not(.host) .P:has(.pbtns){height:var(--vh,100vh)}
 html:not(.host) .pbtns{flex:1;min-height:0;grid-template-rows:1fr 1fr;margin-top:18px}
-html:not(.host) .pbtn{min-height:0;font-size:22px;gap:8px}
-html:not(.host) .pbtn .sh{font-size:60px;line-height:1}
-html:not(.host) .pbtn small{font-size:15px}
+html:not(.host) .pbtn{min-height:0;font-size:16px;font-weight:700;gap:8px}
+html:not(.host) .pbtn .sh{font-size:min(60px,6.5vh);line-height:1}
+html:not(.host) .pbtn small{font-size:clamp(14px,4.8vw,21px);font-weight:800;line-height:1.2}
+html:not(.host) .pbtn{padding:10px;overflow-wrap:anywhere;font-size:clamp(13px,4.2vw,16px)}
+.pbtn .rotd{display:flex;flex-direction:column;align-items:center;gap:8px}.rotd small{display:block}
 html:not(.host) .pf .nm{font-size:20px}
 html:not(.host) .pf .meta{font-size:13px}
 html:not(.host) .pf .risk{font-size:14px}
@@ -593,8 +605,8 @@ const CONFIG = {
 /* =========================================================================
    2) O'YIN MA'LUMOTLARI
    ========================================================================= */
-const INV_SEC = 60;    // pul tikish uchun vaqt (soniya)
-const QUIZ_SEC = 10;   // 10 soniya: internetdan qidirishga ulgurmaydi
+const INV_SEC = 90;    // pul tikish uchun vaqt (soniya)
+const QUIZ_SEC = 20;   // 10 soniya: internetdan qidirishga ulgurmaydi
 const F = [
  {id:"burger",em:"🍔",nm:"BurgerStar",ty:"Global burger brand",tyu:"Xalqaro burger brendi",sales:100,costs:70,risk:"Imported ingredients",risku:"Mahsulot importdan",
   ret:-10,evEm:"🚫",ev:"Imported meat stopped!",evu:"Import go‘sht to‘xtadi",eff:"Costs +40"},
@@ -605,7 +617,9 @@ const F = [
  {id:"fit",em:"🏋️",nm:"FitZone",ty:"Fitness club",tyu:"Fitnes klub",sales:70,costs:50,risk:"Big rented space",risku:"Katta joy ijarada",
   ret:-5,evEm:"🏢",ev:"The landlord raised the rent",evu:"Ijara narxi oshdi",eff:"Costs +25"},
  {id:"smart",em:"📚",nm:"SmartKids",ty:"English for kids",tyu:"Bolalar uchun ingliz tili",sales:50,costs:35,risk:"Depends on school year",risku:"O‘quv yiliga bog‘liq",
-  ret:45,evEm:"🎓",ev:"A new school year started",evu:"Yangi o‘quv yili boshlandi",eff:"Sales +30"}
+  ret:45,evEm:"🎓",ev:"A new school year started",evu:"Yangi o‘quv yili boshlandi",eff:"Sales +30"},
+ {id:"salon",em:"💇",nm:"GlowSalon",ty:"Beauty salon",tyu:"Go‘zallik saloni",sales:70,costs:45,risk:"Needs skilled masters",risku:"Malakali usta kerak",
+  ret:-8,evEm:"✂️",ev:"Two best masters left for a competitor",evu:"2 ta eng yaxshi usta raqobatchiga ketdi",eff:"Sales −20"}
 ];
 const F2 = [
  {id:"shaw",em:"🥙",nm:"ShawarmaGo",ty:"Fast food chain",tyu:"Tez ovqat tarmog‘i",sales:90,costs:60,risk:"Meat price changes often",risku:"Go‘sht narxi tez o‘zgaradi",
@@ -621,30 +635,16 @@ const F2 = [
 ];
 let RND = 1; const FS = () => RND === 2 ? F2 : F; const KA = () => RND === 2 ? "alloc2" : "alloc"; const KC = () => RND === 2 ? "cash2" : "cash"; const KL = () => RND === 2 ? "locked2" : "locked";
 const Q = [
- {q:"A company that SELLS the right to use its brand is a…",u:"Brendini ishlatish huquqini sotadigan kompaniya — bu…",
-  o:[["franchisee","franshiza oluvchi"],["franchisor","franshiza beruvchi"],["supplier","yetkazib beruvchi"],["customer","mijoz"]],a:1,
-  x:"Franchisor = brand owner (Burger King USA). Franchisee = mahalliy biznes."},
- {q:"What is a ROYALTY?",u:"Royalti nima?",
-  o:[["a one-time entry fee","bir martalik kirish to‘lovi"],["a tax for the government","davlatga soliq"],["a % of sales paid to the brand","brendga to‘lanadigan savdo foizi"],["a worker’s salary","ishchi maoshi"]],a:2,
-  x:"Royalty = every month, a small % of SALES · har oy savdodan kichik foiz."},
- {q:"Who was Ray Kroc in 1954?",u:"1954-yilda Ray Kroc kim edi?",
-  o:[["one of the McDonald brothers","aka-uka McDonald'lardan biri"],["a milkshake machine salesman","milkshake apparati sotuvchisi"],["a famous chef","mashhur oshpaz"],["a bank manager","bank rahbari"]],a:1,
-  x:"He sold milkshake mixers — and turned McDonald’s into a franchise empire. · Milkshake apparati sotgan va McDonald’s’ni franshiza imperiyasiga aylantirgan."},
- {q:"How many McDonald’s restaurants are run by franchisees?",u:"McDonald’s restoranlarining qanchasini franshiza oluvchilar boshqaradi?",
-  o:[["about 5%","taxminan 5%"],["about 30%","taxminan 30%"],["about 60%","taxminan 60%"],["about 95%","taxminan 95%"]],a:3,
-  x:"About 95% of 45,356 restaurants · deyarli hammasi mahalliy tadbirkorlarniki."},
- {q:"Who opened Burger King in Tashkent?",u:"Burger King'ni Toshkentda kim ochgan?",
-  o:[["a local company — Holten Group","mahalliy kompaniya — Holten Group"],["Burger King USA itself","Burger King AQShning o‘zi"],["the government","davlat"],["McDonald’s","McDonald’s"]],a:0,
-  x:"A local franchisee bought the right to use the brand — this is franchising. · Mahalliy kompaniya brend huquqini sotib olgan — bu franshiza."},
- {q:"PROFIT = ?",u:"Foyda qanday hisoblanadi?",
-  o:[["Sales + Costs","Savdo + Xarajat"],["Costs − Sales","Xarajat − Savdo"],["Sales × Costs","Savdo × Xarajat"],["Sales − Costs","Savdo − Xarajat"]],a:3,
-  x:"Profit = Sales − Costs · Foyda = Savdo − Xarajat."},
- {q:"Before you buy a franchise, look at the…",u:"Franshiza olishdan oldin nimaga qarash kerak?",
-  o:[["colour of the logo","logotip rangi"],["number of workers","ishchilar soni"],["risk, not only the forecast","faqat prognozga emas, xavfga"],["music in the café","kafedagi musiqa"]],a:2,
-  x:"Look at the risk, not only the forecast · Xavfni o‘qing!"},
- {q:"Why did BurgerStar lose money?",u:"BurgerStar nega zarar qildi?",
-  o:[["too many customers","mijozlar juda ko‘p"],["supply problem, costs went up","ta’minot muammosi, xarajat oshdi"],["a bad logo","yomon logotip"],["the royalty was too low","royalti juda past edi"]],a:1,
-  x:"Supply chain risk — just like McDonald’s in Kazakhstan (2023). · Ta’minot xavfi — Qozog‘istondagi McDonald’s kabi."}
+ {"q": "Aren’t you hungry? Let’s eat something!", "u": "O‘rtola nobodo qornila ochmadimi? Nimadir yisilami?", "o": [["Somsa from Nomdor", "Nomdordan somsa ob kelilik 🥟"], ["Let’s order burgers", "Burger zakaz qilamizmi 🍔"], ["Gumma khonim", "“Gumma xonim” 🍲"], ["They just ate!", "Hozir yeb kelishdi-ku 😅"]], "vote": 1},
+ {"q": "A company that SELLS the right to use its brand is a…", "u": "Brendidan foydalanish huquqini SOTADIGAN kompaniya — bu…", "o": [["franchisee", "franshiza oluvchi"], ["franchisor", "franshiza beruvchi"], ["supplier", "yetkazib beruvchi"], ["customer", "mijoz"]], "k": 0, "xe": "oxsNW/jS4th00OR1hxEswoWtl/gmFLk50SAlLJctes/FIgVb/Jre+FqL6mjhAT/NiKHe5DQf/HbRZQYxhCZz1JxJDlzh1O7YNQ=="},
+ {"q": "What is a ROYALTY?", "u": "Royalti nima?", "o": [["a one-time entry fee", "bir martalik kirish to‘lovi"], ["a tax for the government", "davlatga soliq"], ["a % of sales paid to the brand", "savdodan brendga to‘lanadigan foiz"], ["a worker’s salary", "ishchining maoshi"]], "k": 3, "xe": "+XTbpSTTCn6ey6zB8iMD/CaeZhMxyWp+nZYEDVn3mq6LdMTkG+Y/G/DLCwC3ORuua55xRyqEPHvSgQgCFfDT6MNyyeQuyBokjQ=="},
+ {"q": "Who was Ray Kroc in 1954?", "u": "1954-yilda Ray Kroc kim edi?", "o": [["one of the McDonald brothers", "McDonald aka-ukalaridan biri"], ["a milkshake machine salesman", "milkshake apparati sotuvchisi"], ["a famous chef", "mashhur oshpaz"], ["a bank manager", "bank menejeri"]], "k": 2, "xe": "FsbLutj7NVqxIp1jFDGEIXqdiAAUUOnJq0mbNuQpyRd+15672fI1WpEotWcJOIku/T18Gkxc9c7ki3qCojrGHT3LgrrStzQXrCKDbUl5J/0/8IwFB0bz2+DOO8O0OMYBP9eC6cT4JR29JdF+BnmoKVvSiwgAUXk6Etj5Il0mzlM40YqnxP84AL1rmGUXPJcjZtyWAAtUu9vyx3rMsCHVFD/NxQ=="},
+ {"q": "How many McDonald’s restaurants are run by franchisees?", "u": "McDonald’s restoranlarining qancha qismini franchayzilar boshqaradi?", "o": [["about 5%", "taxminan 5%"], ["about 30%", "taxminan 30%"], ["about 60%", "taxminan 60%"], ["about 95%", "taxminan 95%"]], "k": 1, "xe": "O74khHxHYNBvP9KDSVgAt4m+nTvQoTvTEivRiqfD5HG4a2uVbR44lyZ2nY0IAVj6yeKLdsOsKcsfN9rLvdbzMxOuIJ56CziXJHbWjEc="},
+ {"q": "Who opened Burger King in Tashkent?", "u": "Toshkentda Burger King’ni kim ochgan?", "o": [["a local company — Holten Group", "mahalliy kompaniya — Holten Group"], ["Burger King USA itself", "Burger King AQSh"], ["the government", "davlat"], ["McDonald’s", "McDonald’s"]], "k": 3, "xe": "pGpz0oYIABX9yOrFeMqtO8IWfsGEvND/JVqoI5QoFTCCImudkQZMQOjfq99zx+Qq1RIwx8srNwNxDrQigigOKsUsbdyLCgRc6NPlzDWCBv+HPj/LiqXb/ihatySceAY3jDN+nYcbCVv/muPeate1IckaftCEvd71cRWwLJBmR7tl3j/fkEkKR/rU+MNy2KVm"},
+ {"q": "Before you buy a franchise, look at the…", "u": "Franshiza sotib olishdan oldin nimaga qarash kerak?", "o": [["colour of the logo", "logotip rangiga"], ["number of workers", "ishchilar soniga"], ["risk, not only the forecast", "riskka, faqat prognozga emas"], ["music in the café", "musiqaga"]], "k": 3, "xe": "efTV4It61uQ8zxZ+0YK63LtxFLM/0WcJNZxqa9WASQpa6d/oymjW5IoQUwbCna/Z/nEVPstpeQ43gms="},
+ {"q": "Why did BurgerStar lose money?", "u": "BurgerStar nega zarar ko‘rdi?", "o": [["too many customers", "mijoz juda ko‘p bo‘ldi"], ["supply problem, costs went up", "ta’minot muammosi, xarajat oshdi"], ["a bad logo", "logotipi yomon edi"], ["the royalty was too low", "royalti juda past edi"]], "k": 2, "xe": "lz3XAzLay6rf9jgU/DmYewx5B8qLnY8cH0G71uLAfoKJK+McMMKHrVUXyAn8Ip8oLDifK3TVlh0NW7uSuZspke1mh7Hpg7+oVRfIF7UlnnxHIYQ8edTFi+yhu+vk0XTFJsg/Gi3XhKfT9jYT/AaSTAg3hCZ7X2XwHxXw2+nCNQ=="},
+ {"q": "Did you congratulate Rustam on his birthday?", "u": "Rustamni tug‘ilgan kuni bilan tabrikladilarmi?", "o": [["Of course!", "Ha, albatta!"], ["Does everyone have to?", "Hamma tabriklashi shartmi?"], ["He didn’t congratulate me!", "Meni tabriklamagan-ku 😤"], ["Who is Rustam?", "Rustam kim edi? 🤔"]], "vote": 1},
+ {"q": "How was the lesson?", "u": "Dars qanaqa bo‘ldi?", "o": [["It was great!", "Zo‘r bo‘ldi! 🔥"], ["Never seen a lesson like this", "Bunaqa darsni ko‘rmaganman 🤯"], ["You nailed it!", "Yorvorishibdi! 💥"], ["The one that kept changing", "Almashib turgan variant 😜"]], "vote": 1, "sec": 30, "flat": 1, "rot": [["Not really...", "Unchalimas... 😐"], ["Just pick one 😁", "Bittasini tanlen endi 😁"], ["Looking for another option?", "Yana qanaqa variant qidiryapsiz? 😜"], ["It’s not here anyway 😜", "Siz qidirgan variant baribir yo‘q 😜"], ["You really read this far?", "Shu yergacha o‘qidizmi? 😄"]]}
 ];
 const SH = ["▲","◆","●","■"];
 
@@ -652,8 +652,16 @@ const SH = ["▲","◆","●","■"];
    3) MA'LUMOT OMBORI (Firebase yoki DEMO)
    ========================================================================= */
 const qs = new URLSearchParams(location.search);
-let IS_HOST = qs.has("host") || location.hash === "#host";
-const HOST_PIN = "2026";   // boshlovchi rejimi uchun PIN (o‘zgartirishingiz mumkin)
+const WANT_HOST = qs.has("host") || location.hash === "#host";
+let IS_HOST = false;
+const PIN_CHK = "c3f05282029568824610bab858578624ca5aa314bda9f905e33a676fb77af42a";   // PIN'ning o'zi kodda yozilmagan — faqat tekshiruv izi
+let HK = null; const HA = [], HX = [];   // test javoblari faqat PIN kiritilgandan keyin ochiladi
+async function sha(s) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }
+async function tryKey(hk) { try { if (!hk || await sha(hk + "|chk") !== PIN_CHK) return false; } catch(e) { return false; }
+  HK = hk; const hb = hk.match(/../g).map(h=>parseInt(h,16));
+  Q.forEach((q,i)=>{ if (q.k == null) return; HA[i] = ((q.k - hb[i]) % 4 + 4) % 4;
+    try { HX[i] = new TextDecoder().decode(Uint8Array.from(atob(q.xe), (c,j)=>c.charCodeAt(0) ^ hb[(j+i*7)%32])); } catch(e) { HX[i] = ""; } }); return true; }
+async function hostUnlock(pin) { let hk; try { hk = await sha(String(pin||"").trim() + "|fbz-key"); } catch(e) { return false; } if (!await tryKey(hk)) return false; try { localStorage.setItem("fbz_hk", hk); } catch(e) {} return true; }
 let ROOM = (qs.get("room")||"").replace(/\D/g,"").slice(0,6);
 const LIVE = !!(CONFIG.apiKey && CONFIG.databaseURL && window.firebase);
 function ensureHostRoom() { if (ROOM) return;
@@ -710,21 +718,26 @@ const list = o => o ? Object.entries(o).map(([id,p])=>({id,...p})) : [];
 const at = (o,k) => o ? o[k] : undefined;
 const joinURL = () => location.origin + location.pathname + "?room=" + ROOM;
 
-function money(p, step = 5, r = RND) {
+function money(p, step = 99, r = RND) {
   const L = r === 2 ? "locked2" : "locked", A = r === 2 ? "alloc2" : "alloc", Cs = r === 2 ? "cash2" : "cash", FF = r === 2 ? F2 : F;
   if (!p || !p[L]) return 100;
   let m = p[Cs] ?? 0;
   FF.forEach((f,i) => { const a = (p[A]||{})[f.id] || 0; m += a * (1 + (i < step ? f.ret : 0)/100); });
   return m;
 }
+function ansOf(qi) { const q = Q[qi]; if (!q || q.vote) return null; const s = (R.state||{}).ans; const v = s ? at(s, qi) : null; if (v && v.a != null) return v.a; return IS_HOST ? HA[qi] : undefined; }
+function xOf(qi) { const s = (R.state||{}).ans; const v = s ? at(s, qi) : null; return (v && v.x) || (IS_HOST ? HX[qi] : "") || ""; }
+function okA(qi, a) { return a != null && (!!Q[qi].vote || a === ansOf(qi)); }   // ovoz berish savoli: hamma javob to'g'ri
+const qSec = qi => (Q[qi] && Q[qi].sec) || QUIZ_SEC;
 function qPoints(p, qi, st) {
   const ans = at(p.answers, qi); const t0 = at(st.qStarts, qi);
-  if (!ans || t0 == null || ans.a !== Q[qi].a) return 0;
+  if (!ans || t0 == null || !okA(qi, ans.a)) return 0;
+  if (Q[qi].flat) return 500;   // oxirgi savol: hammaga teng ball (shoshilmasdan o'qisin)
   const dt = Math.max(0, ans.t - t0);
-  return Math.round(500 + 500 * Math.max(0, 1 - dt/(QUIZ_SEC*1000)));
+  return Math.round(500 + 500 * Math.max(0, 1 - dt/(qSec(qi)*1000)));
 }
 function quizTotal(p, st) { let s = 0; for (let i = 0; i < Q.length; i++) s += qPoints(p, i, st); return s; }
-function rankBy(players, fn) { return players.map(p=>({...p, v:fn(p)})).sort((a,b)=>b.v-a.v); }
+function rankBy(players, fn) { const T = p => p.locked2At || p.lockedAt || p.joined || 0; return players.map(p=>({...p, v:fn(p)})).sort((a,b)=> (b.v-a.v) || (T(a)-T(b))); }   // teng bo'lsa — oldin tasdiqlagan yuqorida
 
 /* confetti */
 const fx = $("#fx"), fxc = fx.getContext("2d"); let parts = [];
@@ -756,7 +769,7 @@ const SLIDES = [
  {id:"vocab", ph:"lobby"}, {id:"money", ph:"lobby", steps:4},   // Sodiq: 6 ta so'z + kafe misoli
  {id:"lesson", ph:"lobby", steps:5},          // Shoazim: nimaga qarab tanlash kerak
  {id:"rules", ph:"lobby"},
- {id:"invest", ph:"invest", live:"invest"}, {id:"events", ph:"events", live:"events", steps:5}, {id:"results", ph:"results", live:"results"},
+ {id:"invest", ph:"invest", live:"invest"}, {id:"events", ph:"events", live:"events", steps:6}, {id:"results", ph:"results", live:"results"},
  // 2-raund — zaxira: faqat "2" tugmasi bosilsa ko'rsatiladi
  {id:"invest2", ph:"invest", live:"invest", r:2, opt:1}, {id:"events2", ph:"events", live:"events", steps:5, r:2, opt:1}, {id:"results2", ph:"results", live:"results", r:2, opt:1},
  {id:"wrap", ph:"results"},                    // Shoazim: 3 ta xulosa (testdan oldin)
@@ -936,15 +949,16 @@ const MOUNT = {
 /* ---- jonli o'yin ekranlari ---- */
 const LIVEV = {
   lobby: { view: () => shell(`<div class="gate"><div class="gq" id="qr"></div><div class="gs">Scan to join · <span>Skanerlang</span></div>
+      <div class="glink">yoki · or: <b>${esc(location.host + location.pathname.replace(/index\.html$/,""))}</b> · Room <b class="gold">${ROOM}</b></div>
       <svg class="gecg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="${ECG}"/><path class="ln" d="${ECG}" pathLength="1000" style="animation-delay:-${Store.now()%2200}ms"/></svg>
-      <div class="gc">ROOM ${ROOM} · <b id="pc">0</b> · <span id="vpre">${INTRO_URL ? "🎬 ✓" : "🎬 …"}</span></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
+      <button class="ghost gcopy" onclick="copyLink(this)" title="Telegram guruhga tashlash uchun">📋 Linkni nusxalash</button><div class="gc">ROOM ${ROOM} · <b id="pc">0</b> · <span id="vpre">${INTRO_URL ? "🎬 ✓" : "🎬 …"}</span></div><div id="chips" style="display:none"></div></div>`, {next:"▶ Play the intro"}),
     update: (c, st, ps) => { const pc=$("#pc"); if(!pc) return; pc.textContent = ps.length; const box = $("#chips");
       ps.forEach(p => { if (!box.querySelector(`[data-id="${p.id}"]`)) { const d=document.createElement("div"); d.className="chip pop"; d.dataset.id=p.id; d.textContent=p.name; box.appendChild(d); if (AC) SFX.pop(); } }); } },
   invest: {
     view: () => shell(`<div class="qhead"><div><div class="kick">${RND===2?"Round 2 · New market · Yangi bozor":"Round 1 · Invest · Telefoningizni oling!"}</div>
        <div class="h2" style="margin-top:.6rem">${RND===2?"New franchises. Use the 5 checks! 🔍":"Split your 100 TIFT$ between franchises"}</div>
        <div class="uz">${RND===2?"Yangi franshizalar. 5 ta tekshiruvni qo‘llang! Again: 100 TIFT$":"100 TIFT$ ni franshizalarga bo‘lib tiking · Forecast = prognoz · ⚠ = xavf · Read the risk! Xavfni o‘qing!"}</div></div>
-       <div style="display:flex;gap:1rem;flex:none"><div class="panel" id="itp" style="padding:1rem 1.6rem;text-align:center;display:none"><div class="mono mu">TIME · vaqt</div><div class="mono gold" style="font-size:3.6rem;font-weight:700" id="itn">60</div></div><div class="panel" style="padding:1rem 1.6rem;text-align:center"><div class="mono mu">LOCKED · tasdiqladi</div><div class="mono gold" style="font-size:3.6rem;font-weight:700" id="lk">0/0</div></div></div></div>
+       <div style="display:flex;gap:1rem;flex:none"><div class="panel" id="itp" style="padding:1rem 1.6rem;text-align:center;display:none"><div class="mono mu">TIME · vaqt</div><div class="mono gold" style="font-size:3.6rem;font-weight:700" id="itn">${INV_SEC}</div></div><div class="panel" style="padding:1rem 1.6rem;text-align:center"><div class="mono mu">LOCKED · tasdiqladi</div><div class="mono gold" style="font-size:3.6rem;font-weight:700" id="lk">0/0</div></div></div></div>
       <div class="frow">${FS().map((f,i)=>`<div class="fcard pop" style="animation-delay:${.1+i*.1}s">
         <div class="em">${f.em}</div><div class="nm">${f.nm}</div><div class="ty">${f.ty} · ${f.tyu}</div>
         <div class="rowv"><span class="mu">Sales · Savdo</span><b class="mono">${f.sales}</b></div>
@@ -969,14 +983,14 @@ const LIVEV = {
           <div class="mu" style="font-size:1.1rem;margin-top:auto">Return · Daromad</div><div class="ret ${f.ret>=0?'grn':'red'}">${sign(f.ret)}%</div>
           <div class="mono mu" style="font-size:1.05rem">${f.ret<0?'LOSS · zarar':'PROFIT · foyda'}</div></div>`
         : `<div class="fcard"><div class="em">${f.em}</div><div class="nm">${f.nm}</div><div class="mono mu">Forecast · Prognoz +${f.sales-f.costs}</div><div class="mystery">?</div></div>`).join("")}</div>`,
-      {next: k<5 ? `News ${k+1}/5 ▶` : "Show results ▶"}); },
+      {next: k<FS().length ? `News ${k+1}/${FS().length} ▶` : "Show results ▶"}); },
     mount: (c) => { if (c.step>0 && FS()[c.step-1].ret>=40) confetti(140); }
   },
   results: {
     view: (c, st, ps) => { const rk = rankBy(ps.filter(p=>p[KL()]), p=>money(p)).slice(0,8);
       const avg = ps.length ? ps.reduce((s,p)=>s+money(p),0)/ps.length : 0;
       return shell(`<div class="kick">Results · Natijalar</div><div class="h2" style="margin-top:.6rem">${RND===2?"Round 2: did the class learn? 📈":"Who is the best investor? 🏆"}</div>
-      ${RND===2 ? (()=>{ const a1 = ps.length ? ps.reduce((s,p)=>s+money(p,5,1),0)/ps.length : 0; const d = a1 ? (avg-a1)/a1*100 : 0;
+      ${RND===2 ? (()=>{ const a1 = ps.length ? ps.reduce((s,p)=>s+money(p,99,1),0)/ps.length : 0; const d = a1 ? (avg-a1)/a1*100 : 0;
         return `<div class="uz">Sinf o‘rtachasi · Class average: <b class="mono">Round 1 ${fmt(a1)}</b> → <b class="gold mono" style="font-size:2.2rem">Round 2 ${fmt(avg)} TIFT$</b> <b class="mono ${d>=0?'grn':'red'}">${d>=0?'▲':'▼'} ${fmt(Math.abs(d))}%</b></div>`; })()
       : `<div class="uz">Eng yaxshi investor kim? · Class average · Sinf o‘rtachasi: <b class="gold mono">${fmt(avg)} TIFT$</b></div>`}
       <div class="res"><div class="panel" style="padding:1.4rem 1.8rem"><div class="mono mu" style="font-size:1.2rem">MARKET RETURN · Bozor daromadi</div>
@@ -987,24 +1001,29 @@ const LIVEV = {
   },
   quiz: {
     view: (c) => { const q = Q[c.q]; return shell(`<div class="qhead"><div><div class="kick">Quiz ${c.q+1}/${Q.length} · Answer on your phone! · Telefonda javob bering!</div>
-       <div class="qtext" style="margin-top:.6rem">${esc(q.q)}</div><div class="uz">${esc(q.u)}</div><div class="answered" id="ans">0 answers</div></div>
-       <div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" style="stroke:rgba(var(--wash),.12)" stroke-width="9"/><circle id="rg" cx="50" cy="50" r="44" fill="none" style="stroke:var(--gold)" stroke-width="9" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><div class="n" id="rn">${QUIZ_SEC}</div></div></div>
-      <div class="opts">${q.o.map((o,i)=>`<div class="opt c${i} pop" style="animation-delay:${.08*i}s"><span class="sh">${SH[i]}</span><div>${esc(o[0])}<small>${esc(o[1])}</small></div></div>`).join("")}</div>`, {next:"Show answer ▶"}); },
+       <div class="qtext" style="margin-top:.6rem;font-size:3rem">${esc(q.q)}</div><div class="uz" style="font-size:2.5rem;font-weight:700;color:var(--tx)">${esc(q.u)}</div><div class="answered" id="ans">0 answers</div></div>
+       <div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" style="stroke:rgba(var(--wash),.12)" stroke-width="9"/><circle id="rg" cx="50" cy="50" r="44" fill="none" style="stroke:var(--gold)" stroke-width="9" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg><div class="n" id="rn">${qSec(c.q)}</div></div></div>
+      <div class="opts">${q.o.map((o,i)=>`<div class="opt c${i} pop" style="animation-delay:${.08*i}s"><span class="sh">${SH[i]}</span>${q.rot && i===3 ? `<div class="rotd" data-i="0">${esc(q.rot[0][0])}<small>${esc(q.rot[0][1])}</small></div>` : `<div>${esc(o[0])}<small>${esc(o[1])}</small></div>`}</div>`).join("")}</div>`, {next:"Show answer ▶"}); },
     update: (c, st, ps) => { const el=$("#ans"); if(!el) return; const n = ps.filter(p=>at(p.answers, c.q)).length; el.textContent = `${n} / ${ps.length} answered · javob berdi`;
-      if (ps.length && n >= ps.length) hostReveal(); }
+      if (ps.length && n >= ps.length && !Q[c.q].rot) hostReveal(); }   // almashuvchi savolda hazil tugamasin — "Show answer"ni o'zingiz bosasiz
   },
   qresult: {
     view: (c, st, ps) => { const q = Q[c.q]; const cnt=[0,0,0,0]; ps.forEach(p=>{ const a=at(p.answers,c.q); if(a) cnt[a.a]++; }); const mx=Math.max(1,...cnt);
-      const lb = rankBy(ps, p=>quizTotal(p,st)).slice(0,5);
+      const nextL = {next: c.q < Q.length-1 ? "Next question ▶" : "Final results 🏆"};
+      if (q.vote) { const top = Math.max(...cnt); const win = top ? [0,1,2,3].filter(i=>cnt[i]===top) : [];   // ovoz berish: faqat g'olib variant katta ko'rinadi
+        return shell(`<div class="kick">Quiz ${c.q+1}/${Q.length} · Class choice · Sinf tanlovi</div><div class="qtext" style="margin-top:.6rem;font-size:2.6rem">${esc(q.q)}</div><div class="uz" style="font-size:2.2rem;font-weight:700;color:var(--tx)">${esc(q.u)}</div>
+         <div class="vwin">${win.length ? win.map((i,k)=>`<div class="opt c${i} vbig pop" style="animation-delay:${.3+.15*k}s"><span class="sh">${SH[i]}</span><div>${esc(q.o[i][0])}<small>${esc(q.o[i][1])}</small></div></div>`).join("")
+           : `<div class="mu" style="font-size:2.6rem">No votes · Hech kim javob bermadi 😅</div>`}
+         ${win.length ? `<div class="vcnt pop" style="animation-delay:.7s">🏆 ${top} ${top===1?"vote":"votes"} · ${top} ovoz</div>` : ""}</div>`, nextL); }
+      const A = ansOf(c.q); const lb = rankBy(ps, p=>quizTotal(p,st)).slice(0,5);
       return shell(`<div class="kick">Quiz ${c.q+1}/${Q.length} · Answer · Javob</div><div class="qtext" style="margin-top:.6rem;font-size:3rem">${esc(q.q)}</div>
-      <div class="qres"><div style="display:flex;flex-direction:column"><div class="opts" style="margin-top:0">${q.o.map((o,i)=>`<div class="opt c${i} ${i===q.a?'ok':'dim'}"><i class="fill" data-w="${cnt[i]/mx*100}"></i><span class="sh">${i===q.a?'✓':SH[i]}</span><div style="position:relative">${esc(o[0])}<small>${esc(o[1])}</small></div><span class="cnt" style="position:relative">${cnt[i]}</span></div>`).join("")}</div>
-        <div class="expl">✓ ${esc(q.x)}</div></div>
-       <div><div class="mono mu" style="font-size:1.2rem;margin-bottom:.6rem">LEADERBOARD · Reyting</div><div class="lb">${lb.map((p,i)=>`<div class="lbrow ${i===0?'top':''} rise" style="animation-delay:${.12*i}s"><span class="rk">${["🥇","🥈","🥉"][i]||"#"+(i+1)}</span><span class="nm">${esc(p.name)}</span><span class="val gold">${p.v}</span></div>`).join("")}</div></div></div>`,
-      {next: c.q < Q.length-1 ? "Next question ▶" : "Final results 🏆"}); },
-    mount: () => setTimeout(()=>document.querySelectorAll(".fill").forEach(f=>f.style.width=f.dataset.w+"%"), 80)
+      <div class="qres"><div style="display:flex;flex-direction:column"><div class="opts" style="margin-top:0">${q.o.map((o,i)=>`<div class="opt c${i} ${i===A?'ok':'dim'}"><i class="fill" data-w="${cnt[i]/mx*100}"></i><span class="sh">${i===A?'✓':SH[i]}</span><div style="position:relative">${esc(o[0])}<small>${esc(o[1])}</small></div><span class="cnt" style="position:relative">${cnt[i]}</span></div>`).join("")}</div>
+        <div class="expl">✓ ${esc(xOf(c.q))}</div></div>
+       <div><div class="mono mu" style="font-size:1.2rem;margin-bottom:.6rem">LEADERBOARD · Reyting</div><div class="lb">${lb.map((p,i)=>`<div class="lbrow ${i===0?'top':''} rise" style="animation-delay:${.12*i}s"><span class="rk">${["🥇","🥈","🥉"][i]||"#"+(i+1)}</span><span class="nm">${esc(p.name)}</span><span class="val gold">${p.v}</span></div>`).join("")}</div></div></div>`, nextL); },
+    mount: (c) => { setTimeout(()=>document.querySelectorAll(".fill").forEach(f=>f.style.width=f.dataset.w+"%"), 80); if (c && Q[c.q] && Q[c.q].vote && $(".vbig")) setTimeout(()=>confetti(180), 600); }
   },
   final: {
-    view: (c, st, ps) => { const lb = rankBy(ps, p=>quizTotal(p,st)); const r2on = !!(R.state||{}).r2; const inv = rankBy(ps.filter(p=>p.locked||p.locked2), p=>money(p,5,1)+(r2on?money(p,5,2):0))[0];
+    view: (c, st, ps) => { const lb = rankBy(ps, p=>quizTotal(p,st)); const r2on = !!(R.state||{}).r2; const inv = rankBy(ps.filter(p=>p.locked||p.locked2), p=>money(p,99,1)+(r2on?money(p,99,2):0))[0];
       const P = [lb[1], lb[0], lb[2]]; const H = [13, 18, 9]; const C = ["var(--mu)","var(--gold)","var(--bronze)"]; const N = [2,1,3];
       return shell(`<div style="text-align:center"><div class="kick">Final · Yakuniy natija</div><div class="h1" style="font-size:4.8rem;margin-top:.5rem">Thank you! · <span class="gold">Rahmat!</span></div>
        <div class="uz">Look at the RISK, not only the forecast · Faqat prognozga emas, xavfga ham qarang</div></div>
@@ -1096,7 +1115,7 @@ function hostRender(room) {
     hostSig = sig; stopAnim(); document.body.dataset.sl = c.s.id; soundFor(c); if (c.s.id === "thanks") setTimeout(()=>{ confetti(140); try{ SFX.ding(); }catch(e){} }, 3400);
     if (c.s.q != null) { const L = LIVEV[c.phase==="qwait" ? "quiz" : c.phase]; app.innerHTML = L.view(c, st, ps); L.mount && L.mount(c, st, ps); }
     else if (c.s.live) { const L = LIVEV[c.s.live]; app.innerHTML = L.view(c, st, ps); if (c.s.live==="lobby") MOUNT.join(); L.mount && L.mount(c, st, ps); }
-    else { app.innerHTML = VIEWS[c.s.id](); MOUNT[c.s.id] && MOUNT[c.s.id](); if (c.s.anim) startAnim(c.s.anim); }
+    else { app.innerHTML = VIEWS[c.s.id](); applyLang(c.s.id); MOUNT[c.s.id] && MOUNT[c.s.id](); if (c.s.anim) startAnim(c.s.anim); }
     if (c.s.id === "cover" && introDone && !window._fadedIn) { window._fadedIn = true; const h=$(".H"); if (h) { h.classList.remove("slide-in"); h.classList.add("fromintro"); } }
     const locked = (c.s.live === "invest" && !c.open) || c.phase === "qwait";
     if (locked) { const host = c.phase === "qwait" ? $(".opts") : $(".frow"); if (host) { host.style.position = "relative"; if (c.phase !== "qwait") host.classList.add("lockedrow");
@@ -1113,7 +1132,28 @@ function hostRender(room) {
   const pcount = $("#pcount"); if (pcount) pcount.textContent = ps.length;
   if (!LIVE) botAct(c);
 }
-function setState(s) { Store.set("state", s); }
+/* ---- tillar: 0 = aralash (atamalar inglizcha katta, uzun gaplar o'zbekcha katta), 1 = hamma joyda o'zbekcha katta (U tugmasi) ---- */
+let LANGMODE = (() => { try { return +localStorage.getItem("fbz_lang") || 0; } catch(e) { return 0; } })();
+const UZRX = /[‘’ʻ]|o‘|g‘|\b(va|bu|uchun|bilan|emas|bor|yo‘q|har|bir|oy|faqat)\b|(lar|dan|ni|ga|da|di|gan|ish|moq)\b/i;
+function applyLang(id) { if (["cover","join","intro","thanks","vocab"].includes(id)) return;
+  app.querySelectorAll(".mu,.uz,.gold2").forEach(u => { const e = u.previousElementSibling; if (!e || u.dataset.sw || e.dataset.sw) return;
+    if (e.matches(".mono,.kick,.dot,.src,canvas,svg,table,br") || u.matches(".mono,.src") || u.children.length > 2) return;
+    const et = e.textContent.trim(), ut = u.textContent.trim(); if (!et || !ut || /^(SOURCE|EXAMPLE|e\.g\.)/i.test(ut)) return;
+    if (!UZRX.test(ut) && /\b(the|is|are|of|and|to|you|for|in|on|it)\b/i.test(ut)) return;   // ingliz matni — tarjima emas
+    if (getComputedStyle(e).display.startsWith("inline") || getComputedStyle(u).display.startsWith("inline")) return;   // gap ichidagi so'zlarga tegmaymiz
+    const title = e.matches(".h2,.h1"); if (!LANGMODE && (title || et.length < 12)) return;
+    const ce = getComputedStyle(e), cu = getComputedStyle(u); const A = {fs: ce.fontSize, fw: ce.fontWeight, co: ce.color, lh: ce.lineHeight}, B = {fs: cu.fontSize, fw: cu.fontWeight, co: cu.color, lh: cu.lineHeight};
+    e.style.fontSize = B.fs; e.style.fontWeight = B.fw; e.style.color = B.co; e.style.lineHeight = "1.25";
+    u.style.fontSize = A.fs; u.style.fontWeight = A.fw; u.style.color = A.co; u.style.lineHeight = A.lh === "normal" ? "1.2" : A.lh;
+    e.dataset.sw = u.dataset.sw = 1; }); }
+function setState(s) { if (IS_HOST && !hostOwner) return; Store.set("state", s); }
+const HDEV = ss.getItem("fbz_hdev") || ("h" + Math.random().toString(36).slice(2,9)); ss.setItem("fbz_hdev", HDEV);
+let hostOwner = true;
+function claimHost() { hostOwner = true; Store.set("hostDev", {id: HDEV, t: Store.now()}); const o = $("#hlock"); if (o) o.remove(); }
+function hostLockOv() { if ($("#hlock")) return; const d = document.createElement("div"); d.id = "hlock";
+  d.style.cssText = "position:fixed;inset:0;z-index:9998;background:rgba(5,4,3,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;font-family:sans-serif;text-align:center";
+  d.innerHTML = `<div style="font-size:56px">🔒</div><div style="font-size:30px;font-weight:800">Boshqaruv boshqa qurilmada</div><div style="font-size:18px;opacity:.75">This room is controlled from another device.</div>
+   <button onclick="claimHost()" style="margin-top:12px;font:800 20px sans-serif;padding:12px 30px;border-radius:12px;border:0;background:var(--gold);color:#111;cursor:pointer">Boshqaruvni shu yerga olish · Take control</button>`; document.body.appendChild(d); }
 /* ---- DEMO o'yinchilar (mashq va oldindan ko'rish uchun) ---- */
 const BOTS = ["Aziz","Malika","Bobur","Dilnoza","Jasur","Madina","Sardor","Nilufar","Otabek","Shahzoda","Javohir","Kamola"];
 let botDone = {};
@@ -1127,7 +1167,7 @@ function botAct(c) {
       for (let k=0;k<10;k++) { if (!greedy && Math.random() < .08) cash += 10; else alloc[picks[Math.floor(Math.random()*picks.length)]] += 10; }
       Store.update("players/"+p.id, r2 ? {alloc2:alloc, cash2:cash, locked2:true} : {alloc, cash, locked:true}); }, 800 + i*900 + Math.random()*800); }); }
   if (c.phase === "quiz") bots.forEach((p) => { setTimeout(() => { const st = R.state||{}; const cc = cur(st); if (cc.phase !== "quiz" || cc.q !== c.q) return;
-      const a = Math.random() < .65 ? Q[c.q].a : Math.floor(Math.random()*4); Store.set(`players/${p.id}/answers/${c.q}`, {a, t:Store.now()}); }, 1200 + Math.random()*7500); });
+      const a = Math.random() < .65 && !Q[c.q].vote ? (HA[c.q] ?? 0) : Math.floor(Math.random()*4); Store.set(`players/${p.id}/answers/${c.q}`, {a, t:Store.now()}); }, 1200 + Math.random()*7500); });
 }
 
 
@@ -1253,19 +1293,21 @@ function hostPrev() { const c = cur(R.state);
     if (v && v.currentTime > .1) { outroKill(); v.volume = 1; v.currentTime = 0; ivPauseUI(false); const pb=$("#ivp"); if (pb) pb.style.display=""; Store.set("sync",{on:1,p:1,t0:Store.now()}); return; } }
   const pv = nextIdx(c.i, -1); if (pv >= 0) goTo(pv, true); }
 let revealing = -1;
-function hostReveal() { const st = R.state || {}; const c = cur(st); if (c.phase !== "quiz" || revealing === c.q) return; revealing = c.q; setState({...st, sub:"r"}); }
+function hostReveal() { const st = R.state || {}; const c = cur(st); if (c.phase !== "quiz" || revealing === c.q) return; revealing = c.q;
+  const ans = {...(st.ans||{})}; if (!Q[c.q].vote) ans[c.q] = {a: HA[c.q] ?? 0, x: HX[c.q] || ""};   // to'g'ri javob faqat shu paytda telefonlarga yuboriladi
+  setState({...st, sub:"r", ans}); }
 let resetArm = 0;
 /* ---- darsdan keyin: har bir talabaning natijasi (Excel yoki PDF) — kim qanchalik tushungani ---- */
 function reportData(){ const st = R.state || {}; const ps = list(R.players).filter(p => !LIVE || !p.bot);   // DEMO rejimida sinov o'yinchilari ham ko'rinadi
-  const QS = Q.map((_,i)=>i); const ok = (p,i) => { const a = at(p.answers, i); return a == null ? "" : (a.a === Q[i].a ? 1 : 0); };
+  const QS = Q.map((_,i)=>i).filter(i => !Q[i].vote); const ok = (p,i) => { const a = at(p.answers, i); return a == null ? "" : (okA(i, a.a) ? 1 : 0); };   // hazil savol tushunish foiziga kirmaydi
   const rk = rankBy(ps, p => quizTotal(p, st));
-  const head = ["№","Ism","To'g'ri (8 tadan)","Tushunish %","Test bali","1-raund pul (TIFT)","Foyda / zarar","Eng ko'p tikkan","BurgerStar'ga (xavfli)", ...QS.map(i => "S" + (i+1))];
-  const rows = rk.map((p,k) => { const c = QS.filter(i => ok(p,i) === 1).length; const m = money(p,5,1); const al = p.alloc || {};
+  const head = ["№","Ism","To'g'ri (" + QS.length + " tadan)","Tushunish %","Test bali","1-raund pul (TIFT)","Foyda / zarar","Eng ko'p tikkan","BurgerStar'ga (xavfli)", ...QS.map(i => "S" + (i+1))];
+  const rows = rk.map((p,k) => { const c = QS.filter(i => ok(p,i) === 1).length; const m = money(p,99,1); const al = p.alloc || {};
     const top = F.slice().sort((x,y)=>(al[y.id]||0)-(al[x.id]||0))[0]; const topTxt = p.locked && (al[top.id]||0) > 0 ? top.nm + " (" + al[top.id] + ")" : (p.locked ? "naqd" : "tikmagan");
-    return [k+1, p.name, c, Math.round(c/Q.length*100), quizTotal(p,st), p.locked ? Math.round(m*10)/10 : "", p.locked ? Math.round((m-100)*10)/10 : "", topTxt, p.locked ? (al.burger||0) : "", ...QS.map(i => ok(p,i))]; });
+    return [k+1, p.name, c, Math.round(c/QS.length*100), quizTotal(p,st), p.locked ? Math.round(m*10)/10 : "", p.locked ? Math.round((m-100)*10)/10 : "", topTxt, p.locked ? (al.burger||0) : "", ...QS.map(i => ok(p,i))]; });
   const qpct = QS.map(i => { const ans = ps.filter(p => ok(p,i) !== ""); return ans.length ? Math.round(ans.filter(p => ok(p,i) === 1).length / ans.length * 100) : null; });
   const avg = rows.length ? Math.round(rows.reduce((t,r)=>t+r[3],0)/rows.length) : 0;
-  const d = new Date(); return {head, rows, qpct, avg, n: rows.length, date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5)}; }
+  const d = new Date(); return {head, rows, qpct, QS, avg, n: rows.length, date: d.toISOString().slice(0,10), time: d.toTimeString().slice(0,5)}; }
 function reportMenu(){ const o=$("#repm"); if(o) return o.remove(); const d=document.createElement("div"); d.id="repm";
   d.innerHTML=`<div class="rp-card"><div style="font-size:2.4rem;font-weight:800">📊 Natijalar · Results</div><div class="mu" style="font-size:1.4rem;margin:.4rem 0 1.4rem">Har bir talaba: to‘g‘ri javoblar, tushunish %, o‘yin natijasi</div>
    <div style="display:flex;gap:1rem;justify-content:center"><button class="nextbtn" onclick="reportExcel()">⬇ Excel</button><button class="nextbtn" onclick="reportPDF()">📄 PDF</button><button class="ghost" onclick="reportMenu()">✕</button></div>
@@ -1276,9 +1318,9 @@ function loadXLSX(){ return window.XLSX ? Promise.resolve() : new Promise((ok,no
 async function reportExcel(){ const D = reportData(); const name = "Franchise_Bazaar_natijalar_" + D.date;
   const rows = D.rows.map(r => r.map((v,i) => i===3 ? v/100 : v));
   const sum = ["", "Savol bo'yicha to'g'ri %", "", D.avg/100, "", "", "", "", "", ...D.qpct.map(v => v==null ? "" : v/100)];
-  const qrow = ["", "Savollar", "", "", "", "", "", "", "", ...Q.map(q => q.q)];
+  const qrow = ["", "Savollar", "", "", "", "", "", "", "", ...D.QS.map(i => Q[i].q)];
   try { await loadXLSX(); const ws = XLSX.utils.aoa_to_sheet([["Franchise Bazaar — natijalar · " + D.date + " " + D.time + " · " + D.n + " talaba"], [], D.head, ...rows, [], sum, qrow]);
-    ws["!cols"] = [{wch:4},{wch:16},{wch:9},{wch:10},{wch:9},{wch:12},{wch:10},{wch:18},{wch:12}, ...Q.map(()=>({wch:5}))];
+    ws["!cols"] = [{wch:4},{wch:16},{wch:9},{wch:10},{wch:9},{wch:12},{wch:10},{wch:18},{wch:12}, ...D.QS.map(()=>({wch:5}))];
     const r0 = 3; for (let r = r0; r < r0 + rows.length; r++) { const c = XLSX.utils.encode_cell({r, c:3}); if (ws[c]) ws[c].z = "0%"; }
     const sr = r0 + rows.length + 1; for (let c = 3; c < sum.length; c++) { const a = XLSX.utils.encode_cell({r:sr, c}); if (ws[a] && ws[a].t === "n") ws[a].z = "0%"; }
     ws["!autofilter"] = {ref: XLSX.utils.encode_range({s:{r:2,c:0}, e:{r:2+rows.length, c:D.head.length-1}})};
@@ -1301,7 +1343,7 @@ function reportPDF(){ const D = reportData(); const m=$("#repm"); if(m) m.remove
    <div class="kpi"><div>Talabalar<b>${D.n}</b></div><div>O‘rtacha tushunish<b>${D.avg}%</b></div><div>Eng yaxshi natija<b>${D.rows[0] ? D.rows[0][1] : "—"}</b></div></div>
    <table><tr>${D.head.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${D.rows.map(r=>`<tr>${r.map((v,i)=> i>=9 ? `<td class="${v===1?'y':v===0?'n':'e'}">${v===1?'✓':v===0?'✗':'·'}</td>` : `<td class="${i===1||i===7?'l':''}">${esc(i===3?v+'%':v)}</td>`).join("")}</tr>`).join("")}</table>
    <h3 style="margin:16px 0 0">Savollar bo‘yicha — sinfning necha foizi to‘g‘ri javob berdi</h3>
-   <div class="qs">${Q.map((q,i)=>`<div><b>S${i+1}.</b> ${esc(q.q)} <span style="color:#888">— ${esc(q.o[q.a][0])}</span></div>${bar(D.qpct[i])}`).join("")}</div></body></html>`;
+   <div class="qs">${D.QS.map((i,j)=>{ const q = Q[i]; return `<div><b>S${i+1}.</b> ${esc(q.q)} <span style="color:#888">— ${esc((q.o[ansOf(i)]||[""])[0])}</span></div>${bar(D.qpct[j])}`; }).join("")}</div></body></html>`;
   const f = document.createElement("iframe"); f.id = "repv"; document.body.appendChild(f); f.srcdoc = html; }
 function hostReset(btn) { const b = btn || document.activeElement; if (Date.now() - resetArm > 3000) { resetArm = Date.now(); if (b && b.tagName==="BUTTON") { b.textContent = "Tap again to reset"; setTimeout(()=>{ b.textContent = "↺"; }, 3000); } return; }
   resetArm = 0; revealing=-1; hostSig=""; botDone = {}; Store.set("", {state:{slide:0}}); }
@@ -1322,11 +1364,11 @@ function joinView() {
    <div id="pres" style="margin-top:40px;text-align:center"><button style="background:none;color:var(--mu);font-size:12px;text-decoration:underline" onclick="presForm()">Presenter</button></div></div>`);
 }
 function presForm() { $("#pres").innerHTML = `<input id="pin" class="inp mono" inputmode="numeric" placeholder="PIN" maxlength="8" style="max-width:180px;text-align:center"><button class="btn" style="max-width:180px" onclick="presGo()">OK</button>`; $("#pin").focus(); }
-function presGo() { if (($("#pin").value||"").trim() !== HOST_PIN) { $("#pin").value = ""; $("#pin").placeholder = "Wrong PIN"; return; } IS_HOST = true; startHost(); }
+function presGo() { const v = ($("#pin").value||""); hostUnlock(v).then(ok => { if (!ok) { $("#pin").value = ""; $("#pin").placeholder = "Wrong PIN"; return; } beHost(); }); }
 /* telefonda to'liq ekran: Join bosilganda va keyin istalgan teginishda (brauzer ruxsat bersa; iPhone Safari qo'llamaydi) */
 let fsTry=0; function phoneFS(){ if (IS_HOST || document.fullscreenElement || Date.now()-fsTry < 15000) return; fsTry=Date.now(); const el=document.documentElement;
   try { const r=(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el,{navigationUI:"hide"}); const lock=()=>{ try { screen.orientation && screen.orientation.lock && screen.orientation.lock("portrait").catch(()=>{}); } catch(e) {} }; if (r&&r.then) r.then(lock).catch(()=>{}); else lock(); } catch(e) {} }
-if (!IS_HOST) document.addEventListener("click", ()=>{ if (me) phoneFS(); }, {passive:true});
+if (!WANT_HOST) document.addEventListener("click", ()=>{ if (me) phoneFS(); }, {passive:true});
 function doJoin() { fsTry=0; phoneFS(); pAudio();
   const n = ($("#nm").value||"").trim().slice(0,18);
   if (!ROOM) { const r = ($("#rm")?.value||"").replace(/\D/g,""); if (r.length < 4) return alertBox("Room code?"); ROOM = r; Store.on("", playerRender); }
@@ -1356,7 +1398,7 @@ function adj(id, d) {
 function lockIn() {
   if (!cur(R.state).open) return;
   const u = Object.values(DRAFT).reduce((a,b)=>a+b,0);
-  Store.update("players/" + PID, {[KA()]:{...DRAFT}, [KC()]:100-u, [KL()]:true});
+  Store.update("players/" + PID, {[KA()]:{...DRAFT}, [KC()]:100-u, [KL()]:true, [KL()+"At"]:Store.now()});
 }
 function portfolio(step) {
   const p = me; const FF = FS(), A = p[KA()] || {}; const rows = FF.filter(f=>A[f.id]).map((f)=>{ const i=FF.indexOf(f); const a=A[f.id]; const known=i<step;
@@ -1367,39 +1409,51 @@ function portfolio(step) {
 function quizView(st) {
   const q = Q[st.q]; const a = at(me.answers, st.q);
   if (a) return pShell(`<div class="wait"><div class="big">🔒</div><h2>Answer locked!</h2><div class="sub">Javobingiz qabul qilindi. Ekranga qarang 👀</div><div class="pbtn c${a.a}" style="min-height:90px;width:70%;margin-top:10px"><span class="sh">${SH[a.a]}</span>${esc(q.o[a.a][0])}</div></div>`);
-  return pShell(`<div class="mono mu">QUESTION ${st.q+1}/${Q.length}</div><h2 style="margin-top:6px">${esc(q.q)}</h2><div class="sub">${esc(q.u)}</div>
-   <div class="ptimer"><span>⏱ Time · Vaqt</span><b id="tnp">${QUIZ_SEC}</b></div><div class="tbar" style="margin-top:6px"><i id="tb"></i></div>
-   <div class="pbtns">${q.o.map((o,i)=>`<button class="pbtn c${i}" onclick="answer(${i})"><span class="sh">${SH[i]}</span>${esc(o[0])}<small>${esc(o[1])}</small></button>`).join("")}</div>`);
+  return pShell(`<div class="mono mu">QUESTION ${st.q+1}/${Q.length}</div><h2 style="margin-top:6px;font-size:20px">${esc(q.q)}</h2><div class="sub" style="font-size:18px;font-weight:700;color:var(--tx)">${esc(q.u)}</div>
+   <div class="ptimer"><span>⏱ Time · Vaqt</span><b id="tnp">${qSec(st.q)}</b></div><div class="tbar" style="margin-top:6px"><i id="tb"></i></div>
+   <div class="pbtns">${q.o.map((o,i)=>`<button class="pbtn c${i}" onclick="answer(${i})"><span class="sh">${SH[i]}</span>${q.rot && i===3 ? `<span class="rotd" data-i="0">${esc(q.rot[0][0])}<small>${esc(q.rot[0][1])}</small></span>` : `${esc(o[0])}<small>${esc(o[1])}</small>`}</button>`).join("")}</div>`);
 }
 function answer(i) {
   const st0 = R.state || {}; const c = cur(st0); const st = {...st0, phase:c.phase, q:c.q}; if (st.phase !== "quiz" || at(me.answers, st.q)) return;
-  if (Store.now() - (at(st.qStarts, st.q)||0) > QUIZ_SEC*1000 + 500) return;
+  if (Store.now() - (at(st.qStarts, st.q)||0) > qSec(st.q)*1000 + 500) return;
   navigator.vibrate && navigator.vibrate(30);
   Store.set(`players/${PID}/answers/${st.q}`, {a:i, t:Store.now()});
 }
 function qresView(st, ps) {
-  const q = Q[st.q]; const a = at(me.answers, st.q); const ok = a && a.a === q.a; const pts = qPoints(me, st.q, st);
+  const q = Q[st.q]; const a = at(me.answers, st.q); const ok = a && okA(st.q, a.a); const pts = qPoints(me, st.q, st);
   const lb = rankBy(ps, p=>quizTotal(p,st)); const r = lb.findIndex(p=>p.id===PID)+1;
+  if (q.vote) { const cnt=[0,0,0,0]; ps.forEach(p=>{ const x=at(p.answers,st.q); if(x) cnt[x.a]++; }); const top=Math.max(...cnt); const win = top ? [0,1,2,3].filter(i=>cnt[i]===top) : [];
+    return pShell(`<div class="verdict rise" style="background:${a?'rgba(var(--grn-rgb),.18)':'rgba(var(--red-rgb),.16)'};border:2px solid ${a?'var(--grn)':'var(--red)'}"><div class="ic">${a?'🗳️':'⏰'}</div><h1>${a?'Vote counted! · Ovozingiz qabul qilindi!':'Time is up · Vaqt tugadi'}</h1>
+      <div class="mono gold" style="font-size:34px;font-weight:700;margin-top:8px">+${pts}</div></div>
+     <div class="card"><div class="mono mu" style="text-align:center">CLASS CHOICE · SINF TANLOVI</div>${win.map(i=>`<div class="pbtn c${i}" style="min-height:76px;margin-top:10px;pointer-events:none"><span class="sh">${SH[i]}</span>${esc(q.o[i][0])}<small>${esc(q.o[i][1])}</small></div>`).join("") || '<div class="sub" style="text-align:center">—</div>'}
+      ${top ? `<div class="mono gold" style="text-align:center;margin-top:10px;font-size:20px;font-weight:700">🏆 ${top} ovoz · votes</div>` : ""}</div>
+     <div class="card"><div class="kv"><span>Total points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div></div>`); }
+  const A = ansOf(st.q);
   return pShell(`<div class="verdict rise" style="background:${ok?'rgba(var(--grn-rgb),.18)':'rgba(var(--red-rgb),.16)'};border:2px solid ${ok?'var(--grn)':'var(--red)'}">
     <div class="ic">${ok?'🎉':a?'😬':'⏰'}</div><h1>${ok?'Correct! · To‘g‘ri!':a?'Not quite · Xato':'Time is up · Vaqt tugadi'}</h1>
     <div class="mono gold" style="font-size:34px;font-weight:700;margin-top:8px">+${pts}</div></div>
-   ${(()=>{ let n=0; for(let k=st.q;k>=0;k--){ const x=at(me.answers,k); if(x&&x.a===Q[k].a) n++; else break; } return n>=2 ? `<div class="card" style="text-align:center;font-size:22px;font-weight:800;border-color:var(--gold)">🔥 ${n} in a row! <div class="sub" style="margin-top:2px">Ketma-ket ${n} ta to‘g‘ri javob!</div></div>` : ""; })()}
+   ${(()=>{ let n=0; for(let k=st.q;k>=0;k--){ const x=at(me.answers,k); if(Q[k].vote) continue; if(x&&okA(k,x.a)) n++; else break; } return n>=2 ? `<div class="card" style="text-align:center;font-size:22px;font-weight:800;border-color:var(--gold)">🔥 ${n} in a row! <div class="sub" style="margin-top:2px">Ketma-ket ${n} ta to‘g‘ri javob!</div></div>` : ""; })()}
    ${(()=>{ if(r===1) return `<div class="card" style="text-align:center;font-size:21px;font-weight:800">🥇 You are in 1st place! <div class="sub" style="margin-top:2px">Siz 1-o‘rindasiz! Shunday davom eting!</div></div>`;
       const ab=lb[r-2]; const diff=ab?ab.v-quizTotal(me,st):0; const ord=r===2?"2nd":r===3?"3rd":r+"th";
       return `<div class="card" style="text-align:center;font-size:20px;font-weight:800">You are ${ord} — ${diff} points behind ${esc(ab?ab.name:"")}! <div class="sub" style="margin-top:2px">Siz ${r}-o‘rindasiz — ${esc(ab?ab.name:"")}dan ${diff} ball orqadasiz!</div></div>`; })()}
-   <div class="card"><div class="kv"><span>Correct answer · To‘g‘ri javob</span><b>${SH[q.a]} ${esc(q.o[q.a][0])}</b></div><div class="kv"><span>Total points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div></div>`);
+   <div class="card"><div class="kv"><span>Correct answer · To‘g‘ri javob</span><b>${A != null ? SH[A] + " " + esc(q.o[A][0]) : "—"}</b></div><div class="kv"><span>Total points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div></div>`);
 }
 /* ---- QR va intro paytida telefon: qora ekran + yurak urishi chizig'i ---- */
 const ECG="M0 75 L150 75 L170 75 L180 62 L190 75 L215 75 L225 88 L240 10 L255 128 L268 75 L300 75 L320 60 L345 75 L500 75 L520 75 L530 62 L540 75 L565 75 L575 88 L590 10 L605 128 L618 75 L650 75 L670 60 L695 75 L1000 75";
 /* ---- telefonda yurak urishi ovozi: hamma telefon bitta umumiy soat bo'yicha uradi (katta ekrandagi chiziq va kolonka bilan bir vaqtda) ---- */
 let pAC=null, pMute=false, pDone={};
-function pAudio(){ if (IS_HOST) return; try { if (!pAC) pAC = new (window.AudioContext||window.webkitAudioContext)(); if (pAC.state === "suspended") pAC.resume(); loadBeep(pAC); } catch(e) {} }
+const SILENT = "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAAFgAACbEAHR0dHSgoKCgoMzMzMz09PT09SEhISFNTU1NTXl5eXmlpaWlpc3Nzc35+fn5+iYmJiZSUlJSUnp6enp6pqamptLS0tLS/v7+/ysrKysrU1NTU39/f39/q6urq9fX19fX/////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQELwAAAAAAAAmxyOFTSgAAAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
+let pUnlock=null;
+function pAudio(){ if (IS_HOST) return;
+  try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch(e) {}   // iPhone: ovozsiz rejimda ham ovoz chiqsin (Safari 16.4+)
+  try { if (!pUnlock) { pUnlock = new Audio(SILENT); pUnlock.loop = true; pUnlock.setAttribute("playsinline",""); } const pr = pUnlock.play(); if (pr && pr.catch) pr.catch(()=>{}); } catch(e) {}   // eski iPhone'lar: jim audio "media" kanalini ochadi
+  try { if (!pAC) pAC = new (window.AudioContext||window.webkitAudioContext)(); if (pAC.state === "suspended") pAC.resume(); loadBeep(pAC); } catch(e) {} }
 function pSndOn(){ return !!(pAC && pAC.state === "running"); }
 function pSndText(){ return pMute ? "🔇 Ovoz o‘chirilgan · Sound off" : pSndOn() ? "🔊 Ovozni balandroq qiling · Turn your sound up!" : "🔊 Ekranga teging — ovoz yoqiladi · Tap for sound"; }
 function pToggle(){ pAudio(); pMute = !pMute; const b=$("#sbtn"); if (b) b.textContent = pMute ? "🔇" : "🔊"; const t=$("#snd"); if (t) t.textContent = pSndText(); }
 function pThump(t, g){ const a=pAC; const o=a.createOscillator(), v=a.createGain(); o.type="triangle"; o.frequency.setValueAtTime(190,t); o.frequency.exponentialRampToValueAtTime(95,t+.12); v.gain.setValueAtTime(0,t); v.gain.linearRampToValueAtTime(g,t+.008); v.gain.exponentialRampToValueAtTime(.0001,t+.2); o.connect(v); v.connect(a.destination); o.start(t); o.stop(t+.22);
   const n=a.createBufferSource(), b=a.createBuffer(1,a.sampleRate*.03,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=(Math.random()*2-1)*(1-i/ch.length); n.buffer=b; const f=a.createBiquadFilter(); f.type="highpass"; f.frequency.value=900; const w=a.createGain(); w.gain.value=g*.35; n.connect(f); f.connect(w); w.connect(a.destination); n.start(t); }
-if (!IS_HOST) { document.addEventListener("click", pAudio, {passive:true}); document.addEventListener("touchend", pAudio, {passive:true});
+if (!WANT_HOST) { document.addEventListener("click", pAudio, {passive:true}); document.addEventListener("touchend", pAudio, {passive:true});
   setInterval(()=>{ const hb=$("#hb"); const t=$("#snd"); if (t && t.textContent !== pSndText()) t.textContent = pSndText();
     if (!hb || hb.classList.contains("ramp") || SY || SYP || pMute || !pSndOn()) return;
     const now=Store.now(), base=now-now%2200;
@@ -1457,15 +1511,15 @@ function playerRender(room) {
   else if (st.phase === "invest" && !st.open && !me[KL()]) app.innerHTML = lockView(RND===2 ? "Round 2 is coming" : "Round 1 is coming", "Look at the big screen and read the franchise cards.<br>Katta ekrandagi kartochkalarni o‘qing.");
   else if (st.phase === "qwait") app.innerHTML = lockView(`Question · Savol ${st.q+1} / ${Q.length}`, "Get ready! Savolni katta ekrandan o‘qing.");
   else if (st.phase === "invest") app.innerHTML = me[KL()] ? pShell(`<div class="wait" style="padding-bottom:10px"><div class="big">✅</div><h2>Portfolio locked</h2><div class="sub">Tanlovingiz qabul qilindi. Wait for the news…</div></div>${portfolio(0)}`) : investView();
-  else if (st.phase === "events") app.innerHTML = pShell(`<div class="wait" style="padding-bottom:10px"><div class="big">📺</div><h2>Watch the screen!</h2><div class="sub">Ekranga qarang — yangiliklar! (${st.step||0}/5)</div></div>${me[KL()]?portfolio(st.step||0):'<div class="card mu">You did not invest · Siz tikmadingiz (100 TIFT$)</div>'}`);
+  else if (st.phase === "events") app.innerHTML = pShell(`<div class="wait" style="padding-bottom:10px"><div class="big">📺</div><h2>Watch the screen!</h2><div class="sub">Ekranga qarang — yangiliklar! (${st.step||0}/${FS().length})</div></div>${me[KL()]?portfolio(st.step||0):'<div class="card mu">You did not invest · Siz tikmadingiz (100 TIFT$)</div>'}`);
   else if (st.phase === "results") { const rk = rankBy(ps.filter(p=>p[KL()]), p=>money(p)); const r = rk.findIndex(p=>p.id===PID)+1; const m = money(me);
-    app.innerHTML = pShell(`<div class="verdict rise" style="background:${m>=100?'rgba(var(--grn-rgb),.18)':'rgba(var(--red-rgb),.16)'};border:2px solid ${m>=100?'var(--grn)':'var(--red)'}"><div class="ic">${r===1?'🏆':m>=100?'📈':'📉'}</div><h1 class="mono">${fmt(m)} TIFT$</h1><div class="sub">${m>=100?'Profit · Foyda':'Loss · Zarar'} ${sign(Math.round((m-100)*10)/10)} · Rank · O‘rin ${r||'—'} / ${rk.length}</div></div>${RND===2?`<div class="card"><div class="kv"><span>Round 1</span><b class="mono">${fmt(money(me,5,1))}</b></div><div class="kv"><span>Round 2</span><b class="mono gold">${fmt(money(me,5,2))}</b></div></div>`:""}${me[KL()]?portfolio(5):""}`);
+    app.innerHTML = pShell(`<div class="verdict rise" style="background:${m>=100?'rgba(var(--grn-rgb),.18)':'rgba(var(--red-rgb),.16)'};border:2px solid ${m>=100?'var(--grn)':'var(--red)'}"><div class="ic">${r===1?'🏆':m>=100?'📈':'📉'}</div><h1 class="mono">${fmt(m)} TIFT$</h1><div class="sub">${m>=100?'Profit · Foyda':'Loss · Zarar'} ${sign(Math.round((m-100)*10)/10)} · Rank · O‘rin ${r||'—'} / ${rk.length}</div></div>${RND===2?`<div class="card"><div class="kv"><span>Round 1</span><b class="mono">${fmt(money(me,99,1))}</b></div><div class="kv"><span>Round 2</span><b class="mono gold">${fmt(money(me,99,2))}</b></div></div>`:""}${me[KL()]?portfolio(99):""}`);
     if (r===1) confetti(200); }
   else if (st.phase === "quiz") app.innerHTML = quizView(st);
-  else if (st.phase === "qresult") { app.innerHTML = qresView(st, ps); if (at(me.answers, st.q)?.a === Q[st.q].a) confetti(120); }
+  else if (st.phase === "qresult") { app.innerHTML = qresView(st, ps); if (okA(st.q, at(me.answers, st.q)?.a)) confetti(120); }
   else if (st.phase === "final") { const lb = rankBy(ps, p=>quizTotal(p,st)); const r = lb.findIndex(p=>p.id===PID)+1;
     app.innerHTML = pShell(`<div class="verdict rise" style="background:rgba(var(--gold-rgb),.14);border:2px solid var(--gold)"><div class="ic">${r<=3?["🥇","🥈","🥉"][r-1]:"🎓"}</div><h1>Thank you! · Rahmat!</h1></div>
-     <div class="card"><div class="kv"><span>Quiz points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Quiz rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div><div class="kv"><span>Investment · Pul${me.locked2?" (R1 + R2)":""}</span><b class="mono">${fmt(money(me,5,1)+(me.locked2?money(me,5,2):0))} TIFT$</b></div></div>
+     <div class="card"><div class="kv"><span>Quiz points · Ball</span><b class="mono gold">${quizTotal(me,st)}</b></div><div class="kv"><span>Quiz rank · O‘rin</span><b class="mono">${r} / ${ps.length}</b></div><div class="kv"><span>Investment · Pul${me.locked2?" (R1 + R2)":""}</span><b class="mono">${fmt(money(me,99,1)+(me.locked2?money(me,99,2):0))} TIFT$</b></div></div>
      <div class="card" style="text-align:center;font-weight:700">Look at the RISK, not only the forecast!<div class="sub">Faqat prognozga emas, xavfga ham qarang!</div></div>`);
     if (r>=1 && r<=3) confetti(250); }
 }
@@ -1485,7 +1539,9 @@ setInterval(() => {
       if (!left && invDone !== key && me && !me[KL()] && DRAFT) { invDone = key; lockIn(); } }   // vaqt tugadi: tanlov avtomatik saqlanadi
     return; }
   if (st.phase !== "quiz") return;
-  const t0 = at(st.qStarts, st.q) || Store.now(); const left = Math.max(0, QUIZ_SEC*1000 - (Store.now() - t0)); const fr = left/(QUIZ_SEC*1000);
+  const t0 = at(st.qStarts, st.q) || Store.now(); const QS_ = qSec(st.q); const left = Math.max(0, QS_*1000 - (Store.now() - t0)); const fr = left/(QS_*1000);
+  const rq = Q[st.q] && Q[st.q].rot; if (rq) { const k = Math.floor(Math.max(0, Store.now() - t0) / 2000) % rq.length;   // 4-variant har 2 soniyada almashadi (hamma ekranda bir vaqtda)
+    document.querySelectorAll(".rotd").forEach(el => { if (+el.dataset.i === k) return; el.dataset.i = k; el.innerHTML = esc(rq[k][0]) + "<small>" + esc(rq[k][1]) + "</small>"; el.classList.remove("rotin"); void el.offsetWidth; el.classList.add("rotin"); }); }
   if (IS_HOST) { const rg=$("#rg"), rn=$("#rn"); if (rg) { rg.style.strokeDashoffset = 276.5*(1-fr); rg.style.stroke = fr>.3 ? "var(--gold)" : "var(--red)"; } if (rn) { const sec=Math.ceil(left/1000); if (rn.textContent !== String(sec) && sec<=5 && sec>0 && c.phase==="quiz") SFX.tick(); rn.textContent = sec; }
     if (left <= 0) hostReveal(); }
   else { const tb = $("#tb"); if (tb) { tb.style.width = (fr*100)+"%"; tb.style.background = fr>.3 ? "var(--gold)" : "var(--red)"; }
@@ -1505,24 +1561,46 @@ function preloadIntro(){ if (INTRO_URL || window._preIntro) return; window._preI
 const PRE = {};
 function preloadRest(){ ["intro_outro.mp3","intro_soft.mp3"].forEach(f => { if (PRE[f]) return; fetch(f).then(r => r.ok ? r.blob() : Promise.reject()).then(b => { PRE[f] = URL.createObjectURL(b); }).catch(()=>{}); });
   try { loadXLSX().catch(()=>{}); } catch(e) {} }
+function copyLink(btn){ const u = joinURL(); const done = () => { if (btn) { btn.textContent = "✓ Nusxalandi — Telegramga joylang"; setTimeout(()=>btn.textContent="📋 Linkni nusxalash", 2500); } };
+  try { navigator.clipboard.writeText(u).then(done, () => { prompt("Link:", u); }); } catch(e) { prompt("Link:", u); } }
+// zaxira: internet juda sekin bo'lsa — V tugmasi bilan videoni noutbukdagi fayldan tanlash
+function pickLocalVideo(){ const i = document.createElement("input"); i.type = "file"; i.accept = "video/mp4,video/*";
+  i.onchange = () => { const f = i.files && i.files[0]; if (!f) return; INTRO_URL = URL.createObjectURL(f); const el = $("#vpre"); if (el) el.textContent = "🎬 ✓ (fayl)"; const v = $("#iv"); if (v && v.paused) v.src = INTRO_URL; }; i.click(); }
 function startHost() { preloadIntro();
   ensureHostRoom(); bgMarket(); bgEmbers();
   document.documentElement.classList.add("host");
-  addEventListener("keydown", e => { if (e.target.tagName === "INPUT") return;
+  addEventListener("keydown", e => { if (e.target.tagName === "INPUT" || !hostOwner) return; const K = /^Key[A-Z]$/.test(e.code||"") ? e.code.slice(3).toLowerCase() : (e.key||"").toLowerCase();
     if (["ArrowRight","PageDown"," ","Enter","ArrowDown"].includes(e.key)) { e.preventDefault(); hostNext(); }
     else if (["ArrowLeft","PageUp","ArrowUp"].includes(e.key)) { e.preventDefault(); hostPrev(); }
-    else if (e.key === "m" || e.key === "M") { e.preventDefault(); toggleMute(); }
-    else if (e.key === "e" || e.key === "E") { e.preventDefault(); exportReport(); }
+    else if (K === "m") { e.preventDefault(); toggleMute(); }
+    else if (K === "e") { e.preventDefault(); exportReport(); }
+    else if (K === "v") { e.preventDefault(); pickLocalVideo(); }
+    else if (K === "l") { e.preventDefault(); copyLink(); }
+    else if (K === "u") { e.preventDefault(); LANGMODE = LANGMODE ? 0 : 1; try { localStorage.setItem("fbz_lang", LANGMODE); } catch(e) {} hostSig = ""; hostRender(R);
+      const h=document.createElement("div"); h.textContent = LANGMODE ? "O‘zbekcha katta · Uzbek big" : "Aralash · Mixed (EN atamalar katta)"; h.style.cssText="position:fixed;left:50%;top:2rem;transform:translateX(-50%);z-index:99;background:rgba(0,0,0,.8);color:#fff;padding:.7rem 1.2rem;border-radius:8px;font:700 18px sans-serif"; document.body.appendChild(h); setTimeout(()=>h.remove(),1800); }
     else if (e.key === "2") { e.preventDefault(); const on = !(R.state||{}).r2; setState({...(R.state||{}), r2: on}); const h=document.createElement("div"); h.textContent = on ? "Round 2 ON · 2-raund yoqildi" : "Round 2 OFF · 2-raund o‘chirildi"; h.style.cssText="position:fixed;left:50%;top:2rem;transform:translateX(-50%);z-index:99;background:rgba(0,0,0,.8);color:#fff;padding:.7rem 1.2rem;border-radius:8px;font:700 18px sans-serif"; document.body.appendChild(h); setTimeout(()=>h.remove(),1800); }
-    else if (e.key === "q" || e.key === "Q" || (e.key === "Escape" && $("#bigqr"))) { e.preventDefault(); if (e.key !== "Escape" || $("#bigqr")) bigQR(); }
+    else if (K === "q" || (e.key === "Escape" && $("#bigqr"))) { e.preventDefault(); if (e.key !== "Escape" || $("#bigqr")) bigQR(); }
     else if (e.key === "F5") { e.preventDefault(); if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); }   // pult "start" tugmasi sahifani yangilamasin
-    else if (e.key === "b" || e.key === "B" || e.key === "." || e.key === "w" || e.key === "W") { e.preventDefault(); const k=$("#blackout"); if (k) k.remove(); else { const d=document.createElement("div"); d.id="blackout"; d.style.cssText="position:fixed;inset:0;background:#000;z-index:99"; d.onclick=()=>d.remove(); document.body.appendChild(d); } }
+    else if (K === "b" || e.key === "." || e.code === "Period" || K === "w") { e.preventDefault(); const k=$("#blackout"); if (k) k.remove(); else { const d=document.createElement("div"); d.id="blackout"; d.style.cssText="position:fixed;inset:0;background:#000;z-index:99"; d.onclick=()=>d.remove(); document.body.appendChild(d); } }
   });
   const wake = () => { ac(); const c = cur(R.state||{}); if (c.s.id === "join") startHeart(); }; ["pointerdown","keydown"].forEach(ev => addEventListener(ev, wake, {once:true}));
+  claimHost(); setInterval(() => { if (hostOwner) Store.set("hostDev", {id: HDEV, t: Store.now()}); }, 10000);
+  Store.on("hostDev", d => { if (!d || !d.id || d.id === HDEV || !hostOwner) return; hostOwner = false; hostLockOv(); });
   let init = false;
   Store.on("", room => { if (!IS_HOST) return; if (!init) { init = true; if (!room || !room.state || room.state.slide == null) { Store.set("state", {slide:0}); return; } } hostRender(room); });
 }
-if (IS_HOST) startHost();
+/* ---- boshlovchi: faqat PIN bilan; xonani bir vaqtda faqat bitta qurilma boshqaradi ---- */
+function beHost() { IS_HOST = true; startHost(); }
+function hostGate(msg) { document.documentElement.classList.add("host");
+  app.innerHTML = `<div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#0b0806;color:#f6f2ea;font-family:sans-serif;z-index:50">
+    <div style="font-size:54px">🔐</div><div style="font-size:30px;font-weight:800">Presenter · Boshlovchi</div><div style="font-size:18px;opacity:.75">PIN kodni kiriting</div>
+    <input id="hpin" type="password" inputmode="numeric" maxlength="12" autocomplete="off" style="font:700 34px monospace;letter-spacing:.3em;text-align:center;width:260px;padding:12px;border-radius:12px;border:2px solid var(--gold);background:#16110c;color:#fff">
+    <button id="hgo" style="font:800 22px sans-serif;padding:12px 40px;border-radius:12px;border:0;background:var(--gold);color:#111;cursor:pointer">OK</button>
+    <div id="hmsg" style="min-height:24px;color:#ff7a6b;font-weight:700">${msg||""}</div></div>`;
+  const go = () => hostUnlock($("#hpin").value).then(ok => ok ? beHost() : ($("#hpin").value = "", $("#hmsg").textContent = "Noto‘g‘ri PIN · Wrong PIN"));
+  $("#hgo").onclick = go; $("#hpin").addEventListener("keydown", e => { if (e.key === "Enter") go(); }); setTimeout(() => $("#hpin") && $("#hpin").focus(), 50); }
+if (WANT_HOST) { if (!(window.crypto && crypto.subtle)) hostGate("⚠️ Saytni https:// orqali oching");
+  else tryKey(lsx.getItem("fbz_hk")).then(ok => ok ? beHost() : hostGate()); }
 else if (!ROOM) {
   app.innerHTML = joinView();
 } else {
